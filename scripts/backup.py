@@ -9,7 +9,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from platformkit.backup_format import encrypt_backup, SUFFIX
-from ops import COMPOSE, compose, evidence, host_owned, refresh_firewall
+from ops import COMPOSE, compose, evidence, host_owned, refresh_firewall, writable_databases
 
 if os.getenv('CRUCIBLE_DEMO')!='1':raise SystemExit('This initial workflow is restricted to the synthetic stack: CRUCIBLE_DEMO=1')
 names=['content','practice','learning','reports']
@@ -19,15 +19,13 @@ key_path=Path('.secrets/backup-key')
 if not key_path.exists():key_path.write_bytes(os.urandom(32));key_path.chmod(0o600);host_owned(key_path)
 key=key_path.read_bytes()
 started=datetime.now(timezone.utc)
-primary='postgres'
-for candidate in ['postgres','standby']:
-    r=compose('exec','-T',candidate,'psql','-U','postgres','-Atc','SELECT pg_is_in_recovery()',check=False)
-    if r.returncode==0 and r.stdout.strip()=='f':primary=candidate;break
+primaries=writable_databases()
 
 
-def counts(service):
+def counts():
     result={}
     for name in names:
+        service=primaries[name]
         query="SELECT string_agg(format('SELECT %L AS table_name, count(*) AS count FROM %I;', tablename, tablename), ' ') FROM pg_tables WHERE schemaname='public'"
         queries=compose('exec','-T',service,'psql','-U','postgres','-d',name+'_db','-Atc',query).stdout.strip()
         result[name]=sorted(compose('exec','-T',service,'psql','-U','postgres','-d',name+'_db','-Atc',queries).stdout.strip().splitlines())
@@ -36,8 +34,8 @@ def counts(service):
 
 try:
     compose('stop','-t','20',*apps)
-    manifest={'schema_version':1,'kind':'synthetic-coordinated-backup','created_at':started.isoformat(),
-              'databases':names,'source_primary':primary,'tables':counts(primary),'files':{},
+    manifest={'schema_version':2,'kind':'synthetic-coordinated-backup','created_at':started.isoformat(),
+              'databases':names,'source_primaries':primaries,'tables':counts(),'files':{},
               'consistency':'All HTTP writers, publishers and consumers stopped before any dump',
               'off_device_copy':False}
     with tempfile.TemporaryDirectory(prefix='crucible-backup-') as temp:
@@ -45,7 +43,7 @@ try:
         for name in names:
             path=root/(name+'.dump')
             with path.open('wb') as stream:
-                subprocess.run(COMPOSE+['exec','-T',primary,'pg_dump','-U','postgres','-d',name+'_db','-Fc','--no-owner'],stdout=stream,check=True)
+                subprocess.run(COMPOSE+['exec','-T',primaries[name],'pg_dump','-U','postgres','-d',name+'_db','-Fc','--no-owner'],stdout=stream,check=True)
             manifest['files'][path.name]={'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size}
         (root/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
         archive=io.BytesIO()

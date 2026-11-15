@@ -15,16 +15,18 @@ from urllib.request import Request, urlopen
 CHAIN = 'CRUCIBLE_EGRESS'
 TARGETS = {
     'web': [('content', 8000), ('practice', 8000), ('learning', 8000), ('reports', 8000)],
-    'content': [('postgres', 5432), ('rabbitmq', 5672)],
-    'practice': [('postgres', 5432), ('rabbitmq', 5672), ('content', 8000)],
-    'learning': [('postgres', 5432), ('rabbitmq', 5672), ('redis', 6379)],
-    'reports': [('postgres', 5432), ('rabbitmq', 5672), ('practice', 8000), ('learning', 8000)],
+    'content': [('postgres-content', 5432), ('rabbitmq', 5672)],
+    'practice': [('postgres-practice', 5432), ('rabbitmq', 5672), ('content', 8000)],
+    'learning': [('postgres-learning', 5432), ('rabbitmq', 5672), ('redis', 6379)],
+    'reports': [('postgres-reports', 5432), ('rabbitmq', 5672), ('practice', 8000), ('learning', 8000)],
 }
-DENIED = {'web': [('postgres', 5432), ('redis', 6379)],
+DENIED = {'web': [('postgres-'+name, 5432) for name in ('content', 'practice', 'learning', 'reports')] + [('redis', 6379)],
           'content': [('practice', 8000), ('learning', 8000)],
           'practice': [('redis', 6379), ('learning', 8000)],
           'learning': [('practice', 8000), ('content', 8000)],
           'reports': [('content', 8000)]}
+for owner in ('content', 'practice', 'learning', 'reports'):
+    DENIED[owner] += [('postgres-'+other, 5432) for other in ('content', 'practice', 'learning', 'reports') if other != owner]
 
 
 def run(*args, input=None, check=True):
@@ -75,8 +77,10 @@ def policy(metadata, source, *, build_rules=True):
     if len(projects) != 1 or None in projects:
         raise ValueError('Контейнеры должны принадлежать одному Compose project')
     targets = list(TARGETS[source])
-    if 'standby' in containers and source != 'web':
-        targets += [('standby', 5432), ('rabbitmq2', 5672), ('rabbitmq3', 5672)]
+    if 'postgres-'+source+'-standby' in containers:
+        targets += [('postgres-'+source+'-standby', 5432)]
+    if 'rabbitmq2' in containers and source != 'web':
+        targets += [('rabbitmq2', 5672), ('rabbitmq3', 5672)]
     networks = {name: {network: data['IPAddress'] for network, data in
                       item['NetworkSettings']['Networks'].items() if data['IPAddress']}
                 for name, item in containers.items()}
@@ -88,7 +92,13 @@ def policy(metadata, source, *, build_rules=True):
         addresses = sorted(set(networks[target].values()))
         if not addresses:
             raise ValueError('Нет активного адреса '+target)
-        rules += [['-d', ip, '-p', 'tcp', '--dport', str(port), '-j', 'ACCEPT'] for ip in addresses]
+        for ip in addresses:
+            match = ['-d', ip, '-p', 'tcp', '--dport', str(port)]
+            rules.append(match + ['--syn', '-m', 'limit', '--limit', '20/second', '--limit-burst', '40',
+                                  '-j', 'NFLOG', '--nflog-group', '100', '--nflog-prefix', 'ALLOW_'+source])
+            rules.append(match + ['-j', 'ACCEPT'])
+    rules.append(['-p', 'tcp', '--syn', '-m', 'limit', '--limit', '20/second', '--limit-burst', '40',
+                  '-j', 'NFLOG', '--nflog-group', '100', '--nflog-prefix', 'DENY_'+source])
     rules.append(['-j', 'REJECT'])
     return containers, networks, targets, rules
 
@@ -143,7 +153,10 @@ def test(networks, source, targets):
         checks.append({'source': source, 'target': target, 'port': port, 'allowed': allowed, 'expected': True})
         if not allowed:
             raise RuntimeError('Разрешённый TCP-путь недоступен: '+source+' → '+target)
-    for target, port in DENIED[source]:
+    denied = list(DENIED[source])
+    denied += [(name+'-standby', port) for name, port in DENIED[source]
+               if name+'-standby' in networks]
+    for target, port in denied:
         before = reject_packets()
         allowed, shared = probe(networks, source, target, port)
         after = reject_packets()
@@ -156,7 +169,7 @@ def test(networks, source, targets):
         if before != 200:
             raise RuntimeError('Learning progress недоступен до блокировки')
         blocked_rules = [['-d', address, '-p', 'tcp', '--dport', '5432', '-j', 'REJECT']
-                         for name in ['postgres', 'standby'] if name in networks
+                         for name in ['postgres-learning', 'postgres-learning-standby'] if name in networks
                          for address in networks[name].values()]
         try:
             for rule in blocked_rules:

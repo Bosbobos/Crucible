@@ -24,7 +24,7 @@ umask 077
 # Берём фактическое имя project с учётом COMPOSE_PROJECT_NAME и overlay.
 project=$(crucible_compose config --format yaml | sed -n 's/^name: //p')
 # Запрещаем генерировать новые пароли поверх прежних volumes без исходной конфигурации.
-if [ ! -f .secrets/postgres-init.sql ] && [ -n "$(docker volume ls -q --filter "label=com.docker.compose.project=$project")" ]; then
+if [ ! -f .secrets/postgres-content-init.sql ] && [ ! -f .secrets/postgres-init.sql ] && [ -n "$(docker volume ls -q --filter "label=com.docker.compose.project=$project")" ]; then
     # Объясняем, почему автоматическая починка разрушила бы соответствие паролей БД.
     echo 'У проекта уже есть volumes, но конфигурация отсутствует или неполна. Восстановите исходные .secrets; новые пароли не создавались.' >&2
     # Сохраняем существующее состояние и возвращаем ошибку.
@@ -46,7 +46,7 @@ fi # Завершаем обработку отдельной публикаци
 # Собираем Linux probe с iptables для namespaces приложений.
 docker build -f infra/Dockerfile.probe -t crucible-probe:0.2.0 .
 # Дожидаемся готовности трёх инфраструктурных компонентов.
-crucible_compose up -d --wait --wait-timeout 180 postgres redis rabbitmq
+crucible_compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports redis rabbitmq
 # Запускаем одноразовые SQL-миграции после готовности PostgreSQL.
 crucible_compose up -d --build migrations
 # Успех означает код 0 завершившегося процесса, а не бесконечно работающий контейнер.

@@ -19,6 +19,7 @@ COPY scripts ./scripts
 COPY tests ./tests
 COPY content ./content
 COPY migrations ./migrations
+COPY compose.yaml ./
 COPY pytest.ini .
 # Импорты используют Linux-пакеты образа; host .deps не подключается.
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/app/packages:/app/apps:/app/scripts CRUCIBLE_IN_CONTAINER=1 DOCKER_CONFIG=/tmp/docker

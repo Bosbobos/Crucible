@@ -1,4 +1,5 @@
 FROM python:3.11-slim@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535
-RUN apt-get update && apt-get install -y --no-install-recommends iptables && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends iptables iproute2 ulogd2 && rm -rf /var/lib/apt/lists/*
 COPY scripts/firewall_namespace.py /opt/firewall.py
+COPY scripts/firewall_capture.py /opt/firewall_capture.py
 ENTRYPOINT []

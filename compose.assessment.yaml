@@ -12,18 +12,76 @@ x-rabbit: &rabbit
     retries: 40
   mem_limit: 512m
 services:
-  postgres:
-    secrets: [replication_password]
+  postgres-content:
+    secrets: [{source: replication_content_password, target: replication_password}]
     environment: {POSTGRES_INITDB_ARGS: --data-checksums}
     command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
     volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
-  standby:
+  postgres-content-standby:
     image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
     entrypoint: [bash, /opt/crucible-standby.sh]
-    volumes: [standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
-    secrets: [replication_password, pg_admin]
-    networks: [storage]
-    depends_on: {postgres: {condition: service_healthy}}
+    environment: {PRIMARY_HOST: postgres-content}
+    volumes: [postgres-content-standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [{source: replication_content_password, target: replication_password}, {source: pg_content_admin, target: pg_admin}]
+    networks: [content_storage]
+    depends_on: {postgres-content: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    mem_limit: 512m
+  postgres-practice:
+    secrets: [{source: replication_practice_password, target: replication_password}]
+    environment: {POSTGRES_INITDB_ARGS: --data-checksums}
+    command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
+    volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+  postgres-practice-standby:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    entrypoint: [bash, /opt/crucible-standby.sh]
+    environment: {PRIMARY_HOST: postgres-practice}
+    volumes: [postgres-practice-standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [{source: replication_practice_password, target: replication_password}, {source: pg_practice_admin, target: pg_admin}]
+    networks: [practice_storage]
+    depends_on: {postgres-practice: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    mem_limit: 512m
+  postgres-learning:
+    secrets: [{source: replication_learning_password, target: replication_password}]
+    environment: {POSTGRES_INITDB_ARGS: --data-checksums}
+    command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
+    volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+  postgres-learning-standby:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    entrypoint: [bash, /opt/crucible-standby.sh]
+    environment: {PRIMARY_HOST: postgres-learning}
+    volumes: [postgres-learning-standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [{source: replication_learning_password, target: replication_password}, {source: pg_learning_admin, target: pg_admin}]
+    networks: [learning_storage]
+    depends_on: {postgres-learning: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    mem_limit: 512m
+  postgres-reports:
+    secrets: [{source: replication_reports_password, target: replication_password}]
+    environment: {POSTGRES_INITDB_ARGS: --data-checksums}
+    command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
+    volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+  postgres-reports-standby:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    entrypoint: [bash, /opt/crucible-standby.sh]
+    environment: {PRIMARY_HOST: postgres-reports}
+    volumes: [postgres-reports-standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [{source: replication_reports_password, target: replication_password}, {source: pg_reports_admin, target: pg_admin}]
+    networks: [reports_storage]
+    depends_on: {postgres-reports: {condition: service_healthy}}
     healthcheck:
       test: [CMD-SHELL, pg_isready -U postgres]
       interval: 3s
@@ -47,18 +105,30 @@ services:
   web:
     ports: !override [127.0.0.1:18081:8080]
 volumes:
-  standby-data:
+  postgres-content-standby-data:
+  postgres-practice-standby-data:
+  postgres-learning-standby-data:
+  postgres-reports-standby-data:
   rabbit2-data:
   rabbit3-data:
 secrets:
   mcp: {file: .secrets/assessment/mcp.json}
   operator: {file: .secrets/assessment/operator.json}
-  pg_admin: {file: .secrets/pg-admin}
-  postgres_init: {file: .secrets/assessment/postgres-init.sql}
+  pg_content_admin: {file: .secrets/pg-content-admin}
+  postgres_content_init: {file: .secrets/assessment/postgres-content-init.sql}
+  pg_practice_admin: {file: .secrets/pg-practice-admin}
+  postgres_practice_init: {file: .secrets/assessment/postgres-practice-init.sql}
+  pg_learning_admin: {file: .secrets/pg-learning-admin}
+  postgres_learning_init: {file: .secrets/assessment/postgres-learning-init.sql}
+  pg_reports_admin: {file: .secrets/pg-reports-admin}
+  postgres_reports_init: {file: .secrets/assessment/postgres-reports-init.sql}
   migrations: {file: .secrets/assessment/migrations.json}
   content_config: {file: .secrets/assessment/content.json}
   practice_config: {file: .secrets/assessment/practice.json}
   learning_config: {file: .secrets/assessment/learning.json}
   reports_config: {file: .secrets/assessment/reports.json}
-  replication_password: {file: .secrets/assessment/replication-password}
+  replication_content_password: {file: .secrets/assessment/replication-content-password}
+  replication_practice_password: {file: .secrets/assessment/replication-practice-password}
+  replication_learning_password: {file: .secrets/assessment/replication-learning-password}
+  replication_reports_password: {file: .secrets/assessment/replication-reports-password}
   erlang_cookie: {file: .secrets/assessment/erlang-cookie}

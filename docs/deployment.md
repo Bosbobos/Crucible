@@ -29,7 +29,7 @@ flowchart LR
     MCP[MCP stdio, scoped token] -->|HTTP| App
 ```
 
-У runtime-приложений, MCP и обычных тестов нет Docker socket. **Operator получает полный административный Docker-доступ**, эквивалентный Docker CLI владельца; это не sandbox и не сетевой сервис приложения. Он запускается явно, не входит в восемь постоянных daily-контейнеров и удаляется после команды. Ни один новый Docker daemon внутри него не запускается. Этот доступ нужен, например, чтобы остановить primary или выполнить pg_dump в другом контейнере.
+У runtime-приложений, MCP и обычных тестов нет Docker socket. **Operator получает полный административный Docker-доступ**, эквивалентный Docker CLI владельца; это не sandbox и не сетевой сервис приложения. Он запускается явно, не входит в одиннадцать постоянных daily-контейнеров и удаляется после команды. Ни один новый Docker daemon внутри него не запускается. Этот доступ нужен, например, чтобы остановить primary или выполнить pg_dump в другом контейнере.
 
 ## 2. Ручной deploy через консоль
 
@@ -70,7 +70,7 @@ docker compose -f compose.bootstrap.yaml run --rm --build bootstrap
 1. Берётся файловая блокировка .bootstrap.lock — две подготовки не должны одновременно генерировать разные пароли.
 2. При существующем комплекте проверяются обязательные файлы, JSON, соответствие ключей Ed25519, password hash и подписи/сроки клиентских JWT. Содержимое не переписывается.
 3. Для пустой установки создаются owner password, Argon2id hash, ключи подписи, отдельные runtime/migration-роли и AMQP credentials каждого владельца, Redis ACL и scoped JWT клиентов.
-4. PostgreSQL init SQL создаёт четыре БД и права CONNECT. RabbitMQ definitions задают пользователей, exchanges, quorum queues и bindings. Это конфигурация инфраструктуры, а не импорт попыток.
+4. Четыре отдельных PostgreSQL init SQL создают каждый свою БД и runtime/migration-роли. Для каждого контейнера генерируется собственный пароль администратора. RabbitMQ definitions задают пользователей, exchanges, quorum queues и bindings. Это конфигурация инфраструктуры, а не импорт попыток.
 5. Сначала проверяется подготовленный временный комплект, затем файлы устанавливаются в .secrets. Неполная конфигурация останавливает подготовку вместо автоматической замены паролей.
 
 Каталог .secrets имеет 0700. Новые bind-mounted runtime-конфигурации читаемы разными UID системных контейнеров только через выданные им mounts; пароль владельца и lock — 0600. Не открывай созданные JSON и SQL на проекторе: они содержат реальные credentials. Для объяснения показывай исходный setup.py и эту схему.
@@ -94,7 +94,7 @@ RUN выполняется при сборке слоя образа, CMD — п
 
 ```sh
 # Создаём именованные volumes и ждём готовности БД, cache и broker.
-docker compose up -d --wait --wait-timeout 180 postgres redis rabbitmq
+docker compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports redis rabbitmq
 # Запускаем одноразовый migration-процесс после здорового PostgreSQL.
 docker compose up -d migrations
 # Проверяем его настоящий код завершения: успешная задача должна закончиться с 0.
@@ -105,7 +105,7 @@ docker compose logs migrations
 
 -d оставляет контейнеры в фоне, --wait ждёт healthcheck, --wait-timeout ограничивает ожидание. pg_isready проверяет доступность PostgreSQL; RabbitMQ diagnostics — процесс брокера. Redis healthcheck наблюдает ожидаемый NOAUTH у закрытого default user: отсутствие анонимного доступа здесь нормально.
 
-При пустом postgres-data официальный PostgreSQL entrypoint выполняет init SQL из Compose secret. При повторном запуске непустого volume init SQL заново не исполняется. Поэтому новый файл с паролем не является командой смены пароля существующей БД.
+При пустом собственном postgres-<owner>-data официальный PostgreSQL entrypoint выполняет init SQL из Compose secret. При повторном запуске непустого volume init SQL заново не исполняется. Поэтому новый файл с паролем не является командой смены пароля существующей БД.
 
 scripts/migrate.py подключается отдельными migration credentials к каждой собственной БД, создаёт schema_migrations, сравнивает SHA-256 уже применённых файлов, выполняет новые нумерованные SQL и выдаёт runtime-роли только нужные DML-права. Изменение уже применённого SQL отвергается. При ошибке транзакция этой БД откатывается; API не должны запускаться поверх неподтверждённой миграции.
 
@@ -133,7 +133,7 @@ done
 
 Probe проверяет Compose labels, вычисляет реальные адреса целей и атомарно обновляет свою цепь через iptables-restore --noflush. Чужие цепи не очищаются. В OUTPUT приложения устанавливается единственный первый переход в CRUCIBLE_EGRESS. Это Linux netfilter в VM Docker Desktop, а не firewall macOS.
 
-Политика включает loopback, ESTABLISHED/RELATED, адреса и порты из матрицы, затем REJECT остальных соединений. Для learning разрешены PostgreSQL:5432, RabbitMQ:5672 и Redis:6379. Сетевой доступ к общему PostgreSQL IP не даёт SQL CONNECT к чужой логической БД: это отдельный уровень прав.
+Политика включает loopback, ESTABLISHED/RELATED, адреса и порты из матрицы, затем REJECT остальных соединений. Для learning разрешены PostgreSQL:5432, RabbitMQ:5672 и Redis:6379. Runtime имеет только собственную storage-сеть и разрешение на собственный PostgreSQL IP. SQL-права внутри экземпляра проверяются отдельным уровнем.
 
 Ниже — фактический смысл правил learning. Адреса должны быть взяты из текущего inspect, а не переписаны со старого скриншота:
 
@@ -141,7 +141,7 @@ Probe проверяет Compose labels, вычисляет реальные а�
 OUTPUT → CRUCIBLE_EGRESS
   -o lo                                      ACCEPT
   --ctstate ESTABLISHED,RELATED               ACCEPT
-  -d <postgres-IP> -p tcp --dport 5432        ACCEPT
+  -d <postgres-learning-IP> -p tcp --dport 5432        ACCEPT
   -d <rabbitmq-IP> -p tcp --dport 5672        ACCEPT
   -d <redis-IP> -p tcp --dport 6379           ACCEPT
   остальное                                  REJECT

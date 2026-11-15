@@ -22,6 +22,25 @@ def compose(*args,**kwargs):
     return run(COMPOSE+list(args),**kwargs)
 
 
+def writable_databases():
+    """Находим ровно один writable узел в каждом независимом кластере."""
+    from database_topology import OWNERS, primary, standby
+    running = set(compose('ps', '--services', '--status', 'running').stdout.splitlines())
+    result = {}
+    for owner in OWNERS:
+        writable = []
+        for node in (primary(owner), standby(owner)):
+            if node in running:
+                state = compose('exec', '-T', node, 'psql', '-U', 'postgres', '-Atc',
+                                'SELECT pg_is_in_recovery()').stdout.strip()
+                if state == 'f':
+                    writable.append(node)
+        if len(writable) != 1:
+            raise RuntimeError('Ожидался один writable PostgreSQL для '+owner)
+        result[owner] = writable[0]
+    return result
+
+
 def container(service):
     result=compose('ps','-aq',service).stdout.strip()
     if not result:raise RuntimeError('Missing service '+service)

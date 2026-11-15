@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from platformkit.backup_format import decrypt_backup
 from ops import run, evidence, api_base_url, host_owned, refresh_firewall
+from database_topology import OWNERS, primary
 
 parser=argparse.ArgumentParser();parser.add_argument('backup',type=Path);parser.add_argument('--project',required=True);parser.add_argument('--port',type=int,default=18082);args=parser.parse_args()
 if not re.fullmatch(r'crucible-restore-[a-z0-9-]{1,35}',args.project):raise SystemExit('Project must start with crucible-restore-')
@@ -38,7 +39,7 @@ if os.getenv('CRUCIBLE_RESTORE_SUBNET_BASE'):
     network=ipaddress.ip_network(prefix+'.0.0/16')
     if not network.is_private or str(network.network_address).split('.')[:2]!=prefix.split('.'):
         raise SystemExit('CRUCIBLE_RESTORE_SUBNET_BASE должен задавать частную IPv4 /16 сеть, например 10.237')
-    override['networks']={name:{'ipam':{'config':[{'subnet':prefix+'.'+str(i)+'.0/24'}]}} for i,name in enumerate(['edge','content_api','practice_api','learning_api','reports_api','storage','messages','cache'],10)}
+    override['networks']={name:{'ipam':{'config':[{'subnet':prefix+'.'+str(i)+'.0/24'}]}} for i,name in enumerate(['edge','content_api','practice_api','learning_api','reports_api',*(o+'_storage' for o in OWNERS),'messages','cache'],10)}
 out=Path('.private')/args.project;out.mkdir(parents=True,exist_ok=False)
 # Compose's explicit override tag avoids retaining the source project's host port.
 import yaml
@@ -46,7 +47,7 @@ text=yaml.safe_dump(override,sort_keys=False).replace('ports: []',f'ports: !over
 overlay=out/'compose.yaml';overlay.write_text(text)
 base=['docker','compose','-f','compose.yaml','-f',str(overlay),'-p',args.project]
 started=time.monotonic()
-run(base+['up','-d','--wait','postgres'])
+run(base+['up','-d','--wait',*(primary(o) for o in OWNERS)])
 with tempfile.TemporaryDirectory(prefix='crucible-restore-') as temp:
     root=Path(temp)
     with tarfile.open(fileobj=io.BytesIO(archive),mode='r:gz') as tar:
@@ -59,11 +60,11 @@ with tempfile.TemporaryDirectory(prefix='crucible-restore-') as temp:
         path=root/(name+'.dump')
         if hashlib.sha256(path.read_bytes()).hexdigest()!=manifest['files'][path.name]['sha256']:raise ValueError('Checksum mismatch')
         with path.open('rb') as stream:
-            subprocess.run(base+['exec','-T','postgres','pg_restore','-U','postgres','-d',name+'_db','--clean','--if-exists','--no-owner','--role',name+'_migration'],stdin=stream,check=True)
+            subprocess.run(base+['exec','-T',primary(name),'pg_restore','-U','postgres','-d',name+'_db','--exit-on-error','--clean','--if-exists','--no-owner','--role',name+'_migration'],stdin=stream,check=True)
     for name,expected in manifest['tables'].items():
         query="SELECT string_agg(format('SELECT %L AS table_name, count(*) AS count FROM %I;', tablename, tablename), ' ') FROM pg_tables WHERE schemaname='public'"
-        sql=run(base+['exec','-T','postgres','psql','-U','postgres','-d',name+'_db','-Atc',query]).stdout.strip()
-        actual=run(base+['exec','-T','postgres','psql','-U','postgres','-d',name+'_db','-Atc',sql]).stdout.strip().splitlines()
+        sql=run(base+['exec','-T',primary(name),'psql','-U','postgres','-d',name+'_db','-Atc',query]).stdout.strip()
+        actual=run(base+['exec','-T',primary(name),'psql','-U','postgres','-d',name+'_db','-Atc',sql]).stdout.strip().splitlines()
         assert sorted(actual)==sorted(expected),(name,actual,expected)
 # Образы заранее собирает Docker CLI на хосте; оператору не нужен выход в registry.
 run(base+['up','-d','--wait'])

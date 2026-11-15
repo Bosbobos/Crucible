@@ -9,6 +9,7 @@ export CRUCIBLE_ASSESSMENT=1
 . scripts/compose.sh
 # Без аргумента выполняется безопасный просмотр текущего состояния.
 action=${1:-status}
+if [ "$#" -gt 0 ]; then shift; fi
 # Разделяем первоначальный запуск и уже существующие операторские действия.
 case "$action" in
   # Подготовка и запуск выполняются до конфигурации синхронной репликации.
@@ -18,9 +19,7 @@ case "$action" in
     # Образы собираются CLI хоста, без registry-доступа операторского контейнера.
     crucible_compose up -d --build --wait --wait-timeout 240
     # Определяем фактическую роль узла, не делая вывод из имени контейнера.
-    role=$(crucible_compose exec -T postgres psql -U postgres -Atc 'SELECT pg_is_in_recovery()')
-    # Initial enable применим только к исходной роли postgres=primary.
-    if [ "$role" = f ]; then scripts/operator scripts/assessment.py enable; fi
+    scripts/operator scripts/assessment.py enable
     # После старта устанавливаем реальную политику для обоих узлов БД и трёх брокеров.
     scripts/firewall apply
     # Выводим текущие роли и состав quorum queues.
@@ -31,13 +30,13 @@ case "$action" in
     # Docker-права получает только одноразовый оператор, не приложения и не MCP.
     status=0
     # Сохраняем исходную ошибку drill, даже если последующая актуализация правил успешна.
-    scripts/operator scripts/assessment.py "$action" || status=$?
+    scripts/operator scripts/assessment.py "$action" "$@" || status=$?
     # После возврата PostgreSQL/RabbitMQ namespace может получить новый IP.
     if [ "$action" = rejoin ] || [ "$action" = rabbit-failover ]; then scripts/firewall apply || status=1; fi
     # Отдельный postgres-failover оставляет старый узел fenced; правила сверяются после rejoin.
     exit "$status"
     ;; # Завершаем ветку отдельного операторского действия.
   # Неизвестные команды не должны менять Docker-состояние.
-  *) echo 'Usage: scripts/assessment [up|enable|status|postgres-failover|rejoin|rabbit-failover]' >&2; exit 2 ;;
+  *) echo 'Usage: scripts/assessment [up|enable|status|postgres-failover|rejoin|rabbit-failover] [--service content|practice|learning|reports]' >&2; exit 2 ;;
 # Завершаем выбор действия.
 esac

@@ -1,0 +1,32 @@
+#!/bin/sh
+# Одноразовая запись пакетов штатным ulogd2 в namespaces выбранного project.
+set -eu
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+. scripts/compose.sh
+[ "${CRUCIBLE_DEMO:-0}" = 1 ] || { echo 'Для диагностических TCP-проб нужен CRUCIBLE_DEMO=1.' >&2; exit 2; }
+source=${1:-all}
+case "$source" in all) sources='content practice learning reports web' ;; content|practice|learning|reports|web) sources=$source ;; *) echo 'Usage: scripts/firewall-capture [content|practice|learning|reports|web]' >&2; exit 2 ;; esac
+umask 077
+mkdir -p .private/evidence
+folder=$(mktemp -d "$(pwd)/.private/evidence/firewall-capture.XXXXXX")
+ids=$(crucible_compose ps -q)
+[ -n "$ids" ] || { echo 'Project не запущен.' >&2; exit 1; }
+docker inspect $ids > "$folder/metadata.json"
+chmod 644 "$folder/metadata.json"
+for source in $sources; do
+    cid=$(crucible_compose ps -q "$source")
+    [ -n "$cid" ] || { echo "Не запущен $source" >&2; exit 1; }
+    mkdir "$folder/$source"
+    set --
+    if [ "$source" = learning ]; then
+        config_dir=.secrets
+        [ "${CRUCIBLE_ASSESSMENT:-0}" != 1 ] || config_dir=.secrets/assessment
+        set -- --mount "type=bind,source=$(pwd)/$config_dir/operator.json,target=/run/secrets/operator,readonly"
+    fi
+    docker run --rm --pull=never --network "container:$cid" --cap-drop ALL --cap-add NET_ADMIN --security-opt no-new-privileges:true --read-only --tmpfs /tmp \
+        --mount "type=bind,source=$folder/metadata.json,target=/metadata.json,readonly" \
+        --mount "type=bind,source=$folder/$source,target=/results" \
+        "$@" crucible-probe:0.2.0 python /opt/firewall_capture.py --source "$source"
+done
+printf '%s\n' "$folder" > .private/evidence/firewall-capture-latest.txt
+printf 'Правила и оригинальные ulogd2-журналы: %s\n' "$folder" >&2

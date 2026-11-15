@@ -1,0 +1,18 @@
+#!/bin/sh
+# Выполняем демонстрацию с runtime-правами выбранного learning, без host Python.
+set -eu
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)"
+. scripts/compose.sh
+
+if [ "$#" -gt 0 ]; then
+    if [ "$#" = 1 ] && { [ "$1" = --help ] || [ "$1" = -h ]; }; then
+        printf '%s\n' 'Usage: scripts/demo/postgres-crud' \
+            'Проверяет INSERT, SELECT, UPDATE, DELETE в learning_db и откатывает транзакцию.' \
+            'Для assessment: CRUCIBLE_ASSESSMENT=1 scripts/demo/postgres-crud'
+        exit 0
+    fi
+    echo 'Usage: scripts/demo/postgres-crud' >&2
+    exit 2
+fi
+
+crucible_compose exec -T learning python - < scripts/demo/postgres_crud.py

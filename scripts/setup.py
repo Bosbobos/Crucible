@@ -13,12 +13,16 @@ from argon2 import PasswordHasher
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives import serialization
 import jwt
+from urllib.parse import urlsplit
+from database_topology import init_sql, primary
 
 SERVICES = {'content': 'content-service', 'practice': 'practice-service',
             'learning': 'learning-service', 'reports': 'report-worker'}
-REQUIRED = {'pg-admin', 'owner-password', 'postgres-init.sql', 'migrations.json',
+REQUIRED = {'owner-password', 'migrations.json',
             'redis.conf', 'rabbit-definitions.json', 'mcp.json', 'operator.json',
-            'test-owner.json', *(name+'.json' for name in SERVICES)}
+            'test-owner.json', *(name+'.json' for name in SERVICES),
+            *(f'pg-{name}-admin' for name in SERVICES),
+            *(f'postgres-{name}-init.sql' for name in SERVICES)}
 
 
 def validate(directory):
@@ -43,9 +47,13 @@ def validate(directory):
             config = configs[name]
             assert config['service'] == service and config['public_key'] == public
             assert config['dsn'].startswith('postgresql://'+name+'_runtime:')
+            assert urlsplit(config['dsn']).hostname == primary(name)
+            assert urlsplit(config['dsn']).path == '/'+name+'_db'
             assert config['amqp_url'].startswith('amqp://'+name+':')
             assert migrations[name]['dsn'].startswith('postgresql://'+name+'_migration:')
             assert migrations[name]['runtime_role'] == name+'_runtime'
+            assert urlsplit(migrations[name]['dsn']).hostname == primary(name)
+        assert len({(directory/f'pg-{name}-admin').read_text() for name in SERVICES}) == len(SERVICES)
         assert configs['learning']['redis_url'].startswith('redis://learning:')
         definitions = json.loads((directory/'rabbit-definitions.json').read_text())
         assert {u['name'] for u in definitions['users']} == set(SERVICES)
@@ -85,22 +93,16 @@ def generate(directory, owner):
     agent_scopes = ['content:read', 'practice:read', 'practice:help', 'review:append', 'correction:propose', 'learning:read', 'reports:read', 'reports:write']
     services = {'content': 'content-service', 'practice': 'practice-service', 'learning': 'learning-service', 'reports': 'report-worker'}
     credentials = {n: {'runtime': secrets.token_hex(24), 'migration': secrets.token_hex(24), 'amqp': secrets.token_hex(24)} for n in services}
-    admin = secrets.token_hex(24)
-    write('pg-admin', admin)
     password = secrets.token_urlsafe(18)
     write('owner-password', password)
     origin = os.environ.get('CRUCIBLE_ORIGIN', 'http://localhost:18080')
-    sql = ['REVOKE CONNECT ON DATABASE postgres FROM PUBLIC;', 'REVOKE CONNECT ON DATABASE template1 FROM PUBLIC;']
     migrations, configs = {}, {}
     for name, service in services.items():
         cred = credentials[name]
-        sql += [f"CREATE ROLE {name}_migration LOGIN PASSWORD '{cred['migration']}' NOSUPERUSER NOCREATEDB NOCREATEROLE;",
-                f"CREATE ROLE {name}_runtime LOGIN PASSWORD '{cred['runtime']}' NOSUPERUSER NOCREATEDB NOCREATEROLE;",
-                f'CREATE DATABASE {name}_db OWNER {name}_migration;', f'REVOKE ALL ON DATABASE {name}_db FROM PUBLIC;',
-                f'GRANT CONNECT ON DATABASE {name}_db TO {name}_runtime;', f'\\connect {name}_db',
-                'REVOKE CREATE ON SCHEMA public FROM PUBLIC;', f'GRANT USAGE ON SCHEMA public TO {name}_runtime;', '\\connect postgres']
-        migrations[name] = {'dsn': f'postgresql://{name}_migration:{cred["migration"]}@postgres:5432/{name}_db', 'runtime_role': name+'_runtime'}
-        configs[name] = {'service': service, 'dsn': f'postgresql://{name}_runtime:{cred["runtime"]}@postgres:5432/{name}_db',
+        write(f'pg-{name}-admin', secrets.token_hex(24))
+        write(f'postgres-{name}-init.sql', init_sql(name, cred['runtime'], cred['migration']))
+        migrations[name] = {'dsn': f'postgresql://{name}_migration:{cred["migration"]}@{primary(name)}:5432/{name}_db', 'runtime_role': name+'_runtime'}
+        configs[name] = {'service': service, 'dsn': f'postgresql://{name}_runtime:{cred["runtime"]}@{primary(name)}:5432/{name}_db',
                          'public_key': public_pem, 'amqp_url': f'amqp://{name}:{cred["amqp"]}@rabbitmq:5672/study', 'downstreams': {}}
     configs['practice'].update(private_key=private_pem, password_hash=PasswordHasher().hash(password), origin=origin, owner_scopes=owner_scopes)
     configs['practice']['downstreams']['content'] = {'url': 'http://content:8000', 'token': token('practice-service', 'content-service', ['content:read', 'content:protected'])}
@@ -112,7 +114,6 @@ def generate(directory, owner):
     for name, scopes in {'practice': ['practice:snapshot'], 'learning': ['learning:read']}.items():
         configs['reports']['downstreams'][name] = {'url': f'http://{name}:8000', 'token': token('report-worker', services[name], scopes)}
     write('redis.conf', 'bind 0.0.0.0\nprotected-mode yes\nsave ""\nmaxmemory 64mb\nmaxmemory-policy allkeys-lru\nuser default off\nuser learning on >'+redis_password+' ~learning:* +get +set +setex +del +ping\n')
-    write('postgres-init.sql', '\n'.join(sql)+'\n')
     write('migrations.json', migrations)
     for name, c in configs.items():
         write(name+'.json', c)
@@ -157,6 +158,8 @@ def setup(directory=Path('.secrets')):
         fcntl.flock(lock, fcntl.LOCK_EX)
         entries = [p for p in directory.iterdir() if p.name != '.bootstrap.lock']
         if entries:
+            if (directory/'postgres-init.sql').exists() and not (directory/'postgres-content-init.sql').exists():
+                raise ValueError('Обнаружена общая БД. Сначала выполните scripts/split-databases; секреты и данные сохранены')
             validate(directory)
             return 'existing'
         directory.chmod(0o700)
