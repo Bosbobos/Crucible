@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-030
+title: Meeting at the café
+primary_skill_id: PR-06
+skill_title: Геометрическая вероятность
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-06
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-06
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-030
+  legacy_type: PR-06
+  source_reference: classic
+  source_file: Задачи/P-030 - Meeting at the café.md
+  source_sha256: b4831083345aeea66c962f36870c53f0181a7556acd00652dab565b105233f56
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Two friends arrive at a café independently, each at a uniformly random moment between 12:00 and 13:00. Each waits 15 minutes for the other and then leaves. Find the probability that they meet.
+solution: In the square $[0,60]^2$ the complement $|x-y|>15$ is two triangles of total area $45^2$. So $P=1-\left(\frac{45}{60}\right)^2=\frac7{16}$.
+remember: '**Two independent uniform times** → a uniform point in a square; the probability is an area ratio. The complement is often easier.'
+hints:
+- The pair of arrival times is a uniform point in a square; draw the region $|x-y|\le15$.
+- The complement consists of two right triangles with legs $45$.
+- Geometric probability — Blitzstein–Hwang, 7.1.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

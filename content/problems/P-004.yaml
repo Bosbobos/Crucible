@@ -1,0 +1,56 @@
+schema_version: 1
+id: P-004
+title: Hats
+primary_skill_id: PR-03
+skill_title: Индикаторы и линейность матожидания
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-03
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-expectation
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-03
+  title: Часть (a)
+- id: b
+  skill_id: PR-03
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-004
+  legacy_type: PR-03
+  source_reference: classic
+  source_file: Задачи/P-004 - Hats.md
+  source_sha256: de32d4ed971b28bd8ef058ab41f7db36bfcc7193b1c1bd0937681b2f9edda418
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: $n$ people put their hats in a box; then each person takes a hat at random (all $n!$ assignments are equally likely). Let $X$ be the number of people who get their own hat. Find (a) $E X$ and (b) $\operatorname{Var}X$.
+solution: '$E X=\sum_k E I_k=n\cdot\frac1n=1$.
+
+  $E X^2=\sum_k E I_k+\sum_{j\ne k}E[I_jI_k]=1+n(n-1)\cdot\frac1{n(n-1)}=2$, so $\operatorname{Var}X=2-1=1$ (for $n\ge2$).'
+remember: «Expected number of …» → **sum of indicators**; linearity works even though the indicators are dependent. For the variance add the pair terms $E[I_jI_k]$.
+hints:
+- Write $X$ as a sum of indicators.
+- $X=\sum I_k$, $I_k=1$ if person $k$ gets their own hat. $E I_k=\frac1n$; for $j\ne k$, $E[I_jI_k]=\frac1{n(n-1)}$.
+- '📘 Ядро темы: [индикаторы](study-material:vault-expectation#^ind) и [дисперсия суммы](study-material:vault-expectation#^var). Глубже — Blitzstein–Hwang, 4.4, 7.3.
+
+
+  [Матожидание, дисперсия и индикаторы](study-material:vault-expectation#^ind)
+
+
+  [Матожидание, дисперсия и индикаторы](study-material:vault-expectation#^var)'
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-expectation/core

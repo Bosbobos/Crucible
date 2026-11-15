@@ -1,0 +1,175 @@
+{
+  "at": "2026-11-14T12:31:58.620942+00:00",
+  "project": "Crucible",
+  "source_commit": null,
+  "source_commit_note": "В рабочем каталоге нет Git-метаданных; опубликованный клон не проверялся.",
+  "environment": {
+    "docker": "Docker Desktop Linux VM",
+    "compose": "2.39.4-desktop.1",
+    "container_python": "3.11",
+    "host_python_conda_required_for_deploy": false
+  },
+  "fresh_install": {
+    "ok": true,
+    "project": "crucible-deploy-check",
+    "port": 18083,
+    "old_secrets": false,
+    "old_volumes": false,
+    "host_python_python3_conda_disabled": true,
+    "initial_train_cards": 57,
+    "initial_practice_attempts": 0,
+    "initial_content_releases": 1,
+    "initial_catalog_seq": 1
+  },
+  "repeat_empty_install": {
+    "secret_files_unchanged": 13,
+    "state_unchanged": {
+      "content": "[(1, 1, 1)]",
+      "practice": "[(0, 0)]"
+    },
+    "host_python_conda_disabled": true,
+    "repeat_deploy": "passed"
+  },
+  "repeat_populated_install": {
+    "ok": true,
+    "credentials_unchanged": 13,
+    "content": "[(2, 3, 3)]",
+    "practice": "[(4, 10)]",
+    "host_python_conda_disabled": true
+  },
+  "missing_secrets_with_existing_volumes": {
+    "rejected": true,
+    "credentials_preserved": true
+  },
+  "firewall": {
+    "ok": true,
+    "checks": 26,
+    "application_http": [
+      200,
+      500,
+      200
+    ],
+    "all_previous_policies_restored": true,
+    "failure_case_restored": true,
+    "maintenance": {
+      "ok": true,
+      "checks": [
+        {
+          "command": [
+            "docker",
+            "compose",
+            "stop",
+            "redis"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        },
+        {
+          "command": [
+            "scripts/firewall",
+            "show"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        },
+        {
+          "command": [
+            "scripts/firewall",
+            "rollback"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        },
+        {
+          "command": [
+            "scripts/firewall",
+            "check"
+          ],
+          "exit_code": 1,
+          "expected": 1
+        },
+        {
+          "command": [
+            "docker",
+            "compose",
+            "up",
+            "-d",
+            "--wait",
+            "redis"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        },
+        {
+          "command": [
+            "scripts/firewall",
+            "apply"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        },
+        {
+          "command": [
+            "scripts/doctor"
+          ],
+          "exit_code": 0,
+          "expected": 0
+        }
+      ]
+    }
+  },
+  "tests": {
+    "unit_passed": 17,
+    "unit_skipped_integration_resilience": 8,
+    "integration_passed": 5,
+    "resilience_failover_restore_rerun": false
+  },
+  "daily": {
+    "project": "crucible",
+    "port": 18080,
+    "previous_secret_files_unchanged": 14,
+    "active_catalog_seq_preserved": 10,
+    "http": {
+      "content": {
+        "status": 200
+      },
+      "practice": {
+        "status": 200
+      },
+      "learning": {
+        "status": 200,
+        "applied_practice_seq": 232,
+        "catalog_seq": 10,
+        "cache": "hit"
+      },
+      "backup": {
+        "local_backup_present": true,
+        "off_device_copy_configured": false,
+        "automatic_schedule_configured": false
+      }
+    }
+  },
+  "commands": [
+    "scripts/deploy",
+    "scripts/doctor",
+    "CRUCIBLE_DEMO=1 scripts/firewall test"
+  ],
+  "source_sha256": {
+    "Makefile": "61dabfb0bed6bf62a2734d86c83371a75b3fc0ab6460d32ff8cb56e559a93264",
+    "compose.bootstrap.yaml": "8f848177a354f1120884f213a7db3f9faeb10b7bcd21a39092c0c376b791656a",
+    "compose.yaml": "0e57f7fdf8c209ee782c7a58bf1569da61d4b37871f498d1f5a8113b7df22203",
+    "compose.assessment.yaml": "272f0f7c40991ad4bba056bd4fceb9cb1be1651e4edd55da00c9bdf3a01abe79",
+    "infra/Dockerfile.tools": "63877de9b6c23cbf65ecf15ff3ad4746eab661249b2e029a930f21676aa89e3e",
+    "infra/Dockerfile.probe": "cf31a0149666a236c516487d0effd34cdbc8462b2b011b355a49bca735832b35",
+    ".dockerignore": "35d1966275bc787a50c014da0d6e2c4255e41f768edecef5a574e83a1ab2fc0c",
+    "scripts/setup.py": "42a72256ee4b0c02bdfcfa360cf32d236e51e2d0be24123bcfb1702ba391f665",
+    "scripts/publish.py": "502c9610814f74c77d0b90c20176a98bd03a8095e59b162af7abfd34ed81279f",
+    "scripts/deploy": "affce3c286b70d24f3d47c47ad6b06c978ecf37df2036ee240f7de7260f2f123",
+    "scripts/doctor": "705ec3d132c7cbbd9d89cd784f60b6646fea46e4f3f26a41dc173bae7925c9b8",
+    "scripts/doctor.py": "10500b6505ff856c09c35de5522c2a780019ddd54aafb27c990c8f03d9acd041",
+    "scripts/compose.sh": "53d4524efc766bc4d6c5172ce383651f6576242858d82e3fc8414c74a88da392",
+    "scripts/firewall": "6b59ee9042c516a6b82a03c9fd197c704c1bd735bad1174ec8e37f8eb9fdc166",
+    "scripts/firewall.py": "82587744f15f944015c52b075d11be803bd1e94ae36aa4e66f9a25c86886b0fd",
+    "scripts/firewall_namespace.py": "5b53f3064cc58d387727f66143b1225e5e7e4ec35b9a270a6c3bf454f77c2272"
+  }
+}

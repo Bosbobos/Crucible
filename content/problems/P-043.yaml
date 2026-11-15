@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-043
+title: Resonance
+primary_skill_id: OD-03
+skill_title: Линейные с постоянными коэффициентами
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-043
+  legacy_type: OD-03
+  source_reference: classic
+  source_file: Задачи/P-043 - Resonance.md
+  source_sha256: 1785348b53739fcfc9eda1f67b9043f698a52c1b363b9d3a0c196bd044f75d75
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Solve $y''+4y=\sin2x$, $y(0)=0$, $y'(0)=0$.
+solution: '$y_p=-\frac x4\cos2x$ (check: $y_p''''+4y_p=\sin2x$). General: $y=C_1\cos2x+C_2\sin2x-\frac x4\cos2x$. From $y(0)=0$: $C_1=0$; $y''(0)=2C_2-\frac14=0$, $C_2=\frac18$. So $y=\frac18\sin2x-\frac x4\cos2x$ — the amplitude grows linearly.'
+remember: '**Right side solves the homogeneous equation** (resonance) → multiply the guess by $x$ (by $x^2$ for a double root).'
+hints:
+- $\sin2x$ solves the homogeneous equation, so the usual guess fails — multiply it by $x$.
+- Try $y_p=x(A\cos2x+B\sin2x)$; you get $A=-\frac14$, $B=0$.
+- Resonance — the MIT ODE course, lecture 19.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

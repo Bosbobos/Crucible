@@ -1,0 +1,53 @@
+schema_version: 1
+id: P-036
+title: A random number of coins
+primary_skill_id: PR-09
+skill_title: Условное матожидание
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-09
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-09
+  title: Часть (a)
+- id: b
+  skill_id: PR-09
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-036
+  legacy_type: PR-09
+  source_reference: classic
+  source_file: Задачи/P-036 - A random number of coins.md
+  source_sha256: e43ddccbefc8f83bf6c888a00ab43e575df9f0d99b9c4377a1f06aa602ac8b1d
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'A fair die is rolled; if it shows $N$, then $N$ fair coins are tossed. Let $H$ be the number of heads.
+
+  (a) Find $E H$.
+
+  (b) Find $\operatorname{Var}H$.'
+solution: '(a) $E H=E\frac N2=\frac{3.5}2=\frac74$.
+
+  (b) $\operatorname{Var}H=E\frac N4+\operatorname{Var}\frac N2=\frac{3.5}4+\frac14\cdot\frac{35}{12}=\frac{77}{48}\approx1.60$.'
+remember: '**Two-stage randomness** → condition on the first stage: Adam''s law $E X=E[E[X\mid N]]$ and Eve''s law $\operatorname{Var}X=E\operatorname{Var}(X\mid N)+\operatorname{Var}E(X\mid N)$.'
+hints:
+- 'Condition on $N$: given $N=n$, $H$ is binomial.'
+- $E[H\mid N]=\frac N2$, $\operatorname{Var}(H\mid N)=\frac N4$. Use $E H=E[E[H\mid N]]$ and $\operatorname{Var}H=E[\operatorname{Var}(H\mid N)]+\operatorname{Var}(E[H\mid N])$.
+- Conditional expectation, law of total variance — Blitzstein–Hwang, 9.3, 9.5.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

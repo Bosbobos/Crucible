@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-051
+title: A fixed point
+primary_skill_id: CA-08
+skill_title: Аргументы через непрерывность (ТПЗ, Вейерштрасс)
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-08
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-08
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-051
+  legacy_type: CA-08
+  source_reference: classic
+  source_file: Задачи/P-051 - A fixed point.md
+  source_sha256: 616e288f9ca0cda8bb2212e6681a45d2c1983c1cd81e4ec8448a829356794780
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Let $f:[0,1]\to[0,1]$ be continuous. Prove that $f(c)=c$ for some $c\in[0,1]$.
+solution: $g(x)=f(x)-x$ is continuous, $g(0)=f(0)\ge0$, $g(1)=f(1)-1\le0$. By the intermediate-value theorem $g(c)=0$ for some $c\in[0,1]$.
+remember: '**«Show that $f(c)=h(c)$ for some $c$»** → IVT for $g=f-h$; check the signs at the ends (allow equality there).'
+hints:
+- Intermediate-value theorem for a well-chosen function.
+- $g(x)=f(x)-x$ has $g(0)\ge0$ and $g(1)\le0$.
+- Intermediate-value theorem — MIT Матан 05 · Intermediate-value theorem *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

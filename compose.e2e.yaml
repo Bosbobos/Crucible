@@ -1,0 +1,17 @@
+services:
+  e2e:
+    image: crucible/e2e:0.3.0
+    build: {context: ., dockerfile: infra/Dockerfile.e2e}
+    profiles: [tests]
+    network_mode: container:${CRUCIBLE_WEB_CONTAINER:-web-not-running}
+    environment:
+      CRUCIBLE_TEST_ORIGIN: ${CRUCIBLE_ORIGIN:-http://localhost:18080}
+    volumes:
+      - ./.secrets/owner-password:/app/.secrets/owner-password:ro
+      - ./.private/evidence:/app/.private/evidence
+    read_only: true
+    tmpfs: [/tmp]
+    shm_size: 512m
+    cap_drop: [ALL]
+    cap_add: [DAC_OVERRIDE]
+    security_opt: [no-new-privileges:true]

@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-016
+title: A difference of two infinities
+primary_skill_id: CA-01
+skill_title: Пределы через Тейлора и $o(\cdot)$
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-01
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-016
+  legacy_type: CA-01
+  source_reference: classic
+  source_file: Задачи/P-016 - A difference of two infinities.md
+  source_sha256: 94c8aaedcd233d4fee1ff49b56e2106353b7c8988493cc99717f7f3cb6ae785d
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find $\displaystyle\lim_{x\to0}\left(\frac1{\sin^2x}-\frac1{x^2}\right)$.
+solution: $x^2-\sin^2x=\frac{x^4}3+o(x^4)$ and $x^2\sin^2x=x^4+o(x^4)$, so the limit is $\frac13$.
+remember: '**$\infty-\infty$** → common denominator, then Taylor. To expand $\sin^2x$ square the expansion of $\sin x$ and keep the needed order.'
+hints:
+- Bring to a common denominator; the denominator behaves like $x^4$.
+- $\dfrac{x^2-\sin^2x}{x^2\sin^2x}$; $\sin^2x=x^2-\frac{x^4}3+o(x^4)$.
+- Taylor's formula — MIT Матан 09 · Taylor's formula *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

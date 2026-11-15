@@ -1,0 +1,47 @@
+schema_version: 1
+id: P-013
+title: A separable equation
+primary_skill_id: OD-01
+skill_title: Разделяющиеся переменные и однородные $y'=f(y/x)$
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-01
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: vault-first-order
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-013
+  legacy_type: OD-01
+  source_reference: classic
+  source_file: Задачи/P-013 - A separable equation.md
+  source_sha256: a5d26f7641636879d56d182b9384c5a7b0a2ce3ad224f76657901e52b8689b54
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Solve $y'=xy^2$, $y(0)=1$. On what interval does the solution exist?
+solution: '$-\frac1y=\frac{x^2}2-1\Rightarrow y=\dfrac{2}{2-x^2}$. It blows up at $x=\pm\sqrt2$, so the solution through $(0,1)$ exists on $(-\sqrt2,\sqrt2)$.
+
+  (Dividing by $y^2$ was legitimate: $y\equiv0$ is the other solution, but it does not satisfy $y(0)=1$.)'
+remember: '**Separable:** $y''=f(x)g(y)$ → $\int\frac{dy}{g(y)}=\int f\,dx$. Do not forget the solutions $g(y)=0$ lost by dividing, and the **interval of existence**.'
+hints:
+- 'Separate the variables: $\frac{dy}{y^2}=x\,dx$.'
+- $-\frac1y=\frac{x^2}2+C$; the initial condition gives $C=-1$.
+- 📘 Сначала — [ядро темы «Уравнения первого порядка»](study-material:vault-first-order). Separable equations — Arnold, ODE, ch. 1; the MIT ODE course, lecture 1.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-first-order/core

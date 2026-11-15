@@ -1,0 +1,12 @@
+FROM python:3.11-slim@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535
+WORKDIR /app
+COPY requirements.lock .
+RUN pip install --no-cache-dir -r requirements.lock
+ARG SERVICE
+COPY packages/platformkit ./platformkit
+COPY packages/contracts ./contracts
+COPY apps/${SERVICE} ./service
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 CRUCIBLE_CONFIG=/run/secrets/config
+USER 10001:10001
+EXPOSE 8000
+CMD ["uvicorn", "service.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]

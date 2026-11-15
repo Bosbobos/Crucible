@@ -1,0 +1,53 @@
+schema_version: 1
+id: P-009
+title: Memorylessness
+primary_skill_id: PR-04
+skill_title: 'Время ожидания: геометрическое распределение'
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-04
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-04
+  title: Часть (a)
+- id: b
+  skill_id: PR-04
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-009
+  legacy_type: PR-04
+  source_reference: classic
+  source_file: Задачи/P-009 - Memorylessness.md
+  source_sha256: c4ed748805ca20d791810feee17becc46b9b9aa6d5ddb32db2cdd14b591f5298
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Let $X$ be the number of independent trials up to and including the first success, each trial succeeding with probability $p\in(0,1)$.
+
+  (a) Find $P(X>n)$ and show that $P(X>m+n\mid X>m)=P(X>n)$ for all integers $m,n\ge0$.
+
+  (b) Find $E X$ in two ways: from the series, and by conditioning on the first trial.'
+solution: '(a) $P(X>n)=(1-p)^n$, so $P(X>m+n\mid X>m)=\dfrac{(1-p)^{m+n}}{(1-p)^m}=(1-p)^n$.
+
+  (b) $E X=\sum_{n\ge0}P(X>n)=\sum(1-p)^n=\frac1p$. First step: with probability $p$ we stop after 1 trial; otherwise we have used 1 trial and start afresh: $E X=1+(1-p)E X$, so $E X=\frac1p$.'
+remember: The geometric distribution is the **only memoryless** discrete one; its continuous analogue is the exponential. $E X=\sum_{n\ge0}P(X>n)$ for $X\ge0$ integer.
+hints:
+- '$X>n$ means: the first $n$ trials all failed.'
+- '$P(X>n)=(1-p)^n$. For (b), first step: $E X=1+(1-p)E X$.'
+- Geometric distribution — Blitzstein–Hwang, 4.3; conditional expectation, 9.1.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

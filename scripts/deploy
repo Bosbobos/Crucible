@@ -1,0 +1,63 @@
+#!/bin/sh
+# Ошибка любой команды и неопределённая переменная останавливают deploy.
+set -eu
+# Вычисляем корень по расположению файла; каталог запуска терминала не важен.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Загружаем функцию выбора Compose-файлов и project.
+. scripts/compose.sh
+# Без аргумента выполняем полный запуск; setup/publish выбираются явно.
+action=${1:-up}
+# Ограничиваем набор действий до любой изменяющей операции.
+case "$action" in
+  setup|up|publish) ;; # Разрешаем только три документированных действия.
+  *) echo 'Usage: scripts/deploy [setup|up|publish]' >&2; exit 2 ;; # Ошибку ввода возвращаем вызывающему терминалу.
+esac # Завершаем проверку аргумента.
+# Daily и assessment имеют разные процедуры первоначального запуска.
+if [ "${CRUCIBLE_ASSESSMENT:-0}" = 1 ]; then
+    # Предотвращаем применение daily-порядка к уже переключённой assessment-БД.
+    echo 'Для assessment используйте scripts/assessment up.' >&2
+    # Завершаемся до изменения секретов или контейнеров.
+    exit 2
+fi # Завершаем защиту от выбора неверного стенда.
+# Новые временные файлы доступны только владельцу процесса.
+umask 077
+# Берём фактическое имя project с учётом COMPOSE_PROJECT_NAME и overlay.
+project=$(crucible_compose config --format yaml | sed -n 's/^name: //p')
+# Запрещаем генерировать новые пароли поверх прежних volumes без исходной конфигурации.
+if [ ! -f .secrets/postgres-init.sql ] && [ -n "$(docker volume ls -q --filter "label=com.docker.compose.project=$project")" ]; then
+    # Объясняем, почему автоматическая починка разрушила бы соответствие паролей БД.
+    echo 'У проекта уже есть volumes, но конфигурация отсутствует или неполна. Восстановите исходные .secrets; новые пароли не создавались.' >&2
+    # Сохраняем существующее состояние и возвращаем ошибку.
+    exit 1
+fi # Завершаем проверку сохранности старой установки.
+# Создаём закрытый каталог host-владельца до bind mount в bootstrap.
+mkdir -p .secrets
+# Отдельный Compose не зависит от ещё не созданных секретов основного стека.
+docker compose -f compose.bootstrap.yaml run --rm --build bootstrap
+# Режим setup заканчивается после создания или проверки конфигурации.
+[ "$action" != setup ] || exit 0
+# Публикация существующих авторских файлов — отдельное явное действие.
+if [ "$action" = publish ]; then
+    # Tools вызывает авторизованный content API; прямой записи в чужую БД нет.
+    crucible_compose run --rm --no-deps tools scripts/publish.py
+    # Не пересоздаём остальные сервисы ради одной публикации.
+    exit 0
+fi # Завершаем обработку отдельной публикации.
+# Собираем Linux probe с iptables для namespaces приложений.
+docker build -f infra/Dockerfile.probe -t crucible-probe:0.2.0 .
+# Дожидаемся готовности трёх инфраструктурных компонентов.
+crucible_compose up -d --wait --wait-timeout 180 postgres redis rabbitmq
+# Запускаем одноразовые SQL-миграции после готовности PostgreSQL.
+crucible_compose up -d --build migrations
+# Успех означает код 0 завершившегося процесса, а не бесконечно работающий контейнер.
+crucible_compose wait migrations
+# Создаём backend namespaces без ожидания health, чтобы сначала актуализировать firewall.
+crucible_compose up -d --build --no-deps content practice learning reports
+# Обновляем правила работающих приложений; web при первой установке ещё отсутствует.
+scripts/firewall apply --available
+# Compose запускает content-init и web после выполнения health/dependency-условий.
+crucible_compose up -d --build --wait --wait-timeout 180
+# Применяем политику ещё раз, теперь включая актуальный namespace web.
+scripts/firewall apply
+# Успех deploy требует реальных правил и успешных предметных HTTP-чтений.
+scripts/doctor

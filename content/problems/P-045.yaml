@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-045
+title: Euler equation with complex roots
+primary_skill_id: OD-04
+skill_title: Уравнение Эйлера
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-04
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-04
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-045
+  legacy_type: OD-04
+  source_reference: classic
+  source_file: Задачи/P-045 - Euler equation with complex roots.md
+  source_sha256: 59d78d0d0ee3dc0319e45f02453bc4e184bf1f36148451cb29f5e3ac2d0327a6
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find the general solution of $x^2y''+3xy'+2y=0$ on $x>0$.
+solution: '$r(r-1)+3r+2=r^2+2r+2=0$, $r=-1\pm i$. Real solutions: $y=\dfrac{C_1\cos(\ln x)+C_2\sin(\ln x)}x$.'
+remember: '**Complex root $\alpha\pm i\beta$ of an Euler equation** → $x^\alpha\cos(\beta\ln x)$, $x^\alpha\sin(\beta\ln x)$: the Euler analogue of $e^{\alpha t}\cos\beta t$.'
+hints:
+- Try $y=x^r$, or substitute $x=e^t$.
+- $r^2+2r+2=0$, $r=-1\pm i$; $x^{-1\pm i}=x^{-1}e^{\pm i\ln x}$.
+- Euler equations — Arnold, ODE, ch. 3.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-025
+title: Two urns
+primary_skill_id: PR-02
+skill_title: Формула Байеса и полная вероятность
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-02
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-bayes
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-025
+  legacy_type: PR-02
+  source_reference: classic
+  source_file: Задачи/P-025 - Two urns.md
+  source_sha256: 155d9ae131e9cd44e7545188150e790e1c4b189b714bd16eb6cb081e7f5a3709
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Urn A contains 3 white and 2 black balls; urn B contains 1 white and 4 black balls. A fair coin decides which urn to use, and one ball is drawn from it. The ball is white. What is the probability that it came from urn A?
+solution: $P(A\mid W)=\dfrac{\frac12\cdot\frac35}{\frac12\cdot\frac35+\frac12\cdot\frac15}=\dfrac{3}{4}$.
+remember: 'Equal priors cancel: the posterior odds equal the **likelihood ratio** $\frac{3/5}{1/5}=3:1$.'
+hints:
+- 'Bayes'' formula: the urn is the «cause», the colour is the observation.'
+- $P(A\mid W)=\dfrac{P(W\mid A)P(A)}{P(W\mid A)P(A)+P(W\mid B)P(B)}$ with $P(W\mid A)=\frac35$, $P(W\mid B)=\frac15$.
+- 📘 Сначала — [ядро темы «Условная вероятность и формула Байеса»](study-material:vault-bayes). Bayes' formula, law of total probability — Blitzstein–Hwang, 2.3.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-bayes/core

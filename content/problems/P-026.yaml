@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-026
+title: A two-headed coin
+primary_skill_id: PR-02
+skill_title: Формула Байеса и полная вероятность
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-02
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-bayes
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-026
+  legacy_type: PR-02
+  source_reference: classic
+  source_file: Задачи/P-026 - A two-headed coin.md
+  source_sha256: 709e5fa02b73105775c56578f3c711ee4c5e6b05a751620c17136e3c7d047e8b
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Among 10 coins one has heads on both sides; the other 9 are fair. A coin is chosen at random and tossed 3 times; all three tosses show heads. What is the probability that the chosen coin is the two-headed one?
+solution: $P=\dfrac{\frac1{10}\cdot1}{\frac1{10}\cdot1+\frac9{10}\cdot\frac18}=\dfrac{8}{17}\approx0.47$.
+remember: '**Prior × likelihood**, then normalise. Each extra head doubles the odds in favour of the two-headed coin.'
+hints:
+- Bayes again; the observation is «3 heads in a row».
+- 'Likelihoods: $1$ for the two-headed coin, $\left(\frac12\right)^3$ for a fair one. Priors $\frac1{10}$ and $\frac9{10}$.'
+- 📘 Сначала — [ядро темы «Условная вероятность и формула Байеса»](study-material:vault-bayes). Bayes' formula — Blitzstein–Hwang, 2.3.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-bayes/core

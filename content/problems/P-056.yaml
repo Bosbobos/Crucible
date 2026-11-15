@@ -1,0 +1,62 @@
+schema_version: 1
+id: P-056
+title: Functions of a matrix
+primary_skill_id: LA-03
+skill_title: 'Собственные значения: $A^k$, $A^{-1}$, след и определитель'
+secondary_skill_ids: []
+problem_family_id: unclassified-LA-03
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: linalg
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: LA-03
+  title: Часть (a)
+- id: b
+  skill_id: LA-03
+  title: Часть (b)
+- id: c
+  skill_id: LA-03
+  title: Часть (c)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-056
+  legacy_type: LA-03
+  source_reference: classic
+  source_file: Задачи/P-056 - Functions of a matrix.md
+  source_sha256: 0013a984c3dbfc145ff071a77acb2089c0b4afe4fc28259ef0cf0f03cfa7df36
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'A real $3\times3$ matrix $A$ has eigenvalues $1$, $2$, $-1$.
+
+  (a) Find $\det(A^2+I)$.
+
+  (b) Find $\operatorname{tr}(A^3-A)$.
+
+  (c) Find the eigenvalues of $A^{-1}$.'
+solution: '$A$ has 3 distinct eigenvalues, so it is diagonalizable, and $p(A)$ has eigenvalues $p(\lambda_i)$.
+
+  (a) $\det(A^2+I)=(1+1)(4+1)(1+1)=20$.
+
+  (b) $\operatorname{tr}(A^3-A)=(1-1)+(8-2)+(-1+1)=6$.
+
+  (c) $1,\frac12,-1$ ($A$ is invertible since $0$ is not an eigenvalue).'
+remember: '**$p(A)$** has eigenvalues $p(\lambda_i)$; then $\det=\prod$, $\operatorname{tr}=\sum$. No need to know $A$ itself.'
+hints:
+- If $Av=\lambda v$, then $p(A)v=p(\lambda)v$ for any polynomial $p$.
+- 'Eigenvalues of $A^2+I$: $2,5,2$; of $A^3-A$: $0,6,0$; of $A^{-1}$: $\frac1\lambda$.'
+- Eigenvalues of polynomials in $A$ — Axler, ch. 5.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

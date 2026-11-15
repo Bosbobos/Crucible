@@ -1,0 +1,56 @@
+schema_version: 1
+id: P-003
+title: A rare disease
+primary_skill_id: PR-02
+skill_title: Формула Байеса и полная вероятность
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-02
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-bayes
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-02
+  title: Часть (a)
+- id: b
+  skill_id: PR-02
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-003
+  legacy_type: PR-02
+  source_reference: classic
+  source_file: Задачи/P-003 - A rare disease.md
+  source_sha256: d16986871cf090d9f703b572d70aa860a080ec0db8a749e81f045e3db12f169e
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'A disease affects 1% of the population. A test detects it in 95% of sick people and gives a false positive in 5% of healthy people.
+
+  (a) A person tests positive. What is the probability that they are sick?
+
+  (b) The same person takes a second, independent test of the same kind, and it is also positive. What is the probability now?'
+solution: '(a) $P=\dfrac{0.0095}{0.0095+0.0495}=\dfrac{95}{590}\approx0.161$.
+
+  (b) $P=\dfrac{0.95^2\cdot0.01}{0.95^2\cdot0.01+0.05^2\cdot0.99}=\dfrac{0.009025}{0.0115}\approx0.785$.
+
+  (Equivalently: use the answer of (a) as the new prior and apply Bayes once more.)'
+remember: 'With a rare condition, most positives are **false positives**: the base rate dominates. A posterior can be reused as the next prior.'
+hints:
+- Bayes' formula with the total probability of a positive result in the denominator.
+- $P(\text{sick}\mid +)=\dfrac{0.95\cdot0.01}{0.95\cdot0.01+0.05\cdot0.99}$. For (b), two positives have likelihoods $0.95^2$ and $0.05^2$.
+- 📘 Сначала — [ядро темы «Условная вероятность и формула Байеса»](study-material:vault-bayes). Bayes' formula and the law of total probability — Blitzstein–Hwang, 2.3.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-bayes/core

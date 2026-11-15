@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-012
+title: A trigonometric linear equation
+primary_skill_id: OD-02
+skill_title: Линейные первого порядка, интегрирующий множитель
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-02
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: vault-first-order
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-012
+  legacy_type: OD-02
+  source_reference: classic
+  source_file: Задачи/P-012 - A trigonometric linear equation.md
+  source_sha256: 8882e6739139322f39a767418c24b4dca7ed81da5ed1a671da9feefac0b32958
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find the general solution of $y'\cos x+y\sin x=1$ on $\left(-\frac\pi2,\frac\pi2\right)$.
+solution: '$\dfrac y{\cos x}=\tan x+C\Rightarrow y=\sin x+C\cos x$. Check: $y''\cos x+y\sin x=(\cos x-C\sin x)\cos x+(\sin x+C\cos x)\sin x=1$.'
+remember: $\int\tan x\,dx=-\ln\cos x$, so $\mu=\frac1{\cos x}$. Always **check the answer** by substitution — it takes 30 seconds.
+hints:
+- Divide by $\cos x$ and find the integrating factor.
+- $y'+y\tan x=\frac1{\cos x}$; $\mu=e^{\int\tan x}=\frac1{\cos x}$, so $\left(\frac y{\cos x}\right)'=\frac1{\cos^2x}$.
+- 📘 Сначала — [ядро темы «Уравнения первого порядка»](study-material:vault-first-order). Integrating factor — Arnold, ODE, ch. 1.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-first-order/core

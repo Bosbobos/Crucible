@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-047
+title: A composition up to x³
+primary_skill_id: CA-02
+skill_title: Разложения композиций в ряд Тейлора
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-02
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-047
+  legacy_type: CA-02
+  source_reference: classic
+  source_file: Задачи/P-047 - A composition up to x³.md
+  source_sha256: 117a48962364f24ddb6360a626807564ba186e4af486c464812c90ef31883d2f
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find the Taylor expansion of $e^{\sin x}$ at $x=0$ up to $o(x^3)$.
+solution: $e^{\sin x}=1+\left(x-\frac{x^3}6\right)+\frac{x^2}2+\frac{x^3}6+o(x^3)=1+x+\frac{x^2}2+o(x^3)$ — the $x^3$ terms cancel.
+remember: '**Expansion of $f(g(x))$** → expand the inner function, plug into the outer one, and track **only the needed order**; check for cancellations.'
+hints:
+- Substitute $u=\sin x=x-\frac{x^3}6+o(x^3)$ into $e^u=1+u+\frac{u^2}2+\frac{u^3}6+o(u^3)$.
+- 'Keep only terms up to $x^3$: $u^2=x^2+o(x^3)$, $u^3=x^3+o(x^3)$.'
+- Taylor's formula with $o(x^n)$ — MIT Матан 09 · Taylor's formula *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-057
+title: A nilpotent matrix
+primary_skill_id: LA-03
+skill_title: 'Собственные значения: $A^k$, $A^{-1}$, след и определитель'
+secondary_skill_ids: []
+problem_family_id: unclassified-LA-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: linalg
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: LA-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-057
+  legacy_type: LA-03
+  source_reference: classic
+  source_file: Задачи/P-057 - A nilpotent matrix.md
+  source_sha256: 3c52a055b0b3e9b83e866bc26b621b17626b74d5c65ef9b372cc15bad7db8b06
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Let $A$ be a square matrix with $A^k=0$ for some $k\ge1$. Prove that every eigenvalue of $A$ is $0$ and that $I-A$ is invertible with $(I-A)^{-1}=I+A+\dots+A^{k-1}$.
+solution: 'If $Av=\lambda v$, $v\ne0$, then $0=A^kv=\lambda^kv$, so $\lambda=0$. Telescoping: $(I-A)(I+A+\dots+A^{k-1})=I-A^k=I$, and the factors commute, so $I+A+\dots+A^{k-1}$ is the inverse.'
+remember: '**Nilpotent $A$** → spectrum $\{0\}$; $(I-A)^{-1}$ is a finite geometric series. Same telescoping as $1+q+\dots+q^{k-1}=\frac{1-q^k}{1-q}$.'
+hints:
+- If $Av=\lambda v$, what is $A^kv$? For the inverse, multiply out.
+- $0=A^kv=\lambda^kv$ with $v\ne0$. And $(I-A)(I+A+\dots+A^{k-1})=I-A^k$.
+- Eigenvalues, nilpotent operators — Axler, ch. 5, 8.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

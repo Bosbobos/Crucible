@@ -1,0 +1,265 @@
+{
+  "source": "existing Obsidian vault",
+  "schema_version": 1,
+  "cards": 57,
+  "notes": 4,
+  "interactive_blocks": 14,
+  "types_with_cards": 25,
+  "history_imported": false,
+  "new_educational_text_generated": false,
+  "families": "Unclassified: grouped conservatively by original type; no transfer credit inferred",
+  "files": [
+    {
+      "source_file": "Задачи/P-001 - Two children.md",
+      "source_sha256": "978a3a5dada25eca4ae12b9733df54b891799f94b6e51eb2c974bc747c270cbc"
+    },
+    {
+      "source_file": "Задачи/P-002 - Three cards.md",
+      "source_sha256": "ef80303ee3f92a5d3ea572426fa01cd4c9bd2ac439138e01efbdd0c355d7ddc0"
+    },
+    {
+      "source_file": "Задачи/P-003 - A rare disease.md",
+      "source_sha256": "d16986871cf090d9f703b572d70aa860a080ec0db8a749e81f045e3db12f169e"
+    },
+    {
+      "source_file": "Задачи/P-004 - Hats.md",
+      "source_sha256": "de32d4ed971b28bd8ef058ab41f7db36bfcc7193b1c1bd0937681b2f9edda418"
+    },
+    {
+      "source_file": "Задачи/P-005 - Records.md",
+      "source_sha256": "fc3c1f181924834b07ac526995de7c32ef8e4ec3e112009a6483efb4bdc1fc90"
+    },
+    {
+      "source_file": "Задачи/P-006 - All six faces.md",
+      "source_sha256": "46e21f9f3341c8e55cd606c2c3c99d7028a3fb5738941b8d58928b5294e47ec2"
+    },
+    {
+      "source_file": "Задачи/P-007 - HH versus HT.md",
+      "source_sha256": "a0bff854910aa9a736651b751e12ebf0584b4d8c468a76cc91d3ceaa046d4bcd"
+    },
+    {
+      "source_file": "Задачи/P-008 - Who rolls six first.md",
+      "source_sha256": "2280b091886a5c297e391eda6c64f7a2eda864930d9ea7cd998b4e5bb27b78ae"
+    },
+    {
+      "source_file": "Задачи/P-009 - Memorylessness.md",
+      "source_sha256": "c4ed748805ca20d791810feee17becc46b9b9aa6d5ddb32db2cdd14b591f5298"
+    },
+    {
+      "source_file": "Задачи/P-010 - A first linear equation.md",
+      "source_sha256": "2996a1896c059e10ec0de2b57abd7dbf6da321f89f08b39485a6111c13c91daf"
+    },
+    {
+      "source_file": "Задачи/P-011 - Integrating factor x².md",
+      "source_sha256": "36d475908bb45b420808e99c63c79c59415ecf5681ae1df92dbc0dd00e6d0ec7"
+    },
+    {
+      "source_file": "Задачи/P-012 - A trigonometric linear equation.md",
+      "source_sha256": "8882e6739139322f39a767418c24b4dca7ed81da5ed1a671da9feefac0b32958"
+    },
+    {
+      "source_file": "Задачи/P-013 - A separable equation.md",
+      "source_sha256": "a5d26f7641636879d56d182b9384c5a7b0a2ce3ad224f76657901e52b8689b54"
+    },
+    {
+      "source_file": "Задачи/P-014 - A homogeneous equation.md",
+      "source_sha256": "c0d813e8245874d6561cee298cc561757469f3ea60ad8933b7c0a1e8a2f5206a"
+    },
+    {
+      "source_file": "Задачи/P-015 - A Taylor limit.md",
+      "source_sha256": "6f9e39dfa4371c475e80cc74c3c874ad23d40e81caf213d6df04d91b0c044fd4"
+    },
+    {
+      "source_file": "Задачи/P-016 - A difference of two infinities.md",
+      "source_sha256": "94c8aaedcd233d4fee1ff49b56e2106353b7c8988493cc99717f7f3cb6ae785d"
+    },
+    {
+      "source_file": "Задачи/P-017 - A power limit.md",
+      "source_sha256": "60bad6296b970e8e68a58c7b4393dd238e77bc9ace352544c000bda00d6df775"
+    },
+    {
+      "source_file": "Задачи/P-018 - f'(c) = f(c).md",
+      "source_sha256": "3c92c564165c9a0953d33162872fb886135a6f8e106d17f0a729a332638ebd47"
+    },
+    {
+      "source_file": "Задачи/P-019 - Bounds for the logarithm.md",
+      "source_sha256": "ea76b4f3fbda97c20aea56573fa28d2880c4319500c80b2fc3a643a24b20f2a1"
+    },
+    {
+      "source_file": "Задачи/P-020 - f''(c) = 2.md",
+      "source_sha256": "d589bc005f32362fba1aa138b5986339fcf092a0df8f682c741ff4ad1e4c7a35"
+    },
+    {
+      "source_file": "Задачи/P-021 - Diagonal plus all-ones.md",
+      "source_sha256": "450f010c2bf68f5e71470318c88354dd3528c769d7ccad21436f0782c14add5d"
+    },
+    {
+      "source_file": "Задачи/P-022 - Rank-one matrices.md",
+      "source_sha256": "5e8522eff632b54052fe4cb0b546574017344b260770b098a73c855a46a3e73f"
+    },
+    {
+      "source_file": "Задачи/P-023 - Partial fractions.md",
+      "source_sha256": "5b0489c83467f2a555d174367a750daa0ea302608d3b5369ea03be1fc305b7f8"
+    },
+    {
+      "source_file": "Задачи/P-024 - Two definite integrals.md",
+      "source_sha256": "e21250429c14285ef13a0cfae5a9fd89f5c6a471944232d8cc4f06a9b37a00ca"
+    },
+    {
+      "source_file": "Задачи/P-025 - Two urns.md",
+      "source_sha256": "155d9ae131e9cd44e7545188150e790e1c4b189b714bd16eb6cb081e7f5a3709"
+    },
+    {
+      "source_file": "Задачи/P-026 - A two-headed coin.md",
+      "source_sha256": "709e5fa02b73105775c56578f3c711ee4c5e6b05a751620c17136e3c7d047e8b"
+    },
+    {
+      "source_file": "Задачи/P-027 - Until a different face.md",
+      "source_sha256": "b55451396164ba7accca0c8e02add29a49e641874c6df91fd0e3d2ca4fee0218"
+    },
+    {
+      "source_file": "Задачи/P-028 - Gambler's ruin.md",
+      "source_sha256": "8d4071e8ce832aa4233f1cd470b0af1964a3137a1f675e5202f1193b65f42617"
+    },
+    {
+      "source_file": "Задачи/P-029 - Waiting for HTH.md",
+      "source_sha256": "db2798088601fdf14fa4cc8cbeeffd74b68bfd4eb94c9839574b5a65dc3377f7"
+    },
+    {
+      "source_file": "Задачи/P-030 - Meeting at the café.md",
+      "source_sha256": "b4831083345aeea66c962f36870c53f0181a7556acd00652dab565b105233f56"
+    },
+    {
+      "source_file": "Задачи/P-031 - Breaking a stick.md",
+      "source_sha256": "3561d594015584795f4acfb08ee578549d77ed75222be69fcdec57117a99767a"
+    },
+    {
+      "source_file": "Задачи/P-032 - Sum and ratio of exponentials.md",
+      "source_sha256": "892c965e8faa8485d1edc4a09f26166bb0aae9a1c24967dbdced26823a8e6152"
+    },
+    {
+      "source_file": "Задачи/P-033 - Maximum and minimum of uniforms.md",
+      "source_sha256": "607041af11c24c058d697e47796b0d922b35732d045c6b29df633af1a40ff96a"
+    },
+    {
+      "source_file": "Задачи/P-034 - A linear combination of normals.md",
+      "source_sha256": "38b39f7f055c3c260f603ccdf7056574ef9f40d9c87723877fff7bc829f8a7a3"
+    },
+    {
+      "source_file": "Задачи/P-035 - Distance of a Gaussian point.md",
+      "source_sha256": "a19fb1ceba9534e567788c618deebebd33aa9d086b327ddef5caabe6be7c2ae3"
+    },
+    {
+      "source_file": "Задачи/P-036 - A random number of coins.md",
+      "source_sha256": "e43ddccbefc8f83bf6c888a00ab43e575df9f0d99b9c4377a1f06aa602ac8b1d"
+    },
+    {
+      "source_file": "Задачи/P-037 - Breaking a stick twice.md",
+      "source_sha256": "59fca3a8aa2d7339ab507e04e72eb8ce053151593a4fc020c9d44296311f7b05"
+    },
+    {
+      "source_file": "Задачи/P-038 - Different birth months.md",
+      "source_sha256": "92fe04781280369eb33006e7b5e70b8eb95e2cd269bd9d8296a1da22fcb90245"
+    },
+    {
+      "source_file": "Задачи/P-039 - The first ace.md",
+      "source_sha256": "fb618c42314c6ad84ea5f211b801f71e1c13d00dda0d23b41fac80916085d596"
+    },
+    {
+      "source_file": "Задачи/P-040 - Distinct faces in ten rolls.md",
+      "source_sha256": "a57ff1be32fd5f63ce073749bb69e2dc8f0bb16981fc3391153215debecb9295"
+    },
+    {
+      "source_file": "Задачи/P-041 - Three characteristic equations.md",
+      "source_sha256": "05c8539f94ba6b898609da2defcf3d07ef32c8edaf4724892b4308ea6fd52eff"
+    },
+    {
+      "source_file": "Задачи/P-042 - Undetermined coefficients.md",
+      "source_sha256": "e382fc865bfaf5af7903d37c2062ca235ab72e1bd1f7b34a29d5614899093696"
+    },
+    {
+      "source_file": "Задачи/P-043 - Resonance.md",
+      "source_sha256": "1785348b53739fcfc9eda1f67b9043f698a52c1b363b9d3a0c196bd044f75d75"
+    },
+    {
+      "source_file": "Задачи/P-044 - An Euler equation.md",
+      "source_sha256": "dc197c8e9149582597f95b0561f4412fd9637850c475cef67a4232ab4f6a6289"
+    },
+    {
+      "source_file": "Задачи/P-045 - Euler equation with complex roots.md",
+      "source_sha256": "59d78d0d0ee3dc0319e45f02453bc4e184bf1f36148451cb29f5e3ac2d0327a6"
+    },
+    {
+      "source_file": "Задачи/P-046 - Reduction of order.md",
+      "source_sha256": "00b1314737907dd29f06f98e2c214701e68a5fbdacdef47a74bc51b0eabd22dc"
+    },
+    {
+      "source_file": "Задачи/P-047 - A composition up to x³.md",
+      "source_sha256": "117a48962364f24ddb6360a626807564ba186e4af486c464812c90ef31883d2f"
+    },
+    {
+      "source_file": "Задачи/P-048 - A variable base and exponent.md",
+      "source_sha256": "b2ae7e8f218414f15d5b480f59f21de93b53d5ec23ca0f50795ad458d03492e3"
+    },
+    {
+      "source_file": "Задачи/P-049 - Gamma and Gaussian integrals.md",
+      "source_sha256": "aeca21eacafcc315db2405c3fe6d74e6e9720c274b3aad0af218da168fa402a6"
+    },
+    {
+      "source_file": "Задачи/P-050 - Completing the square in the exponent.md",
+      "source_sha256": "ca85b252d4d7950cb8a00dbc708e76a56438cf2b73c71249ddec86481da50e21"
+    },
+    {
+      "source_file": "Задачи/P-051 - A fixed point.md",
+      "source_sha256": "616e288f9ca0cda8bb2212e6681a45d2c1983c1cd81e4ec8448a829356794780"
+    },
+    {
+      "source_file": "Задачи/P-052 - Three roots of a quintic.md",
+      "source_sha256": "0656d687f003887d23a6ca9f66debae19deb93a77a11a8677cb2f57bc255351e"
+    },
+    {
+      "source_file": "Задачи/P-053 - Near the definition of e.md",
+      "source_sha256": "795174a7b8ce73cbce703899cb6f3f4e924b1677c3c8dc59f325df864fb6f4ee"
+    },
+    {
+      "source_file": "Задачи/P-054 - A tridiagonal determinant.md",
+      "source_sha256": "658e011c3b48dfda859bb1e2888ce75b00e7808e378804127989a7b09e4f22d1"
+    },
+    {
+      "source_file": "Задачи/P-055 - The min matrix.md",
+      "source_sha256": "4df7e0fb1e45e942aec7cb0ba3ad39391c29f5ac22c398751ce7903e15e44177"
+    },
+    {
+      "source_file": "Задачи/P-056 - Functions of a matrix.md",
+      "source_sha256": "0013a984c3dbfc145ff071a77acb2089c0b4afe4fc28259ef0cf0f03cfa7df36"
+    },
+    {
+      "source_file": "Задачи/P-057 - A nilpotent matrix.md",
+      "source_sha256": "3c52a055b0b3e9b83e866bc26b621b17626b74d5c65ef9b372cc15bad7db8b06"
+    },
+    {
+      "kind": "obsidian_vault",
+      "source_file": "Ядро темы/Карта приёмов.md",
+      "source_sha256": "8754c21fe9ce8bfeb651dc230fd68c45535591f074bd24fb730007e414ccba13",
+      "adaptation": "Formatting and data-only widget conversion; no new educational prose"
+    },
+    {
+      "kind": "obsidian_vault",
+      "source_file": "Ядро темы/Матожидание, дисперсия и индикаторы.md",
+      "source_sha256": "611dd038c452292166b1d848e3f0d51b8b21079aec807231bf371ddb4bdea4f7",
+      "adaptation": "Formatting and data-only widget conversion; no new educational prose"
+    },
+    {
+      "kind": "obsidian_vault",
+      "source_file": "Ядро темы/Уравнения первого порядка.md",
+      "source_sha256": "06f21fcd41759997685df9784a4ef43da0495a26f95c19eabab82a7ce93a6071",
+      "adaptation": "Formatting and data-only widget conversion; no new educational prose"
+    },
+    {
+      "kind": "obsidian_vault",
+      "source_file": "Ядро темы/Условная вероятность и формула Байеса.md",
+      "source_sha256": "8a29c48bfb358e7ac35a73a133f9852c40ba9f564fa2ba2d1466e4ba7fac88ad",
+      "adaptation": "Formatting and data-only widget conversion; no new educational prose"
+    }
+  ]
+}

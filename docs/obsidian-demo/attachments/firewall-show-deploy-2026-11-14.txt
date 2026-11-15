@@ -1,0 +1,132 @@
+
+crucible / content
+-N CRUCIBLE_EGRESS
+-A CRUCIBLE_EGRESS -o lo -j ACCEPT
+-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT
+-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable
+Chain CRUCIBLE_EGRESS (1 references)
+    pkts      bytes target     prot opt in     out     source               destination         
+   12903   800966 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           
+   36189  3187288 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    3010   180600 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.2           tcp dpt:5432
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.2           tcp dpt:5672
+       0        0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+
+
+crucible / learning
+-N CRUCIBLE_EGRESS
+-A CRUCIBLE_EGRESS -o lo -j ACCEPT
+-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.23.0.2/32 -p tcp -m tcp --dport 6379 -j ACCEPT
+-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable
+Chain CRUCIBLE_EGRESS (1 references)
+    pkts      bytes target     prot opt in     out     source               destination         
+   12902   800850 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           
+   36210  3145064 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    3008   180480 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.2           tcp dpt:5432
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.2           tcp dpt:5672
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.23.0.2           tcp dpt:6379
+       0        0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+
+
+crucible / practice
+-N CRUCIBLE_EGRESS
+-A CRUCIBLE_EGRESS -o lo -j ACCEPT
+-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.19.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable
+Chain CRUCIBLE_EGRESS (1 references)
+    pkts      bytes target     prot opt in     out     source               destination         
+   12894   800446 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           
+   36135  3116071 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    3008   180480 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.2           tcp dpt:5432
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.2           tcp dpt:5672
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.19.0.2           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.4           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.4           tcp dpt:8000
+       0        0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+
+
+crucible / reports
+-N CRUCIBLE_EGRESS
+-A CRUCIBLE_EGRESS -o lo -j ACCEPT
+-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.19.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.22.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.23.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.25.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable
+Chain CRUCIBLE_EGRESS (1 references)
+    pkts      bytes target     prot opt in     out     source               destination         
+   12891   800226 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           
+   36091  3099464 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    3006   180360 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.2           tcp dpt:5432
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.2           tcp dpt:5672
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.19.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.5           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.22.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.6           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.6           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.23.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.25.0.2           tcp dpt:8000
+       0        0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+
+
+crucible / web
+-N CRUCIBLE_EGRESS
+-A CRUCIBLE_EGRESS -o lo -j ACCEPT
+-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.19.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.19.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.22.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.23.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.25.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.20.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.21.0.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.22.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.24.0.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -d 172.25.0.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT
+-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable
+Chain CRUCIBLE_EGRESS (1 references)
+    pkts      bytes target     prot opt in     out     source               destination         
+    1543   129358 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           
+     108   105857 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       3      180 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.19.0.2           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.4           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.4           tcp dpt:8000
+       3      180 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.19.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.5           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.22.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.6           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.6           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.23.0.3           tcp dpt:8000
+       3      180 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.25.0.2           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.20.0.3           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.21.0.5           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.22.0.2           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.24.0.2           tcp dpt:8000
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            172.25.0.3           tcp dpt:8000
+       0        0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable
+

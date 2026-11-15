@@ -1,0 +1,48 @@
+schema_version: 1
+id: P-005
+title: Records
+primary_skill_id: PR-03
+skill_title: Индикаторы и линейность матожидания
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-expectation
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-005
+  legacy_type: PR-03
+  source_reference: classic
+  source_file: Задачи/P-005 - Records.md
+  source_sha256: fc3c1f181924834b07ac526995de7c32ef8e4ec3e112009a6483efb4bdc1fc90
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: A random permutation $a_1,\dots,a_n$ of $1,\dots,n$ is chosen. Position $k$ is a *record* if $a_k>a_i$ for all $i<k$ (position 1 is always a record). Find the expected number of records and its asymptotic behaviour as $n\to\infty$.
+solution: $E=\sum_{k=1}^n\frac1k=H_n$. Since $\ln(n+1)\le H_n\le1+\ln n$ (compare with $\int\frac{dx}x$), $E\sim\ln n$.
+remember: '**Symmetry:** among $k$ exchangeable values each is the maximum with probability $\frac1k$. Harmonic sums ↔ $\ln n$.'
+hints:
+- 'Indicators again: when is position $k$ a record?'
+- Position $k$ is a record iff $a_k$ is the largest of $a_1,\dots,a_k$. By symmetry this has probability $\frac1k$.
+- '📘 Ядро темы: [индикаторы](study-material:vault-expectation#^ind) и [симметрия](study-material:vault-expectation#^sym). Гармонические числа $H_n\sim\ln n$ — сравнение с интегралом. Глубже — Blitzstein–Hwang, 4.4.
+
+
+  [Матожидание, дисперсия и индикаторы](study-material:vault-expectation#^sym)'
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-expectation/core

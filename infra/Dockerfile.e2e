@@ -1,0 +1,14 @@
+# Версия браузеров совпадает с @playwright/test из package-lock.json.
+FROM mcr.microsoft.com/playwright:v1.65.0-noble@sha256:9beb546099e11f52d62e505537914870e01a67e0e6b00ae41da4775324e73dbe
+# Сохраняем исходные относительные пути тестов и файлов свидетельств.
+WORKDIR /app/apps/web
+# Node-зависимости устанавливаются в Linux-образ, не на компьютер владельца.
+COPY apps/web/package*.json ./
+# lock-файл запрещает незаметное обновление зависимостей.
+RUN npm ci
+# В образ входят тесты и конфигурация браузерного клиента.
+COPY apps/web/ ./
+# Локальный HTTP-прокси сохраняет browser Origin основного приложения.
+COPY scripts/e2e-run.mjs /app/e2e-run.mjs
+# Запускаем proxy и тесты одним управляемым процессом.
+CMD ["node", "/app/e2e-run.mjs"]

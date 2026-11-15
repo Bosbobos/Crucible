@@ -1,0 +1,80 @@
+#!/bin/sh
+# Прерываем процедуру при ошибках и неопределённых переменных.
+set -eu
+# Переходим к корню checkout для правильных bind mount путей.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Выбираем те же Compose-файлы и project, что в deploy.
+. scripts/compose.sh
+# Без аргумента выполняем только проверку существующей политики.
+action=${1:-check}
+# Запоминаем режим, позволяющий пропустить ещё не созданный web.
+available=${2:-}
+# Отвергаем неизвестные действия до изменения правил.
+case "$action" in apply|show|check|test|rollback) ;; *) echo 'Usage: scripts/firewall apply|show|check|test|rollback [--available]' >&2; exit 2 ;; esac
+# Отказной тест разрешён только при явном выборе синтетической среды.
+if [ "$action" = test ] && [ "${CRUCIBLE_DEMO:-0}" != 1 ]; then
+# Показываем, какой флаг необходим для временной сетевой блокировки.
+    echo 'Set CRUCIBLE_DEMO=1; network fault tests are for the synthetic stack.' >&2
+# Возвращаем ошибку без выполнения сетевого испытания.
+    exit 2
+# Завершаем условную ветку.
+fi
+# Закрываем временные metadata и отчёты от других пользователей хоста.
+umask 077
+# Создаём каталог только для операторских свидетельств.
+mkdir -p .private/evidence
+# Выделяем уникальный каталог одного вызова, чтобы результаты не смешивались.
+run_dir=$(mktemp -d "$(pwd)/.private/evidence/firewall-run.XXXXXX")
+# Получаем ID только работающих контейнеров выбранного Compose project.
+ids=$(crucible_compose ps -q)
+# Останавливаемся, если выбранный стенд не запущен.
+[ -n "$ids" ] || { echo 'Compose project has no running containers.' >&2; exit 1; }
+# ID поступают от Compose и не являются произвольным shell-вводом пользователя.
+# Сохраняем адреса и labels контейнеров в приватный metadata-файл.
+docker inspect $ids > "$run_dir/metadata.json"
+# Metadata читается отдельным root probe; закрытый каталог сохраняет host-изоляцию.
+chmod 644 "$run_dir/metadata.json"
+# Собираем ошибки всех namespaces в один итоговый код.
+status=0
+# Обрабатываем пять приложений, не касаясь хоста и чужих проектов.
+for service in web content practice learning reports; do
+# Находим namespace конкретного приложения через Compose.
+    container_id=$(crucible_compose ps -q "$service")
+# На первом этапе deploy разрешаем отсутствие ещё не созданного web.
+    if [ -z "$container_id" ] && [ "$available" = --available ]; then continue; fi
+# Для обычного вызова отсутствие приложения является ошибкой.
+    [ -n "$container_id" ] || { echo "Service is not running: $service" >&2; exit 1; }
+# Начинаем отдельный список необязательных mount-аргументов Docker.
+    set --
+# Только HTTP-сценарию learning требуется операторский токен.
+    if [ "$service" = learning ] && [ "$action" = test ]; then
+# По умолчанию выбираем credentials daily-стенда.
+        config_dir=.secrets
+# Assessment читает собственный operator.json.
+        [ "${CRUCIBLE_ASSESSMENT:-0}" != 1 ] || config_dir=.secrets/assessment
+# Монтируем ровно один credential-файл только для чтения.
+        set -- --mount "type=bind,source=$(pwd)/$config_dir/operator.json,target=/run/secrets/operator,readonly"
+# Завершаем выбор credential mount.
+    fi
+# Запускаем probe в выбранном namespace с NET_ADMIN и сохраняем его JSON; хостовая сеть не меняется.
+    docker run --rm --pull=never --network "container:$container_id" --cap-drop ALL --cap-add NET_ADMIN --security-opt no-new-privileges:true --read-only --tmpfs /tmp --mount "type=bind,source=$run_dir/metadata.json,target=/metadata.json,readonly" "$@" crucible-probe:0.2.0 python /opt/firewall.py "$action" --source "$service" > "$run_dir/$service.result.json" || status=1
+# Завершаем обработку приложений.
+done
+# Даём полному отчёту дату и действие, сохраняя прежние свидетельства.
+report=".private/evidence/firewall-$action-$(date -u +%Y%m%dT%H%M%SZ).json"
+# Без сети и capabilities собираем JSON из результатов отдельных probes.
+docker run --rm --pull=never --network none --cap-drop ALL --read-only --user "$(id -u):$(id -g)" --mount "type=bind,source=$run_dir,target=/results,readonly" crucible-probe:0.2.0 python /opt/firewall.py report > "$report" || status=1
+# Выбираем подробный вывод правил вместо краткого итога.
+if [ "$action" = show ]; then
+# Читаем сохранённый JSON из stdin и печатаем правила и счётчики в удобном для показа виде.
+    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only crucible-probe:0.2.0 python /opt/firewall.py display < "$report" || status=1
+# Для изменяющих действий и check выводим компактную сводку.
+else # Выбираем альтернативную ветку того же условия.
+# Из того же JSON печатаем краткий итог; formatter не имеет сети, mounts и capabilities.
+    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only crucible-probe:0.2.0 python /opt/firewall.py summary < "$report" || status=1
+# Завершаем условную ветку.
+fi
+# Показываем путь к полному JSON, не печатая секреты.
+echo "Свидетельство: $report" >&2
+# Возвращаем общий код, чтобы deploy не скрыл ошибку firewall.
+exit "$status"

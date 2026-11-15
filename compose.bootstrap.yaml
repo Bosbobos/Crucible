@@ -1,0 +1,16 @@
+name: crucible-bootstrap
+services:
+  bootstrap:
+    image: crucible/tools:0.2.0
+    build: {context: ., dockerfile: infra/Dockerfile.tools}
+    command: [scripts/setup.py]
+    user: 0:0
+    network_mode: none
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER]
+    security_opt: [no-new-privileges:true]
+    environment:
+      CRUCIBLE_ORIGIN: ${CRUCIBLE_ORIGIN:-http://localhost:18080}
+    volumes: [./.secrets:/app/.secrets]

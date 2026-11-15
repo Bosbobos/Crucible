@@ -1,0 +1,46 @@
+schema_version: 1
+id: P-008
+title: Who rolls six first
+primary_skill_id: PR-04
+skill_title: 'Время ожидания: геометрическое распределение'
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-04
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-04
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-008
+  legacy_type: PR-04
+  source_reference: classic
+  source_file: Задачи/P-008 - Who rolls six first.md
+  source_sha256: 2280b091886a5c297e391eda6c64f7a2eda864930d9ea7cd998b4e5bb27b78ae
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Two players take turns rolling a fair die; the first player rolls first. The first one to roll a six wins. Find the probability that the first player wins.
+solution: 'Either the first player wins immediately ($\frac16$), or both miss ($\frac{25}{36}$) and the game starts over. So $p=\frac16+\frac{25}{36}p$, $p=\frac{6}{11}$.
+
+  (Or sum the series $\frac16\sum_{k\ge0}\left(\frac{25}{36}\right)^k$.)'
+remember: '**Self-similar game:** after a round with no result the situation repeats — write one equation for the unknown probability.'
+hints:
+- 'Condition on the first round: either someone wins now or the game restarts in the same state.'
+- $p=\frac16+\frac56\cdot\frac56\,p$.
+- Geometric series / first-step analysis — Blitzstein–Hwang, 2.7.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

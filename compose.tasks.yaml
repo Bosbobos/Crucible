@@ -1,0 +1,49 @@
+name: crucible-tasks
+x-python: &python
+  image: crucible/operator:0.3.0
+  build: {context: ., dockerfile: infra/Dockerfile.operator}
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+services:
+  unit-tests:
+    <<: *python
+    network_mode: none
+    command: [-m, pytest, -q, -p, 'no:cacheprovider']
+  integration-tests:
+    <<: *python
+    command: [-m, pytest, tests/integration, -q, -p, 'no:cacheprovider']
+    cap_add: [DAC_OVERRIDE]
+    environment:
+      CRUCIBLE_INTEGRATION: '1'
+      CRUCIBLE_TEST_BASE_URL: http://web:8080
+      CRUCIBLE_MCP_BASE_URL: http://web:8080
+    volumes: [./.secrets:/app/.secrets:ro]
+    networks: [api]
+  operator:
+    <<: *python
+    networks: [operator-control]
+    user: 0:0
+    cap_add: [DAC_OVERRIDE, CHOWN, FOWNER]
+    working_dir: ${CRUCIBLE_PROJECT_DIR:-/app}
+    volumes:
+      - ${CRUCIBLE_PROJECT_DIR:-.}:${CRUCIBLE_PROJECT_DIR:-/app}
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      CRUCIBLE_IN_CONTAINER: '1'
+      CRUCIBLE_OPERATOR_CONTAINER: '1'
+      CRUCIBLE_ASSESSMENT: ${CRUCIBLE_ASSESSMENT:-0}
+      CRUCIBLE_ASSESSMENT_OVERLAY: ${CRUCIBLE_ASSESSMENT_OVERLAY:-}
+      CRUCIBLE_DEMO: ${CRUCIBLE_DEMO:-0}
+      CRUCIBLE_RESILIENCE: ${CRUCIBLE_RESILIENCE:-0}
+      CRUCIBLE_INTEGRATION: ${CRUCIBLE_INTEGRATION:-0}
+      CRUCIBLE_RESTORE_SUBNET_BASE: ${CRUCIBLE_RESTORE_SUBNET_BASE:-}
+      COMPOSE_PROJECT_NAME: ${CRUCIBLE_TARGET_PROJECT:-crucible}
+      CRUCIBLE_ASSESSMENT_PROJECT: ${CRUCIBLE_TARGET_PROJECT:-crucible-assessment}
+      COMPOSE_FILE: ${CRUCIBLE_SOURCE_COMPOSE_FILE:-compose.yaml}
+networks:
+  operator-control: {internal: true}
+  api:
+    external: true
+    name: ${CRUCIBLE_TARGET_PROJECT:-crucible}_content_api

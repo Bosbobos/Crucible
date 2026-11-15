@@ -1,0 +1,57 @@
+schema_version: 1
+id: P-007
+title: HH versus HT
+primary_skill_id: PR-05
+skill_title: Метод первого шага и рекуррентности
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-05
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-05
+  title: Часть (a)
+- id: b
+  skill_id: PR-05
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-007
+  legacy_type: PR-05
+  source_reference: classic
+  source_file: Задачи/P-007 - HH versus HT.md
+  source_sha256: a0bff854910aa9a736651b751e12ebf0584b4d8c468a76cc91d3ceaa046d4bcd
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'A fair coin is tossed repeatedly.
+
+  (a) Find the expected number of tosses until two heads in a row (HH) first appear.
+
+  (b) Find the expected number of tosses until the pattern HT first appears.
+
+  Explain why the answers differ.'
+solution: '(a) From the equations: $e_1=1+\frac12e_0$, $e_0=2+e_1$, so $e_0=6$.
+
+  (b) Reaching H takes on average 2 tosses; from state «H» we wait for a T, and an extra H does not reset us: another 2 on average. Total $4$.
+
+  For HH a failure (T after H) throws us back to the start; for HT a failure (H after H) keeps the progress. Overlap of the pattern with itself makes it slower.'
+remember: '**First-step analysis:** states = progress so far, one linear equation per state. Patterns that overlap themselves take longer to appear.'
+hints:
+- 'First-step analysis: define the expected remaining time from each «state» (how much of the pattern is already matched).'
+- 'For HH: $e_0=1+\frac12e_1+\frac12e_0$, $e_1=1+\frac12\cdot0+\frac12e_0$. For HT: after H, a further H keeps you in state «H».'
+- First-step analysis, Markov chains — Blitzstein–Hwang, 2.7, 11.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

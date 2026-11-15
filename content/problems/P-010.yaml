@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-010
+title: A first linear equation
+primary_skill_id: OD-02
+skill_title: Линейные первого порядка, интегрирующий множитель
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-02
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: vault-first-order
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-010
+  legacy_type: OD-02
+  source_reference: classic
+  source_file: Задачи/P-010 - A first linear equation.md
+  source_sha256: 2996a1896c059e10ec0de2b57abd7dbf6da321f89f08b39485a6111c13c91daf
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Solve the initial value problem $y'+y=x$, $y(0)=0$.
+solution: '$(ye^x)''=xe^x\Rightarrow ye^x=(x-1)e^x+C\Rightarrow y=x-1+Ce^{-x}$. From $y(0)=0$: $C=1$, so $y=x-1+e^{-x}$.'
+remember: '**$y''+p(x)y=q(x)$** → multiply by $\mu=e^{\int p}$: the left side becomes $(\mu y)''$. General solution = particular + $Ce^{-\int p}$.'
+hints:
+- Multiply both sides by $e^x$. What does the left side become?
+- $(y'+y)e^x=(ye^x)'$, so $(ye^x)'=xe^x$; integrate by parts.
+- 📘 Сначала — [ядро темы «Уравнения первого порядка»](study-material:vault-first-order). Linear first-order equations, integrating factor — Arnold, ODE, ch. 1; the MIT ODE course, lectures 4–5.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-first-order/core

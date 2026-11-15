@@ -1,0 +1,12 @@
+id: vault-bayes
+title: Условная вероятность и формула Байеса
+widget: null
+skill_ids:
+- PR-01
+- PR-02
+prerequisites: []
+provenance:
+  kind: obsidian_vault
+  source_file: Ядро темы/Условная вероятность и формула Байеса.md
+  source_sha256: 8a29c48bfb358e7ac35a73a133f9852c40ba9f564fa2ba2d1466e4ba7fac88ad
+  adaptation: Formatting and data-only widget conversion; no new educational prose

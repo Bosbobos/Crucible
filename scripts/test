@@ -1,0 +1,47 @@
+#!/bin/sh
+# Ошибка тестов должна стать кодом завершения всей команды.
+set -eu
+# Все относительные пути считаются от корня проекта.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Выбор project общий с deployment-командами.
+. scripts/compose.sh
+# Без аргумента выполняются изолированные unit-тесты.
+kind=${1:-unit}
+# Остальные аргументы позволяют повторить конкретный pytest-сценарий.
+if [ "$#" -gt 0 ]; then shift; fi
+# Явный target нужен только интеграционным и отказным проверкам.
+export CRUCIBLE_TARGET_PROJECT="$(crucible_compose config --format yaml | sed -n 's/^name: //p')"
+# Команды соответствуют разным правам: обычные тесты не получают socket.
+case "$kind" in
+  # Unit-тесты запускаются без сети, секретов и Docker API.
+  unit) exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm --build -T unit-tests "$@" ;;
+  # API и MCP SDK проверяются в контейнере с доступом только к API-сети.
+  integration) exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm --build -T integration-tests "$@" ;;
+  # Отказные тесты требуют явной синтетической среды и операторских полномочий.
+  resilience)
+    # Сценарий останавливает зависимости и разрешён только для синтетических данных.
+    [ "${CRUCIBLE_DEMO:-0}" = 1 ] || { echo 'Нужен CRUCIBLE_DEMO=1 для синтетического стенда.' >&2; exit 2; }
+    # Включаем pytest-маркеры, которые по умолчанию пропускают отказные тесты.
+    export CRUCIBLE_RESILIENCE=1
+    # Запоминаем код pytest, чтобы восстановление правил не скрыло его ошибку.
+    status=0
+    # Docker API доступен только этому одноразовому операторскому запуску.
+    scripts/operator -m pytest tests/resilience -q -p no:cacheprovider || status=$?
+    # После stop/start namespaces могли потерять свои iptables-цепи.
+    scripts/firewall apply || status=1
+    # Возвращаем ошибку тестов либо ошибку восстановления политики.
+    exit "$status"
+    ;; # Завершаем отказные испытания.
+  # Браузерный контейнер определён отдельным профилем test-инструментов.
+  e2e)
+    # Сохраняем точный ID существующего web, чтобы Compose не угадывал его сеть.
+    export CRUCIBLE_WEB_CONTAINER="$(crucible_compose ps -q web)"
+    # Браузер проверяет работающий стенд и не должен незаметно запускать другой.
+    [ -n "$CRUCIBLE_WEB_CONTAINER" ] || { echo 'Web не запущен.' >&2; exit 1; }
+    # Запускаем Playwright в network namespace web без Docker socket.
+    exec docker compose -f compose.yaml -f compose.e2e.yaml run --rm --build -T --no-deps e2e
+    ;; # Завершаем браузерные испытания.
+  # Неизвестный режим останавливается до запуска контейнеров.
+  *) echo 'Usage: scripts/test [unit|integration|resilience|e2e]' >&2; exit 2 ;;
+# Завершаем выбор режима проверки.
+esac

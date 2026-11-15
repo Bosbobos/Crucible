@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-042
+title: Undetermined coefficients
+primary_skill_id: OD-03
+skill_title: Линейные с постоянными коэффициентами
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-042
+  legacy_type: OD-03
+  source_reference: classic
+  source_file: Задачи/P-042 - Undetermined coefficients.md
+  source_sha256: e382fc865bfaf5af7903d37c2062ca235ab72e1bd1f7b34a29d5614899093696
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find the general solution of $y''+y=x^2+e^x$.
+solution: 'Homogeneous: $C_1\cos x+C_2\sin x$. For $x^2$: $y_p=x^2-2$ (since $2+x^2-2=x^2$). For $e^x$: $y_p=\frac12e^x$. So $y=C_1\cos x+C_2\sin x+x^2-2+\frac12e^x$.'
+remember: '**Right side = polynomial / exponential / sine** → guess the same shape with unknown coefficients; by linearity treat each term separately.'
+hints:
+- General = homogeneous + particular. Look for a particular solution of the same shape as the right side, term by term.
+- Try $y_p=Ax^2+Bx+C+De^x$ and compare coefficients.
+- Method of undetermined coefficients — the MIT ODE course, lectures 15–17.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

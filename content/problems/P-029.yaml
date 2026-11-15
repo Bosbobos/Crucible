@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-029
+title: Waiting for HTH
+primary_skill_id: PR-05
+skill_title: Метод первого шага и рекуррентности
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-05
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-05
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-029
+  legacy_type: PR-05
+  source_reference: classic
+  source_file: Задачи/P-029 - Waiting for HTH.md
+  source_sha256: db2798088601fdf14fa4cc8cbeeffd74b68bfd4eb94c9839574b5a65dc3377f7
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: A fair coin is tossed until the pattern HTH appears for the first time. Find the expected number of tosses.
+solution: 'From the equations: $e_\varnothing=2+e_H$, $e_H=2+e_{HT}$, $e_{HT}=1+\frac12e_\varnothing$. Then $e_\varnothing=4+1+\frac12e_\varnothing$, so $e_\varnothing=10$.'
+remember: For a pattern, the state is **how much of the pattern is matched**; after a failure fall back to the longest suffix that is still a prefix. HTH overlaps itself, so it is slower than HTT (8).
+hints:
+- 'States = the longest suffix of the tosses so far that is a prefix of HTH: $\varnothing$, H, HT.'
+- $e_\varnothing=1+\frac12e_H+\frac12e_\varnothing$, $e_H=1+\frac12e_H+\frac12e_{HT}$, $e_{HT}=1+\frac12\cdot0+\frac12e_\varnothing$ (after HT a T leaves nothing useful).
+- First-step analysis — Blitzstein–Hwang, 2.7, 11.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

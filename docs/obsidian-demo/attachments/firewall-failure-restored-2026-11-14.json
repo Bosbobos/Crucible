@@ -1,0 +1,11 @@
+{
+  "source": "learning",
+  "action": "test",
+  "project": "crucible-deploy-check",
+  "container_id": "efb603632c0c",
+  "ok": false,
+  "error": "Learning progress недоступен до блокировки",
+  "previous_policy_restored": true,
+  "policy_sha256": "a86e0ec80757ee8b37f3c6b2511a3c3f1b3084959d08d3b6589f1d05565ecb0f",
+  "injected_failure": "Invalid synthetic operator token; test must fail and restore prior rules"
+}

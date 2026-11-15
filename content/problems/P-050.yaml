@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-050
+title: Completing the square in the exponent
+primary_skill_id: CA-05
+skill_title: Гауссовы и гамма-интегралы
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-05
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-05
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-050
+  legacy_type: CA-05
+  source_reference: classic
+  source_file: Задачи/P-050 - Completing the square in the exponent.md
+  source_sha256: ca85b252d4d7950cb8a00dbc708e76a56438cf2b73c71249ddec86481da50e21
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: For $a>0$ and real $b$ compute $\displaystyle\int_{-\infty}^\infty e^{-ax^2+bx}\,dx$.
+solution: $\displaystyle\int e^{-ax^2+bx}dx=e^{b^2/(4a)}\int e^{-a(x-b/(2a))^2}dx=e^{b^2/(4a)}\sqrt{\frac\pi a}$.
+remember: '**Quadratic in the exponent** → complete the square: $\int e^{-ax^2+bx}=\sqrt{\frac\pi a}\,e^{b^2/(4a)}$. The same move gives the normal MGF.'
+hints:
+- Complete the square in the exponent.
+- $-ax^2+bx=-a\left(x-\frac b{2a}\right)^2+\frac{b^2}{4a}$; then shift and scale.
+- Gaussian integral — Spivak, ch. 19; moment generating function of the normal, Blitzstein–Hwang, 6.4.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,60 @@
+schema_version: 1
+id: P-022
+title: Rank-one matrices
+primary_skill_id: LA-02
+skill_title: 'Матрицы ранга 1: $I+uv^\top$, $J$'
+secondary_skill_ids: []
+problem_family_id: unclassified-LA-02
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: linalg
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: LA-02
+  title: Часть (a)
+- id: b
+  skill_id: LA-02
+  title: Часть (b)
+- id: c
+  skill_id: LA-02
+  title: Часть (c)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-022
+  legacy_type: LA-02
+  source_reference: classic
+  source_file: Задачи/P-022 - Rank-one matrices.md
+  source_sha256: 5e8522eff632b54052fe4cb0b546574017344b260770b098a73c855a46a3e73f
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Let $u,v\in\mathbb R^n$, $n\ge2$.
+
+  (a) Find the eigenvalues of $uu^\top$ with multiplicities.
+
+  (b) Find the eigenvalues of $A=I+uv^\top$ and $\det A$.
+
+  (c) If $1+v^\top u\ne0$, show that $A^{-1}=I-\dfrac{uv^\top}{1+v^\top u}$.'
+solution: '(a) $uu^\top$: $0$ with multiplicity $n-1$ (the hyperplane $u^\perp$) and $\|u\|^2$ (eigenvector $u$).
+
+  (b) $uv^\top$ has eigenvalues $0$ (multiplicity $n-1$) and $v^\top u$ (trace), so $A$ has $1$ ($n-1$ times) and $1+v^\top u$; $\det A=1+v^\top u$.
+
+  (c) $(I+uv^\top)\left(I-\frac{uv^\top}{1+v^\top u}\right)=I+uv^\top-\frac{uv^\top+u(v^\top u)v^\top}{1+v^\top u}=I+uv^\top-uv^\top=I$.'
+remember: '**Rank one:** eigenvalue $0$ on a hyperplane, the remaining one equals the **trace**. $I+uv^\top$ shifts everything by 1.'
+hints:
+- 'A rank-one matrix kills a whole hyperplane: which vectors does $uv^\top$ send to $0$?'
+- '$uv^\top x=(v^\top x)u$: every $x\perp v$ is an eigenvector with eigenvalue 0, and $u$ is an eigenvector with eigenvalue $v^\top u$.'
+- Eigenvalues, rank — Axler, ch. 5; Sherman–Morrison formula.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

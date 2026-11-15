@@ -1,0 +1,15 @@
+#!/bin/sh
+# Неопределённые переменные и необработанные ошибки являются ошибками проверки.
+set -eu
+# Находим текущий checkout независимо от каталога терминала.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Используем то же имя project и те же overlays, что при deploy.
+. scripts/compose.sh
+# Собираем результаты обеих проверок, не скрывая вторую при первой ошибке.
+status=0
+# Сверяем настоящие правила с текущими адресами пяти приложений.
+scripts/firewall check || status=1
+# Python находится внутри tools; вывод содержит только HTTP-статусы и показатели.
+crucible_compose run --rm --no-deps tools scripts/doctor.py --require-ready || status=1
+# Любая неуспешная проверка делает doctor и вызывающий deploy неуспешными.
+exit "$status"

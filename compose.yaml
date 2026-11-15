@@ -1,0 +1,178 @@
+name: crucible
+x-api: &api
+  restart: unless-stopped
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  mem_limit: 384m
+  cpus: 1
+  depends_on:
+    migrations: {condition: service_completed_successfully}
+  healthcheck:
+    test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+    interval: 10s
+    timeout: 4s
+    retries: 12
+    start_period: 10s
+services:
+  postgres:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    environment: {POSTGRES_PASSWORD_FILE: /run/secrets/pg_admin}
+    secrets: [pg_admin, postgres_init, {source: postgres_init, target: /docker-entrypoint-initdb.d/10-init.sql}]
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    networks: [storage]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    mem_limit: 512m
+  redis:
+    image: redis:8-alpine@sha256:7958cfbb9d152f87dadfbc89f1b0b15938f0b81ff8982feb327476f4911935c3
+    command: [redis-server, /run/secrets/redis_config]
+    secrets: [redis_config]
+    networks: [cache]
+    healthcheck:
+      test: [CMD-SHELL, "redis-cli ping 2>&1 | grep -q NOAUTH"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 128m
+  rabbitmq:
+    image: rabbitmq:4-management@sha256:753099a19b577c322117f793f864b3129cbba96d40317221a69d73976e3c843c
+    hostname: rabbitmq
+    environment: {RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: '+S 2:2'}
+    volumes: [rabbit-data:/var/lib/rabbitmq, ./infra/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro]
+    secrets: [rabbit_definitions]
+    networks: [messages]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, check_running]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    mem_limit: 512m
+  migrations:
+    image: crucible/migrations:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.migrations}
+    secrets: [migrations]
+    networks: [storage]
+    depends_on:
+      postgres: {condition: service_healthy}
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  content:
+    <<: *api
+    image: crucible/content:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: content_service}}
+    secrets: [{source: content_config, target: config}]
+    networks: [content_api, storage, messages]
+  practice:
+    <<: *api
+    image: crucible/practice:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: practice_service}}
+    secrets: [{source: practice_config, target: config}]
+    networks: [practice_api, content_api, storage, messages]
+  learning:
+    <<: *api
+    image: crucible/learning:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: learning_service}}
+    secrets: [{source: learning_config, target: config}]
+    networks: [learning_api, storage, messages, cache]
+  reports:
+    <<: *api
+    image: crucible/reports:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: report_worker}}
+    secrets: [{source: reports_config, target: config}]
+    networks: [reports_api, practice_api, learning_api, storage, messages]
+  content-init:
+    image: crucible/tools:0.2.0
+    build: {context: ., dockerfile: infra/Dockerfile.tools}
+    command: [scripts/publish.py, --if-empty, --wait-learning]
+    secrets: [operator]
+    environment:
+      CRUCIBLE_OPERATOR_CONFIG: /run/secrets/operator
+      CRUCIBLE_BASE_URL: http://content:8000
+      CRUCIBLE_LEARNING_URL: http://learning:8000
+    volumes: [./content:/app/content:ro]
+    networks: [content_api, learning_api]
+    depends_on:
+      content: {condition: service_healthy}
+      learning: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  tools:
+    image: crucible/tools:0.2.0
+    build: {context: ., dockerfile: infra/Dockerfile.tools}
+    profiles: [tools]
+    command: [scripts/doctor.py]
+    secrets: [operator]
+    environment:
+      CRUCIBLE_OPERATOR_CONFIG: /run/secrets/operator
+      CRUCIBLE_BASE_URL: http://web:8080
+    volumes: [./content:/app/content:ro, ./.private/backups:/app/.private/backups:ro]
+    networks: [content_api, practice_api, learning_api, reports_api]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  study-mcp:
+    image: crucible/mcp:0.3.0
+    build: {context: ., dockerfile: infra/Dockerfile.mcp}
+    profiles: [mcp]
+    stdin_open: true
+    secrets: [mcp]
+    networks: [content_api]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  web:
+    image: crucible/web:0.1.0
+    build: {context: ., dockerfile: apps/web/Dockerfile}
+    ports: [127.0.0.1:18080:8080]
+    networks: [edge, content_api, practice_api, learning_api, reports_api]
+    depends_on:
+      content: {condition: service_healthy}
+      practice: {condition: service_healthy}
+      learning: {condition: service_healthy}
+      reports: {condition: service_healthy}
+      content-init: {condition: service_completed_successfully}
+    user: 101:101
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8080/hello]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+networks:
+  edge: {}
+  content_api: {internal: true}
+  practice_api: {internal: true}
+  learning_api: {internal: true}
+  reports_api: {internal: true}
+  storage: {internal: true}
+  messages: {internal: true}
+  cache: {internal: true}
+volumes:
+  postgres-data:
+  rabbit-data:
+secrets:
+  mcp: {file: .secrets/mcp.json}
+  operator: {file: .secrets/operator.json}
+  pg_admin: {file: .secrets/pg-admin}
+  postgres_init: {file: .secrets/postgres-init.sql}
+  migrations: {file: .secrets/migrations.json}
+  redis_config: {file: .secrets/redis.conf}
+  rabbit_definitions: {file: .secrets/rabbit-definitions.json}
+  content_config: {file: .secrets/content.json}
+  practice_config: {file: .secrets/practice.json}
+  learning_config: {file: .secrets/learning.json}
+  reports_config: {file: .secrets/reports.json}

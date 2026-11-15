@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-054
+title: A tridiagonal determinant
+primary_skill_id: LA-01
+skill_title: Определители особой структуры
+secondary_skill_ids: []
+problem_family_id: unclassified-LA-01
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: linalg
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: LA-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-054
+  legacy_type: LA-01
+  source_reference: classic
+  source_file: Задачи/P-054 - A tridiagonal determinant.md
+  source_sha256: 658e011c3b48dfda859bb1e2888ce75b00e7808e378804127989a7b09e4f22d1
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Compute the determinant $D_n$ of the $n\times n$ matrix with $2$ on the diagonal, $-1$ on the two neighbouring diagonals and $0$ elsewhere.
+solution: 'Expanding along the first row: $D_n=2D_{n-1}-(-1)(-1)D_{n-2}=2D_{n-1}-D_{n-2}$. With $D_1=2$, $D_2=3$ the solution of this linear recurrence is $D_n=n+1$ (check by induction).'
+remember: '**Tridiagonal determinant** → expansion along the first row gives a two-term recurrence; compute a few values, guess, prove by induction.'
+hints:
+- Expand along the first row to get a recurrence.
+- $D_n=2D_{n-1}-D_{n-2}$, $D_1=2$, $D_2=3$.
+- Determinants, recurrences — Axler, ch. 10.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

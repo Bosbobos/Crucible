@@ -1,0 +1,53 @@
+schema_version: 1
+id: P-033
+title: Maximum and minimum of uniforms
+primary_skill_id: PR-07
+skill_title: Преобразования и совместные плотности
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-07
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-07
+  title: Часть (a)
+- id: b
+  skill_id: PR-07
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-033
+  legacy_type: PR-07
+  source_reference: classic
+  source_file: Задачи/P-033 - Maximum and minimum of uniforms.md
+  source_sha256: 607041af11c24c058d697e47796b0d922b35732d045c6b29df633af1a40ff96a
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Let $U_1,\dots,U_n$ be i.i.d. uniform on $[0,1]$.
+
+  (a) Find the CDF and the expectation of $M=\max U_i$.
+
+  (b) Find the expectation of $m=\min U_i$.'
+solution: '(a) $F_M(t)=t^n$ on $[0,1]$, density $nt^{n-1}$, $E M=\int_0^1nt^n\,dt=\frac n{n+1}$.
+
+  (b) $E m=\int_0^1P(m>t)\,dt=\int_0^1(1-t)^n\,dt=\frac1{n+1}$.'
+remember: '**Max/min of independent variables** → CDF of max is the product of CDFs, survival of min is the product of survivals. $E X=\int_0^\infty P(X>t)\,dt$ for $X\ge0$.'
+hints:
+- $\max\le t$ iff all are $\le t$; $\min>t$ iff all are $>t$.
+- $P(M\le t)=t^n$, $P(m>t)=(1-t)^n$. For $E$ use the density or $E X=\int_0^1P(X>t)\,dt$.
+- Order statistics — Blitzstein–Hwang, 8.6.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-046
+title: Reduction of order
+primary_skill_id: OD-05
+skill_title: Понижение порядка и специальные замены
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-05
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-05
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-046
+  legacy_type: OD-05
+  source_reference: classic
+  source_file: Задачи/P-046 - Reduction of order.md
+  source_sha256: 00b1314737907dd29f06f98e2c214701e68a5fbdacdef47a74bc51b0eabd22dc
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find all solutions of $y''+(y')^2=0$.
+solution: 'With $p=y''$: $p''=-p^2$. Either $p\equiv0$, giving $y=C$, or $-\frac1p=-x-C_1$, $p=\frac1{x+C_1}$, giving $y=\ln|x+C_1|+C_2$.'
+remember: '**No $y$ in the equation** → $p=y''$ lowers the order. **No $x$** → $p(y)=y''$, $y''''=p\frac{dp}{dy}$. Don''t lose the solutions where you divided by zero.'
+hints:
+- '$y$ itself does not appear: put $p=y''$.'
+- '$p''=-p^2$ is separable: $p=\frac1{x+C_1}$ or $p\equiv0$.'
+- Reduction of order — Arnold, ODE, ch. 2.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

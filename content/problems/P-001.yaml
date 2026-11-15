@@ -1,0 +1,54 @@
+schema_version: 1
+id: P-001
+title: Two children
+primary_skill_id: PR-01
+skill_title: Условная вероятность и ловушки условия
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-01
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-bayes
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-01
+  title: Часть (a)
+- id: b
+  skill_id: PR-01
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-001
+  legacy_type: PR-01
+  source_reference: classic
+  source_file: Задачи/P-001 - Two children.md
+  source_sha256: 978a3a5dada25eca4ae12b9733df54b891799f94b6e51eb2c974bc747c270cbc
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'A family has two children; each child is a boy or a girl with probability $\frac12$, independently.
+
+  (a) It is known that **at least one** of the children is a boy. Find the probability that both are boys.
+
+  (b) It is known that the **elder** child is a boy. Find the probability that both are boys.'
+solution: '(a) The condition leaves $\{BB, BG, GB\}$, all equally likely, so $P=\frac13$.
+
+  (b) The condition leaves $\{BB, BG\}$, so $P=\frac12$.'
+remember: '**«At least one»** keeps more outcomes than **«this particular one»**. When the condition says «at least», list the outcomes before computing.'
+hints:
+- Write down the sample space explicitly; the condition removes some outcomes.
+- 'Equally likely outcomes: BB, BG, GB, GG (elder first). Which of them survive condition (a)? Condition (b)?'
+- 📘 Сначала — [ядро темы «Условная вероятность и формула Байеса»](study-material:vault-bayes). Definition of conditional probability, $P(A\mid B)=P(A\cap B)/P(B)$ — Blitzstein–Hwang, 2.2.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-bayes/core

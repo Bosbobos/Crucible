@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-037
+title: Breaking a stick twice
+primary_skill_id: PR-09
+skill_title: Условное матожидание
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-09
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-09
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-037
+  legacy_type: PR-09
+  source_reference: classic
+  source_file: Задачи/P-037 - Breaking a stick twice.md
+  source_sha256: 59fca3a8aa2d7339ab507e04e72eb8ce053151593a4fc020c9d44296311f7b05
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: A stick of length 1 is broken at a uniformly random point; the left piece is kept and broken again at a uniformly random point of it. Find the expected length of the final left piece.
+solution: $E Y=E[E[Y\mid X]]=E\frac X2=\frac14$.
+remember: '**Nested randomness** → $E Y=E[E[Y\mid X]]$; no need for the distribution of $Y$ (its density is $-\ln y$, but we never used it).'
+hints:
+- Condition on the first break point $X$.
+- Given $X=x$, the second piece is uniform on $[0,x]$, so $E[Y\mid X]=\frac X2$.
+- Conditional expectation — Blitzstein–Hwang, 9.1–9.3.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

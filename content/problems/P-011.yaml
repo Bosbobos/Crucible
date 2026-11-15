@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-011
+title: Integrating factor x²
+primary_skill_id: OD-02
+skill_title: Линейные первого порядка, интегрирующий множитель
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-02
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: vault-first-order
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-02
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-011
+  legacy_type: OD-02
+  source_reference: classic
+  source_file: Задачи/P-011 - Integrating factor x².md
+  source_sha256: 36d475908bb45b420808e99c63c79c59415ecf5681ae1df92dbc0dd00e6d0ec7
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find all solutions of $xy'+2y=x^2$ on $x>0$.
+solution: $(x^2y)'=x^3\Rightarrow x^2y=\frac{x^4}4+C\Rightarrow y=\frac{x^2}4+\frac C{x^2}$.
+remember: 'Before searching for $\mu$, look whether the left side is already a derivative: $xy''+2y=\frac1x(x^2y)''$.'
+hints:
+- Bring it to the form $y'+p(x)y=q(x)$ and find $\mu=e^{\int p}$.
+- '$y''+\frac2xy=x$, $\mu=x^2$: $(x^2y)''=x^3$.'
+- 📘 Сначала — [ядро темы «Уравнения первого порядка»](study-material:vault-first-order). Integrating factor — Arnold, ODE, ch. 1.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-first-order/core

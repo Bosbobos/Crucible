@@ -1,0 +1,48 @@
+schema_version: 1
+id: P-006
+title: All six faces
+primary_skill_id: PR-03
+skill_title: Индикаторы и линейность матожидания
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-expectation
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-006
+  legacy_type: PR-03
+  source_reference: classic
+  source_file: Задачи/P-006 - All six faces.md
+  source_sha256: 46e21f9f3341c8e55cd606c2c3c99d7028a3fb5738941b8d58928b5294e47ec2
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: A fair die is rolled until each of the faces $1,\dots,6$ has appeared at least once. Find the expected number of rolls.
+solution: $E=\sum_{k=0}^5\frac6{6-k}=6\left(1+\frac12+\frac13+\frac14+\frac15+\frac16\right)=6H_6=14.7$.
+remember: '**Coupon collector:** cut a waiting process into stages with constant success probability; each stage is geometric, and expectations add.'
+hints:
+- 'Split the waiting time into stages: the time to get a new face when $k$ distinct faces are already seen.'
+- When $k$ faces have been seen, each roll gives a new face with probability $\frac{6-k}6$, so the stage length is geometric with mean $\frac6{6-k}$.
+- '📘 Ядро темы: [линейность](study-material:vault-expectation#^lin). Геометрическое распределение (среднее время ожидания успеха с вероятностью $p$ равно $1/p$) — Blitzstein–Hwang, 4.3–4.4.
+
+
+  [Матожидание, дисперсия и индикаторы](study-material:vault-expectation#^lin)'
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-expectation/core

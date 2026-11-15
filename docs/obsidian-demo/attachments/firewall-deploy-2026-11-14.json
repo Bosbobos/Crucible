@@ -1,0 +1,334 @@
+{
+  "at": "2026-11-14T12:28:10.172637+00:00",
+  "action": "test",
+  "project": "crucible-deploy-check",
+  "ok": true,
+  "scope": "Linux container network namespaces; host rules untouched",
+  "services": [
+    {
+      "source": "content",
+      "action": "test",
+      "project": "crucible-deploy-check",
+      "container_id": "2c78f9a7f1d5",
+      "ok": true,
+      "checks": [
+        {
+          "source": "content",
+          "target": "postgres",
+          "port": 5432,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "content",
+          "target": "rabbitmq",
+          "port": 5672,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "content",
+          "target": "practice",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        },
+        {
+          "source": "content",
+          "target": "learning",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        }
+      ],
+      "rules": [
+        "-N CRUCIBLE_EGRESS",
+        "-A CRUCIBLE_EGRESS -o lo -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable"
+      ],
+      "counters": "Chain CRUCIBLE_EGRESS (1 references)\n    pkts      bytes target     prot opt in     out     source               destination         \n       2      176 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           \n      15     1181 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.2          tcp dpt:5432\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.2          tcp dpt:5672\n       2      120 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable\n",
+      "previous_policy_restored": true,
+      "policy_sha256": "bf0c8392021c9c3d22d44bffe3ac4e12fae4e6ffdc73a7313772a160bcf90b1c"
+    },
+    {
+      "source": "learning",
+      "action": "test",
+      "project": "crucible-deploy-check",
+      "container_id": "efb603632c0c",
+      "ok": true,
+      "checks": [
+        {
+          "source": "learning",
+          "target": "postgres",
+          "port": 5432,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "learning",
+          "target": "rabbitmq",
+          "port": 5672,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "learning",
+          "target": "redis",
+          "port": 6379,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "learning",
+          "target": "practice",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        },
+        {
+          "source": "learning",
+          "target": "content",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        },
+        {
+          "scenario": "learning progress: DB permission removed and restored",
+          "http_before": 200,
+          "http_blocked": 500,
+          "http_restored": 200
+        }
+      ],
+      "rules": [
+        "-N CRUCIBLE_EGRESS",
+        "-A CRUCIBLE_EGRESS -o lo -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.17.2/32 -p tcp -m tcp --dport 6379 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable"
+      ],
+      "counters": "Chain CRUCIBLE_EGRESS (1 references)\n    pkts      bytes target     prot opt in     out     source               destination         \n      49    20180 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           \n      55    11121 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED\n       3      180 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.2          tcp dpt:5432\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.2          tcp dpt:5672\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.17.2          tcp dpt:6379\n       2      120 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable\n",
+      "previous_policy_restored": true,
+      "policy_sha256": "a86e0ec80757ee8b37f3c6b2511a3c3f1b3084959d08d3b6589f1d05565ecb0f"
+    },
+    {
+      "source": "practice",
+      "action": "test",
+      "project": "crucible-deploy-check",
+      "container_id": "b1eccc5c6ba5",
+      "ok": true,
+      "checks": [
+        {
+          "source": "practice",
+          "target": "postgres",
+          "port": 5432,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "practice",
+          "target": "rabbitmq",
+          "port": 5672,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "practice",
+          "target": "content",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "practice",
+          "target": "redis",
+          "port": 6379,
+          "allowed": false,
+          "expected": false,
+          "shared_network": false,
+          "reject_packets_delta": 0
+        },
+        {
+          "source": "practice",
+          "target": "learning",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        }
+      ],
+      "rules": [
+        "-N CRUCIBLE_EGRESS",
+        "-A CRUCIBLE_EGRESS -o lo -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.11.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable"
+      ],
+      "counters": "Chain CRUCIBLE_EGRESS (1 references)\n    pkts      bytes target     prot opt in     out     source               destination         \n       1       88 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           \n       8      416 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.2          tcp dpt:5432\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.2          tcp dpt:5672\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.11.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.4          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.5          tcp dpt:8000\n       1       60 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable\n",
+      "previous_policy_restored": true,
+      "policy_sha256": "acd6ab82b00dd47eed99546f63378ebce33180684cab74680ef797080de934ee"
+    },
+    {
+      "source": "reports",
+      "action": "test",
+      "project": "crucible-deploy-check",
+      "container_id": "97d7924c6a09",
+      "ok": true,
+      "checks": [
+        {
+          "source": "reports",
+          "target": "postgres",
+          "port": 5432,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "reports",
+          "target": "rabbitmq",
+          "port": 5672,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "reports",
+          "target": "practice",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "reports",
+          "target": "learning",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "reports",
+          "target": "content",
+          "port": 8000,
+          "allowed": false,
+          "expected": false,
+          "shared_network": true,
+          "reject_packets_delta": 1
+        }
+      ],
+      "rules": [
+        "-N CRUCIBLE_EGRESS",
+        "-A CRUCIBLE_EGRESS -o lo -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.2/32 -p tcp -m tcp --dport 5432 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.2/32 -p tcp -m tcp --dport 5672 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.11.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.12.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.13.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.17.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable"
+      ],
+      "counters": "Chain CRUCIBLE_EGRESS (1 references)\n    pkts      bytes target     prot opt in     out     source               destination         \n       1       88 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           \n      11      572 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.2          tcp dpt:5432\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.2          tcp dpt:5672\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.11.3          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.12.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.3          tcp dpt:8000\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.3          tcp dpt:8000\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.13.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.6          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.6          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.17.3          tcp dpt:8000\n       1       60 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable\n",
+      "previous_policy_restored": true,
+      "policy_sha256": "08938ccfa91b9a44b2c8e8fbe753b8e5f3c46864b75217c212f66655692d54aa"
+    },
+    {
+      "source": "web",
+      "action": "test",
+      "project": "crucible-deploy-check",
+      "container_id": "3eec586deb71",
+      "ok": true,
+      "checks": [
+        {
+          "source": "web",
+          "target": "content",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "web",
+          "target": "practice",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "web",
+          "target": "learning",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "web",
+          "target": "reports",
+          "port": 8000,
+          "allowed": true,
+          "expected": true
+        },
+        {
+          "source": "web",
+          "target": "postgres",
+          "port": 5432,
+          "allowed": false,
+          "expected": false,
+          "shared_network": false,
+          "reject_packets_delta": 1
+        },
+        {
+          "source": "web",
+          "target": "redis",
+          "port": 6379,
+          "allowed": false,
+          "expected": false,
+          "shared_network": false,
+          "reject_packets_delta": 1
+        }
+      ],
+      "rules": [
+        "-N CRUCIBLE_EGRESS",
+        "-A CRUCIBLE_EGRESS -o lo -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.11.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.11.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.12.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.13.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.6/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.17.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.12.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.13.3/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.14.2/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.15.5/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -d 10.231.16.4/32 -p tcp -m tcp --dport 8000 -j ACCEPT",
+        "-A CRUCIBLE_EGRESS -j REJECT --reject-with icmp-port-unreachable"
+      ],
+      "counters": "Chain CRUCIBLE_EGRESS (1 references)\n    pkts      bytes target     prot opt in     out     source               destination         \n       2      176 ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0           \n      12      624 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.11.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.4          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.5          tcp dpt:8000\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.11.3          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.12.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.3          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.3          tcp dpt:8000\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.13.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.6          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.6          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.17.3          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.12.3          tcp dpt:8000\n       1       60 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.13.3          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.14.2          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.15.5          tcp dpt:8000\n       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            10.231.16.4          tcp dpt:8000\n       2      120 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            reject-with icmp-port-unreachable\n",
+      "previous_policy_restored": true,
+      "policy_sha256": "24a6d007cfc15fc0d06f50e90ab5c35197ee9ce58897aea717f78aa4124efd0c"
+    }
+  ]
+}

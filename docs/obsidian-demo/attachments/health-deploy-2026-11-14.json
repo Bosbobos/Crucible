@@ -1,0 +1,19 @@
+{
+  "content": {
+    "status": 200
+  },
+  "practice": {
+    "status": 200
+  },
+  "learning": {
+    "status": 200,
+    "applied_practice_seq": 232,
+    "catalog_seq": 10,
+    "cache": "hit"
+  },
+  "backup": {
+    "local_backup_present": true,
+    "off_device_copy_configured": false,
+    "automatic_schedule_configured": false
+  }
+}

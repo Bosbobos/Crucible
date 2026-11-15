@@ -1,0 +1,48 @@
+schema_version: 1
+id: P-040
+title: Distinct faces in ten rolls
+primary_skill_id: PR-03
+skill_title: Индикаторы и линейность матожидания
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-03
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-expectation
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-03
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-040
+  legacy_type: PR-03
+  source_reference: classic
+  source_file: Задачи/P-040 - Distinct faces in ten rolls.md
+  source_sha256: a57ff1be32fd5f63ce073749bb69e2dc8f0bb16981fc3391153215debecb9295
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: A fair die is rolled 10 times. Find the expected number of distinct faces that appear.
+solution: $E=6\left(1-\left(\frac56\right)^{10}\right)\approx5.03$.
+remember: '**«Expected number of distinct …»** → indicator per possible value, probability via the complement «never».'
+hints:
+- 'Indicator for each face: does it appear at least once?'
+- $P(\text{face }j\text{ never appears})=\left(\frac56\right)^{10}$.
+- '📘 Ядро темы: [индикаторы](study-material:vault-expectation#^ind). Глубже — Blitzstein–Hwang, 4.4.
+
+
+  [Матожидание, дисперсия и индикаторы](study-material:vault-expectation#^ind)'
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-expectation/core

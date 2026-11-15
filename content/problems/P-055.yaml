@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-055
+title: The min matrix
+primary_skill_id: LA-01
+skill_title: Определители особой структуры
+secondary_skill_ids: []
+problem_family_id: unclassified-LA-01
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: linalg
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: LA-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-055
+  legacy_type: LA-01
+  source_reference: classic
+  source_file: Задачи/P-055 - The min matrix.md
+  source_sha256: 4df7e0fb1e45e942aec7cb0ba3ad39391c29f5ac22c398751ce7903e15e44177
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Compute the determinant of the $n\times n$ matrix with entries $a_{ij}=\min(i,j)$.
+solution: Row $k$ is $(1,2,\dots,k-1,k,k,\dots,k)$. Then $R_k-R_{k-1}=(0,\dots,0,1,1,\dots,1)$ with the first $1$ in position $k$. After these operations (from the bottom up) the matrix is upper triangular with ones on the diagonal, so $\det=1$.
+remember: '**Structured matrix with growing rows** → subtract neighbouring rows to expose a triangular shape. Check on $n=2$: $\det\begin{pmatrix}1&1\\1&2\end{pmatrix}=1$.'
+hints:
+- 'Elementary row operations: subtract each row from the next one, starting from the bottom.'
+- After $R_k\to R_k-R_{k-1}$ for $k=n,\dots,2$ the matrix becomes upper triangular with ones on the diagonal.
+- Determinants, row operations — Axler, ch. 10.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,49 @@
+schema_version: 1
+id: P-024
+title: Two definite integrals
+primary_skill_id: CA-04
+skill_title: Набор приёмов интегрирования
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-04
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-04
+  title: Часть (a)
+- id: b
+  skill_id: CA-04
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-024
+  legacy_type: CA-04
+  source_reference: classic
+  source_file: Задачи/P-024 - Two definite integrals.md
+  source_sha256: e21250429c14285ef13a0cfae5a9fd89f5c6a471944232d8cc4f06a9b37a00ca
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Compute (a) $\displaystyle\int_0^{\pi/2}\sin^4x\,dx$; (b) $\displaystyle\int_0^\infty x^4e^{-x}\,dx$.
+solution: '(a) The cosines integrate to $0$ over $[0,\frac\pi2]$, so the answer is $\frac38\cdot\frac\pi2=\frac{3\pi}{16}$.
+
+  (b) $I_n=nI_{n-1}$, $I_0=1$, so $I_4=4!=24$.'
+remember: '**Even powers of $\sin$, $\cos$** → half-angle formulas. **$\int_0^\infty x^ne^{-x}=n!$** — memorise; with $e^{-ax}$ it is $\frac{n!}{a^{n+1}}$.'
+hints:
+- (a) Lower the power with $\sin^2x=\frac{1-\cos2x}2$. (b) Integrate by parts repeatedly.
+- (a) $\sin^4x=\frac38-\frac12\cos2x+\frac18\cos4x$. (b) $I_n=\int_0^\infty x^ne^{-x}dx=nI_{n-1}$.
+- Integration techniques — MIT Матан 07 · Integration *(ссылка в исходном vault)*; the Gamma function $\Gamma(n+1)=n!$.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

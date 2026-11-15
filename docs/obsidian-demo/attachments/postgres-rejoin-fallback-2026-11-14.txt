@@ -1,0 +1,1 @@
+Old primary safely rejoined as synchronous standby via verified-basebackup.

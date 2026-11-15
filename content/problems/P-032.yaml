@@ -1,0 +1,53 @@
+schema_version: 1
+id: P-032
+title: Sum and ratio of exponentials
+primary_skill_id: PR-07
+skill_title: Преобразования и совместные плотности
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-07
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-07
+  title: Часть (a)
+- id: b
+  skill_id: PR-07
+  title: Часть (b)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-032
+  legacy_type: PR-07
+  source_reference: classic
+  source_file: Задачи/P-032 - Sum and ratio of exponentials.md
+  source_sha256: 892c965e8faa8485d1edc4a09f26166bb0aae9a1c24967dbdced26823a8e6152
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Let $X$ and $Y$ be independent with the exponential distribution of rate 1 (density $e^{-x}$ for $x\ge0$).
+
+  (a) Find the density of $X+Y$.
+
+  (b) Find the distribution of $\dfrac X{X+Y}$.'
+solution: '(a) $f_{X+Y}(s)=\int_0^se^{-s}\,dx=se^{-s}$, $s\ge0$ (Gamma(2,1)).
+
+  (b) For $0<t<1$, with $c=\frac t{1-t}$: $P(X\le cY)=\int_0^\infty e^{-y}(1-e^{-cy})\,dy=1-\frac1{1+c}=t$. So $\frac X{X+Y}$ is **uniform on $(0,1)$** (and, in fact, independent of $X+Y$).'
+remember: '**Distribution of $g(X,Y)$** → write the CDF as the probability of a region and integrate the joint density. Sum of $n$ i.i.d. Exp(1) is Gamma($n$,1).'
+hints:
+- (a) Convolution. (b) Compute the CDF $P\left(\frac X{X+Y}\le t\right)$ and rewrite the event in terms of $X$ and $Y$.
+- (a) $f(s)=\int_0^se^{-x}e^{-(s-x)}dx$. (b) $\frac X{X+Y}\le t\iff X\le\frac t{1-t}Y$; integrate over $Y$ first.
+- Sums and transformations of continuous variables — Blitzstein–Hwang, 8.1–8.2, 8.4.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

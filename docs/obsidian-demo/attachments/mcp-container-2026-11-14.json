@@ -1,0 +1,17 @@
+{
+  "transport": "Docker stdio, no TTY",
+  "tools": [
+    "append_review",
+    "begin_tutoring",
+    "get_job",
+    "get_material",
+    "get_progress_summary",
+    "get_study_context",
+    "list_review_queue",
+    "propose_progress_correction",
+    "request_export"
+  ],
+  "read_call": "passed",
+  "desktop_host_registered": false,
+  "mutating_calls": 0
+}

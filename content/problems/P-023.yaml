@@ -1,0 +1,46 @@
+schema_version: 1
+id: P-023
+title: Partial fractions
+primary_skill_id: CA-04
+skill_title: Набор приёмов интегрирования
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-04
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-04
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-023
+  legacy_type: CA-04
+  source_reference: classic
+  source_file: Задачи/P-023 - Partial fractions.md
+  source_sha256: 5b0489c83467f2a555d174367a750daa0ea302608d3b5369ea03be1fc305b7f8
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Compute $\displaystyle\int\frac{dx}{x^2(x+1)}$.
+solution: '$x=0$: $B=1$; $x=-1$: $C=1$; $x^2$: $A+C=0$, $A=-1$. So
+
+  $$\int\frac{dx}{x^2(x+1)}=-\ln|x|-\frac1x+\ln|x+1|+C.$$'
+remember: '**Double root** → terms $\frac A{x-a}+\frac B{(x-a)^2}$. Constants: plug in the roots, then compare top coefficients. If $\deg P\ge\deg Q$, divide first.'
+hints:
+- 'The denominator has a double root at $0$: template $\frac Ax+\frac B{x^2}+\frac C{x+1}$.'
+- '$1=Ax(x+1)+B(x+1)+Cx^2$: plug in $x=0$ and $x=-1$, then compare the $x^2$ coefficients.'
+- Partial fractions — MIT Матан 07 · Integration *(ссылка в исходном vault)*, Partial fractions *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,16 @@
+.git
+.deps
+.private
+.secrets
+.cache
+runtime
+**/node_modules
+**/dist
+**/__pycache__
+Task
+docs
+outputs
+.pytest_cache
+**/test-results
+**/playwright-report
+**/.DS_Store

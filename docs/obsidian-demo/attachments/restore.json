@@ -1,0 +1,55 @@
+{
+  "project": "crucible-restore-final",
+  "port": 18082,
+  "backup_sha256": "3315b37463f98a272872acf173d3dd4f7449f215e96797f53f6641578237bee2",
+  "tables_verified": {
+    "content": [
+      "active_publication|1",
+      "command_receipts|7",
+      "outbox|5",
+      "releases|2",
+      "schema_migrations|2",
+      "source_stream|1"
+    ],
+    "practice": [
+      "attempt_revisions|99",
+      "attempts|28",
+      "command_receipts|127",
+      "correction_proposals|8",
+      "login_limits|1",
+      "outbox|72",
+      "questions|9",
+      "reviews|11",
+      "schema_migrations|1",
+      "sessions|3",
+      "source_stream|1"
+    ],
+    "learning": [
+      "attempt_facts_projection|28",
+      "catalog_projection|1",
+      "command_receipts|5",
+      "daily_plan_revisions|1",
+      "daily_plans|1",
+      "inbox_receipts|76",
+      "outbox|118",
+      "plan_drafts|0",
+      "schema_migrations|2",
+      "settings_revisions|1",
+      "settings|1",
+      "source_cursors|2",
+      "source_stream|1"
+    ],
+    "reports": [
+      "command_receipts|5",
+      "inbox_receipts|128",
+      "jobs|5",
+      "outbox|10",
+      "schema_migrations|1",
+      "source_stream|1"
+    ]
+  },
+  "seconds": 344.3734233379364,
+  "retained_outbox_replayed": true,
+  "applied_practice_seq": 72,
+  "resumed_after_docker_address_pool_exhaustion": true
+}

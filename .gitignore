@@ -1,0 +1,39 @@
+# Секреты, приватные копии и локальное состояние.
+.env
+.env.*
+!.env.example
+!.env.sample
+.secrets/
+.private/
+*.cruciblebackup
+*.dump
+runtime/
+exports/
+backups/
+outputs/
+
+# Зависимости и результаты сборки.
+.deps/
+.cache/
+node_modules/
+dist/
+.venv/
+venv/
+
+# Кэши и результаты проверок.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage/
+htmlcov/
+playwright-report/
+test-results/
+*.log
+
+# Файлы компьютера и IDE.
+.DS_Store
+.idea/

@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-14 16:33:50.576540+00:00",
+  "primary_fenced": true,
+  "promoted": "standby",
+  "attempt_id": "35b54958-e41d-4a40-b01a-4171c8380ff4",
+  "preserved_revision": 1,
+  "new_revision": 2,
+  "write_rto_seconds": 0.6457432080060244,
+  "learning_caught_up": true,
+  "export_job": "dfb57f7b-452b-41db-b869-f18048cec701",
+  "rpo_confirmed_marker_loss": 0
+}

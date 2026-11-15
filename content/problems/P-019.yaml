@@ -1,0 +1,46 @@
+schema_version: 1
+id: P-019
+title: Bounds for the logarithm
+primary_skill_id: CA-07
+skill_title: Конструкции с теоремами Ролля и Лагранжа
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-07
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-07
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-019
+  legacy_type: CA-07
+  source_reference: classic
+  source_file: Задачи/P-019 - Bounds for the logarithm.md
+  source_sha256: ea76b4f3fbda97c20aea56573fa28d2880c4319500c80b2fc3a643a24b20f2a1
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Prove that for $0<a<b$
+
+  $$\frac{b-a}b<\ln\frac ba<\frac{b-a}a.$$'
+solution: By the MVT, $\ln b-\ln a=\frac1c(b-a)$ with $a<c<b$. Since $\frac1b<\frac1c<\frac1a$ and $b-a>0$, the inequalities follow.
+remember: '**Bound a difference $f(b)-f(a)$** → MVT, then bound $f''$ on the interval.'
+hints:
+- Mean-value theorem for $\ln$ on $[a,b]$.
+- $\ln b-\ln a=\frac{b-a}c$ for some $c\in(a,b)$, and $\frac1b<\frac1c<\frac1a$.
+- Mean-value theorem — MIT Матан 06 · Mean-value theorem *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

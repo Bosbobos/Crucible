@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-044
+title: An Euler equation
+primary_skill_id: OD-04
+skill_title: Уравнение Эйлера
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-04
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-04
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-044
+  legacy_type: OD-04
+  source_reference: classic
+  source_file: Задачи/P-044 - An Euler equation.md
+  source_sha256: dc197c8e9149582597f95b0561f4412fd9637850c475cef67a4232ab4f6a6289
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find the general solution of $x^2y''-2xy'+2y=0$ on $x>0$.
+solution: $r=1,2$, so $y=C_1x+C_2x^2$. (Equivalently, $x=e^t$ turns it into $\ddot y-3\dot y+2y=0$.)
+remember: '**$x^2y''''+axy''+by=0$** → $y=x^r$, $r(r-1)+ar+b=0$; or substitute $x=e^t$ to get constant coefficients.'
+hints:
+- 'Coefficients are powers of $x$ matching the order of the derivative: try $y=x^r$.'
+- $r(r-1)-2r+2=0$, i.e. $r^2-3r+2=0$.
+- Euler equations — Arnold, ODE, ch. 3.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

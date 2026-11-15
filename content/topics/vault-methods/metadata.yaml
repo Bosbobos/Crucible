@@ -1,0 +1,10 @@
+id: vault-methods
+title: Карта приёмов
+widget: null
+skill_ids: []
+prerequisites: []
+provenance:
+  kind: obsidian_vault
+  source_file: Ядро темы/Карта приёмов.md
+  source_sha256: 8754c21fe9ce8bfeb651dc230fd68c45535591f074bd24fb730007e414ccba13
+  adaptation: Formatting and data-only widget conversion; no new educational prose

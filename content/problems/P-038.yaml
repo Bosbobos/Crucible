@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-038
+title: Different birth months
+primary_skill_id: PR-10
+skill_title: Комбинаторная вероятность и симметрия
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-10
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-10
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-038
+  legacy_type: PR-10
+  source_reference: classic
+  source_file: Задачи/P-038 - Different birth months.md
+  source_sha256: 92fe04781280369eb33006e7b5e70b8eb95e2cd269bd9d8296a1da22fcb90245
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Five people are chosen at random; each is equally likely to be born in any of the 12 months, independently. Find the probability that all five are born in different months.
+solution: $P=\dfrac{12\cdot11\cdot10\cdot9\cdot8}{12^5}=\dfrac{95040}{248832}\approx0.382$.
+remember: '**«All different»** → falling factorial over the total; for «at least two coincide» take the complement.'
+hints:
+- 'Count ordered outcomes: total $12^5$.'
+- 'Favourable: $12\cdot11\cdot10\cdot9\cdot8$.'
+- Counting, birthday problem — Blitzstein–Hwang, 1.4.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

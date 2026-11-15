@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-13 16:35:29.822650+00:00",
+  "results": [
+    {
+      "owner": "content",
+      "checks": [
+        {
+          "target": "content",
+          "connected": true
+        },
+        {
+          "target": "practice",
+          "connected": false
+        },
+        {
+          "target": "learning",
+          "connected": false
+        },
+        {
+          "target": "reports",
+          "connected": false
+        }
+      ]
+    },
+    {
+      "owner": "practice",
+      "checks": [
+        {
+          "target": "content",
+          "connected": false
+        },
+        {
+          "target": "practice",
+          "connected": true
+        },
+        {
+          "target": "learning",
+          "connected": false
+        },
+        {
+          "target": "reports",
+          "connected": false
+        }
+      ]
+    },
+    {
+      "owner": "learning",
+      "checks": [
+        {
+          "target": "content",
+          "connected": false
+        },
+        {
+          "target": "practice",
+          "connected": false
+        },
+        {
+          "target": "learning",
+          "connected": true
+        },
+        {
+          "target": "reports",
+          "connected": false
+        }
+      ]
+    },
+    {
+      "owner": "reports",
+      "checks": [
+        {
+          "target": "content",
+          "connected": false
+        },
+        {
+          "target": "practice",
+          "connected": false
+        },
+        {
+          "target": "learning",
+          "connected": false
+        },
+        {
+          "target": "reports",
+          "connected": true
+        }
+      ]
+    }
+  ],
+  "crud": "passed on ephemeral plan draft"
+}

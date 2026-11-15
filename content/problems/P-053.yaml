@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-053
+title: Near the definition of e
+primary_skill_id: CA-01
+skill_title: Пределы через Тейлора и $o(\cdot)$
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-01
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-053
+  legacy_type: CA-01
+  source_reference: classic
+  source_file: Задачи/P-053 - Near the definition of e.md
+  source_sha256: 795174a7b8ce73cbce703899cb6f3f4e924b1677c3c8dc59f325df864fb6f4ee
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find $\displaystyle\lim_{x\to0}\frac{(1+x)^{1/x}-e}x$.
+solution: $(1+x)^{1/x}=e\cdot e^{-x/2+o(x)}=e-\frac e2x+o(x)$, so the limit is $-\frac e2$.
+remember: '**Limits around $e$** → $f^g=e^{g\ln f}$, expand the exponent one order further than needed for the limit itself.'
+hints:
+- Write $(1+x)^{1/x}=e^{\ln(1+x)/x}$ and expand the exponent.
+- $\frac{\ln(1+x)}x=1-\frac x2+o(x)$, so $(1+x)^{1/x}=e\cdot e^{-x/2+o(x)}=e\left(1-\frac x2\right)+o(x)$.
+- Taylor's formula — MIT Матан 09 · Taylor's formula *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

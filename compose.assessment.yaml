@@ -1,0 +1,64 @@
+name: crucible-assessment
+x-rabbit: &rabbit
+  image: rabbitmq:4-management@sha256:753099a19b577c322117f793f864b3129cbba96d40317221a69d73976e3c843c
+  entrypoint: [bash, /opt/crucible-entrypoint.sh]
+  environment: {RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: '+S 2:2'}
+  secrets: [rabbit_definitions, erlang_cookie]
+  networks: [messages]
+  healthcheck:
+    test: [CMD-SHELL, 'export RABBITMQ_ERLANG_COOKIE=$$(cat /run/secrets/erlang_cookie); rabbitmq-diagnostics -q check_running']
+    interval: 5s
+    timeout: 5s
+    retries: 40
+  mem_limit: 512m
+services:
+  postgres:
+    secrets: [replication_password]
+    environment: {POSTGRES_INITDB_ARGS: --data-checksums}
+    command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
+    volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+  standby:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    entrypoint: [bash, /opt/crucible-standby.sh]
+    volumes: [standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [replication_password, pg_admin]
+    networks: [storage]
+    depends_on: {postgres: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    mem_limit: 512m
+  rabbitmq:
+    <<: *rabbit
+    hostname: rabbitmq
+    volumes: [./infra/rabbitmq/cluster.conf:/etc/rabbitmq/rabbitmq.conf:ro, ./infra/rabbitmq/entrypoint.sh:/opt/crucible-entrypoint.sh:ro]
+  rabbitmq2:
+    <<: *rabbit
+    hostname: rabbitmq2
+    volumes: [rabbit2-data:/var/lib/rabbitmq, ./infra/rabbitmq/cluster.conf:/etc/rabbitmq/rabbitmq.conf:ro, ./infra/rabbitmq/entrypoint.sh:/opt/crucible-entrypoint.sh:ro]
+    depends_on: {rabbitmq: {condition: service_started}}
+  rabbitmq3:
+    <<: *rabbit
+    hostname: rabbitmq3
+    volumes: [rabbit3-data:/var/lib/rabbitmq, ./infra/rabbitmq/cluster.conf:/etc/rabbitmq/rabbitmq.conf:ro, ./infra/rabbitmq/entrypoint.sh:/opt/crucible-entrypoint.sh:ro]
+    depends_on: {rabbitmq: {condition: service_started}}
+  web:
+    ports: !override [127.0.0.1:18081:8080]
+volumes:
+  standby-data:
+  rabbit2-data:
+  rabbit3-data:
+secrets:
+  mcp: {file: .secrets/assessment/mcp.json}
+  operator: {file: .secrets/assessment/operator.json}
+  pg_admin: {file: .secrets/pg-admin}
+  postgres_init: {file: .secrets/assessment/postgres-init.sql}
+  migrations: {file: .secrets/assessment/migrations.json}
+  content_config: {file: .secrets/assessment/content.json}
+  practice_config: {file: .secrets/assessment/practice.json}
+  learning_config: {file: .secrets/assessment/learning.json}
+  reports_config: {file: .secrets/assessment/reports.json}
+  replication_password: {file: .secrets/assessment/replication-password}
+  erlang_cookie: {file: .secrets/assessment/erlang-cookie}

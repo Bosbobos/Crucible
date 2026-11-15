@@ -1,0 +1,16 @@
+# MCP получает только Python SDK и собственный адаптер.
+FROM python:3.11-slim@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535
+# Рабочий каталог не монтирует авторский репозиторий.
+WORKDIR /app
+# Версии совпадают с backend и тестами.
+COPY requirements.lock .
+# Установка происходит один раз при сборке.
+RUN pip install --no-cache-dir -r requirements.lock
+# Ни scripts, ни content, ни SQL в образ MCP не попадают.
+COPY apps/study_mcp ./study_mcp
+# Конфигурация монтируется отдельным scoped secret.
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 CRUCIBLE_MCP_CONFIG=/run/secrets/mcp CRUCIBLE_MCP_BASE_URL=http://web:8080
+# Учебный адаптер не является оператором Docker.
+USER 10001:10001
+# stdin/stdout остаются транспортом JSON-RPC.
+CMD ["python", "-m", "study_mcp.main"]

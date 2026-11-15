@@ -1,0 +1,158 @@
+{
+  "at": "2026-11-13 16:38:31.724410+00:00",
+  "assessment": false,
+  "checks": [
+    {
+      "source": "web",
+      "target": "content",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "web",
+      "target": "practice",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "web",
+      "target": "learning",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "web",
+      "target": "reports",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "content",
+      "target": "postgres",
+      "port": 5432,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "content",
+      "target": "rabbitmq",
+      "port": 5672,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "practice",
+      "target": "postgres",
+      "port": 5432,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "practice",
+      "target": "rabbitmq",
+      "port": 5672,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "practice",
+      "target": "content",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "learning",
+      "target": "postgres",
+      "port": 5432,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "learning",
+      "target": "rabbitmq",
+      "port": 5672,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "learning",
+      "target": "redis",
+      "port": 6379,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "reports",
+      "target": "postgres",
+      "port": 5432,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "reports",
+      "target": "rabbitmq",
+      "port": 5672,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "reports",
+      "target": "practice",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "reports",
+      "target": "learning",
+      "port": 8000,
+      "allowed": true,
+      "expected": true
+    },
+    {
+      "source": "web",
+      "target": "postgres",
+      "port": 5432,
+      "allowed": false,
+      "expected": false
+    },
+    {
+      "source": "web",
+      "target": "redis",
+      "port": 6379,
+      "allowed": false,
+      "expected": false
+    },
+    {
+      "source": "content",
+      "target": "practice",
+      "port": 8000,
+      "allowed": false,
+      "expected": false
+    },
+    {
+      "source": "practice",
+      "target": "redis",
+      "port": 6379,
+      "allowed": false,
+      "expected": false
+    },
+    {
+      "source": "learning",
+      "target": "practice",
+      "port": 8000,
+      "allowed": false,
+      "expected": false
+    },
+    {
+      "scenario": "remove required learning→postgres permission",
+      "blocked": true
+    }
+  ],
+  "scope": "container network namespaces, Docker Desktop Linux VM; host rules untouched"
+}

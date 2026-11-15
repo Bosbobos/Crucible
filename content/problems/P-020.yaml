@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-020
+title: f″(c) = 2
+primary_skill_id: CA-07
+skill_title: Конструкции с теоремами Ролля и Лагранжа
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-07
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-07
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-020
+  legacy_type: CA-07
+  source_reference: classic
+  source_file: Задачи/P-020 - f''(c) = 2.md
+  source_sha256: d589bc005f32362fba1aa138b5986339fcf092a0df8f682c741ff4ad1e4c7a35
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Let $f$ be twice differentiable on $[0,2]$ with $f(0)=0$, $f(1)=1$, $f(2)=4$. Prove that $f''(c)=2$ for some $c\in(0,2)$.
+solution: $g(x)=f(x)-x^2$ has $g(0)=g(1)=g(2)=0$. Rolle on $[0,1]$ and $[1,2]$ gives $c_1<c_2$ with $g'(c_1)=g'(c_2)=0$; Rolle for $g'$ on $[c_1,c_2]$ gives $c$ with $g''(c)=0$, i.e. $f''(c)=2$.
+remember: '**$k+1$ zeros of $g$ → a zero of $g^{(k)}$.** Subtract the polynomial that interpolates the given values.'
+hints:
+- Subtract the obvious function with the same values and second derivative 2.
+- $g=f-x^2$ vanishes at $0,1,2$. Apply Rolle twice.
+- Rolle's theorem — MIT Матан 06 · Mean-value theorem *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

@@ -1,0 +1,209 @@
+{
+  "at": "2026-11-14T16:59:49.088666+00:00",
+  "source_commit": null,
+  "source_commit_note": "Checkout не содержит Git-метаданных; используются SHA-256 исходников.",
+  "projects": {
+    "daily_test": "crucible-container-ops-check",
+    "assessment_test": "crucible-container-assessment-check",
+    "restore_test": "crucible-restore-container-check",
+    "main": "crucible"
+  },
+  "host_runtime_stubs": [
+    "python",
+    "python3",
+    "conda",
+    "node",
+    "npm",
+    "npx"
+  ],
+  "tests": {
+    "python_total_passed": 25,
+    "ordinary_python": 17,
+    "api_mcp_integration": 5,
+    "resilience": 3,
+    "playwright_passed": 5,
+    "firewall_scenarios": 26,
+    "shell_syntax": "passed",
+    "compose_configurations": "passed"
+  },
+  "isolation": {
+    "platform": "linux",
+    "docker_socket": false,
+    "host_secrets": false
+  },
+  "mcp": {
+    "transport": "Docker stdio, no TTY",
+    "tools": [
+      "append_review",
+      "begin_tutoring",
+      "get_job",
+      "get_material",
+      "get_progress_summary",
+      "get_study_context",
+      "list_review_queue",
+      "propose_progress_correction",
+      "request_export"
+    ],
+    "read_call": "passed",
+    "desktop_host_registered": false,
+    "mutating_calls": 0
+  },
+  "operator_checks": {
+    "sql_own_allowed": 4,
+    "sql_cross_db_denied": 12,
+    "crud": "passed",
+    "backup": "passed",
+    "restore": "passed",
+    "projection_rebuild": "passed",
+    "replay_outbox": "passed",
+    "export_contracts": "passed",
+    "review_import_idempotency": "passed"
+  },
+  "reliability": {
+    "postgres_failover": {
+      "at": "2026-11-14 16:33:50.576540+00:00",
+      "primary_fenced": true,
+      "promoted": "standby",
+      "attempt_id": "35b54958-e41d-4a40-b01a-4171c8380ff4",
+      "preserved_revision": 1,
+      "new_revision": 2,
+      "write_rto_seconds": 0.6457432080060244,
+      "learning_caught_up": true,
+      "export_job": "dfb57f7b-452b-41db-b869-f18048cec701",
+      "rpo_confirmed_marker_loss": 0
+    },
+    "postgres_rejoin_latest": {
+      "at": "2026-11-14 16:48:02.241703+00:00",
+      "old_primary_role": "standby",
+      "new_primary": "standby",
+      "method": "already-running-standby",
+      "old_pgdata_retained": true,
+      "retained_pgdata_archives": [
+        ".pre-rejoin-20261114T163958Z"
+      ],
+      "archive_created_this_run": false,
+      "replication": "crucible_rejoined:streaming:sync"
+    },
+    "verified_basebackup_fallback_exercised": true,
+    "fallback_evidence": "postgres-rejoin-fallback-2026-11-14.txt",
+    "rabbit_failover": {
+      "at": "2026-11-14 16:44:40.989758+00:00",
+      "leader_before": "rabbit@rabbitmq2",
+      "leader_after": "rabbit@rabbitmq3",
+      "queues_before": [
+        {
+          "name": "reports.in",
+          "type": "quorum",
+          "leader": "rabbit@rabbitmq2",
+          "members": [
+            "rabbit@rabbitmq2",
+            "rabbit@rabbitmq",
+            "rabbit@rabbitmq3"
+          ]
+        },
+        {
+          "name": "learning.in",
+          "type": "quorum",
+          "leader": "rabbit@rabbitmq2",
+          "members": [
+            "rabbit@rabbitmq2",
+            "rabbit@rabbitmq",
+            "rabbit@rabbitmq3"
+          ]
+        },
+        {
+          "name": "learning.dlq",
+          "type": "quorum",
+          "leader": "rabbit@rabbitmq2",
+          "members": [
+            "rabbit@rabbitmq2",
+            "rabbit@rabbitmq",
+            "rabbit@rabbitmq3"
+          ]
+        },
+        {
+          "name": "reports.dlq",
+          "type": "quorum",
+          "leader": "rabbit@rabbitmq2",
+          "members": [
+            "rabbit@rabbitmq2",
+            "rabbit@rabbitmq",
+            "rabbit@rabbitmq3"
+          ]
+        }
+      ],
+      "delivery_resumed_seconds": 1.1410539589996915,
+      "applied_practice_seq": 6
+    },
+    "restore_seconds": 22.916364884993527,
+    "metrics_scope": "Одиночные синтетические drills на одном Docker Desktop; не статистические SLO/MTTR."
+  },
+  "main_preservation": {
+    "original_secret_files_unchanged": 45,
+    "original_vault_modified": false,
+    "main_fault_drills_run": false,
+    "main_mcp_readonly": "passed",
+    "main_doctor": "passed"
+  },
+  "manual_deployment_document": "docs/deployment.md",
+  "commented_shell_scripts": [
+    "scripts/deploy",
+    "scripts/compose.sh",
+    "scripts/doctor",
+    "scripts/firewall",
+    "scripts/operator",
+    "scripts/test",
+    "scripts/assessment",
+    "scripts/restore",
+    "scripts/study-mcp",
+    "scripts/python"
+  ],
+  "limitations": [
+    "Регистрация конкретного desktop/IDE MCP-host не проверена.",
+    "Operator имеет полный административный Docker socket; не sandbox.",
+    "Нет проверки публичного Git-клона и полного релиза P/D.",
+    "Старая копия PGDATA после fallback сохраняется; автоматического retention нет."
+  ],
+  "source_sha256": {
+    "Makefile": "7105f8aa4bb7beab37f65c98ed578f234cf78f674572ff240d761ff6a6aa044e",
+    "compose.yaml": "165d79af615b3a00064417a42adcfb3184e0b19e42f456b72b47b7326f51f779",
+    "compose.bootstrap.yaml": "8f848177a354f1120884f213a7db3f9faeb10b7bcd21a39092c0c376b791656a",
+    "compose.assessment.yaml": "131d619df51979083a45a7b4a61051d7a2ccc51fb2f63f0603f0be5612584e2d",
+    "compose.tasks.yaml": "c0efd67118c48a8e6175fa0bc162e65954f2e542696c511ee5f41e39e88e3db8",
+    "compose.e2e.yaml": "7af9898fd457940cea76b9d6afd1691b4646281a35fedcc2b9fbfc29c38ea7ae",
+    ".dockerignore": "119235889e1d3c485fcab7bec6502e8de546e0a17cc1dfcd30512bda0a1d1ddc",
+    "infra/Dockerfile.operator": "75037ddd9585cc2e3ccabb2583bb3d0117dbc4fc6cf622f4c7bec315c3adf45a",
+    "infra/Dockerfile.mcp": "a0e2ba50cdb503f8cb666ba40cd249373588b132abbe5d8e1c6e3a2f6874e87a",
+    "infra/Dockerfile.e2e": "39015ed2c2ac463aa7822b5ab0a2a5dbacfb6d261cffc332eddfbefde2b266b2",
+    "scripts/deploy": "08c2583736537cfadb1040a985ac4ea7ba151d4b84e5f1cee3751594cfaf5868",
+    "scripts/compose.sh": "2ecd6b2c1a9de360ca7e7f2c4218e7451a0ca61dc9e2ae7c652ad6c51bfef82c",
+    "scripts/doctor": "f2838ac8cf1d4c8ee5dde3183be5c9d3101374031a371f687da9dad66762e202",
+    "scripts/firewall": "f4dc3617ac1371f6f9a469c56129b34dc1fdd0f391de4b42a5fd6c122b3689de",
+    "scripts/operator": "5c1efc6eb85a11e76da2e48cf919ee38a3f3419f16e5fb72780afb94dcc293f5",
+    "scripts/test": "188487708ac38cf8099210781e720c3a53454b79a97e293a3586fc27070311ae",
+    "scripts/assessment": "bcaabc096e8e89f3a960051b10dbd3ffb8b5cf0b1e97349a3573db787d2b3aeb",
+    "scripts/restore": "841d4b81bd63f97b64b0a406ae3992ea6bcedc5b175413f9240b50a5409ffa64",
+    "scripts/python": "77971423bd50611ec655caed0dfdb94789dc5177a3fab65b96ac3cb4e15c2265",
+    "scripts/study-mcp": "ab07b315fecec0b18479a813aa1eb41340cee757dbe2c0310179568567edf6c5",
+    "scripts/ops.py": "a7d196ff0e4129b40b419f333dd908a0761f237f1f9241191f36b2500776dd1c",
+    "scripts/assessment.py": "518d30dcff27417ed40a7e28cf724c30b0783a113ec4c024f03166e1d7822735",
+    "scripts/backup.py": "91f3bcaac7e20bec0947e4b3b4f1c69ce1da286e5ff1fda99371a13f9cfdcb9d",
+    "scripts/restore.py": "7fc4cdbf1503f07b7c10054c4d756a040876b8db817127e0383e6576cabcbbbd",
+    "scripts/prepare_assessment.py": "e69d1be30691aa51feec321ee3983118b1be62509138b684a5171a15ef2cc905",
+    "scripts/rebuild_learning_projections.py": "d0cbf22d3f53ee9b2e5558f54d4277f38e7f72b3a4a1a0b308cf8eb60e0677e3",
+    "scripts/import_review.py": "bf6664e9054af3a37ac86709aac07188a2ce08a675ef06a2e2a370b45af69d6a",
+    "scripts/check_mcp.py": "5f9802d6acfefe05ada2623dc82867b19652bbf047e45518fcf60ff6a3e77f81",
+    "scripts/e2e-run.mjs": "23489dd8d680cd514123d270eda8baf67b87a843b78589ef7ef2243cc00ad2a8",
+    "apps/study_mcp/main.py": "3178d5e1e14a3453b43ce2ddc27d04bc41884e798a51c2f27fadff3f482c3743",
+    "tests/integration/test_mcp.py": "38b3a361d42bad7f4c511fd5bf2c0ccb9d652788d03b0298a018d1bed6b0903f",
+    "tests/integration/test_workflow.py": "d8cc3d710cfbb87ea6a7f873a78e7876cf74aa92a521603e93b3162fede044b2",
+    "apps/web/playwright.config.ts": "d45d816a90ec24f33774c1bd9cc572edb8c79398960f5dbf35ddfb7b85363cfa",
+    "apps/web/e2e/workflow.spec.ts": "65ae5cb79cb8108e5627a97b40bc26c5ef056672404ccccaae32d2c139354161"
+  },
+  "temporary_projects_removed": true,
+  "documentation": {
+    "manual_before_automation": true,
+    "shell_scripts_embedded_verbatim": 10,
+    "all_shell_executable_lines_commented": true
+  }
+}

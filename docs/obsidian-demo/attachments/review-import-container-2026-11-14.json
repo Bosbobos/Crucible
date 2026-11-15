@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "idempotent": true,
+  "source": "synthetic completed attempt",
+  "host_python_required": false
+}

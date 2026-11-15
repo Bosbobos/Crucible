@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-015
+title: A Taylor limit
+primary_skill_id: CA-01
+skill_title: Пределы через Тейлора и $o(\cdot)$
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-01
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-015
+  legacy_type: CA-01
+  source_reference: classic
+  source_file: Задачи/P-015 - A Taylor limit.md
+  source_sha256: 6f9e39dfa4371c475e80cc74c3c874ad23d40e81caf213d6df04d91b0c044fd4
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find $\displaystyle\lim_{x\to0}\frac{\sin x-x\cos x}{x^3}$.
+solution: $\sin x-x\cos x=\left(-\frac16+\frac12\right)x^3+o(x^3)=\frac{x^3}3+o(x^3)$, so the limit is $\frac13$.
+remember: '**$0/0$ with elementary functions** → expand to the first non-vanishing order of the denominator. Faster and safer than L''Hôpital three times.'
+hints:
+- Expand numerator up to $x^3$.
+- $\sin x=x-\frac{x^3}6+o(x^3)$, $x\cos x=x-\frac{x^3}2+o(x^3)$.
+- Taylor's formula with $o(x^n)$ — MIT Матан 09 · Taylor's formula *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

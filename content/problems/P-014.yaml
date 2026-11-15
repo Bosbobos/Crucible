@@ -1,0 +1,45 @@
+schema_version: 1
+id: P-014
+title: A homogeneous equation
+primary_skill_id: OD-01
+skill_title: Разделяющиеся переменные и однородные $y'=f(y/x)$
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-01
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: vault-first-order
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-014
+  legacy_type: OD-01
+  source_reference: classic
+  source_file: Задачи/P-014 - A homogeneous equation.md
+  source_sha256: c0d813e8245874d6561cee298cc561757469f3ea60ad8933b7c0a1e8a2f5206a
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Find all solutions of $y'=\dfrac{x^2+y^2}{xy}$ on $x>0$.
+solution: 'With $y=xv$: $xv''=\frac1v$, so $v\,dv=\frac{dx}x$, $\frac{v^2}2=\ln x+C$. Hence $y^2=2x^2\ln x+Cx^2$, i.e. $y=\pm x\sqrt{2\ln x+C}$ where the root is defined.'
+remember: '**$y''=f(y/x)$** → $y=xv$ turns it into a separable equation for $v$.'
+hints:
+- The right side depends only on $\frac yx$. Substitute $y=xv$.
+- $v+xv'=\frac1v+v$, i.e. $vv'=\frac1x$.
+- 📘 Сначала — [ядро темы «Уравнения первого порядка»](study-material:vault-first-order). Homogeneous equations $y'=f(y/x)$ — Arnold, ODE, ch. 1.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-first-order/core

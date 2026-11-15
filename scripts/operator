@@ -1,0 +1,24 @@
+#!/bin/sh
+# Завершаем сценарий при ошибке или обращении к неопределённой переменной.
+set -eu
+# Работаем из корня репозитория независимо от каталога вызывающего терминала.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Загружаем единый выбор daily/assessment Compose project.
+. scripts/compose.sh
+# Передаём внутрь тот же абсолютный путь: вложенный Docker видит host bind mounts.
+export CRUCIBLE_PROJECT_DIR="$PWD"
+# Фиксируем project выбранной процедуры; socket сам по себе не является sandbox.
+export CRUCIBLE_TARGET_PROJECT="$(crucible_compose config --format yaml | sed -n 's/^name: //p')"
+# Сохраняем явные overlay-файлы вызывающего терминала.
+export CRUCIBLE_SOURCE_COMPOSE_FILE="${COMPOSE_FILE:-$PWD/compose.yaml}"
+# При штатном автоподхвате сохраняем и override-файл в явном списке для дочернего CLI.
+if [ -z "${COMPOSE_FILE:-}" ] && [ -f compose.override.yaml ]; then export CRUCIBLE_SOURCE_COMPOSE_FILE="$PWD/compose.yaml:$PWD/compose.override.yaml"; fi
+# Assessment использует те же два файла и внутри операторского контейнера.
+if [ "${CRUCIBLE_ASSESSMENT:-0}" = 1 ]; then export CRUCIBLE_SOURCE_COMPOSE_FILE="$PWD/compose.yaml:$PWD/compose.assessment.yaml${CRUCIBLE_ASSESSMENT_OVERLAY:+:$CRUCIBLE_ASSESSMENT_OVERLAY}"; fi
+# При offline/повторном показе можно явно использовать уже собранный образ.
+if [ "${CRUCIBLE_BUILD_TOOLS:-1}" = 1 ]; then
+    # Операторский образ собирается host CLI; build-вывод направляется только в stderr.
+    docker compose -f compose.tasks.yaml -p crucible-tasks build operator >&2
+fi # Завершаем выбор повторной сборки.
+# Запускаем Python внутри одноразового администратора Docker; TTY не создаётся.
+exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm -T --no-deps operator "$@"

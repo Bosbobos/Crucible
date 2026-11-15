@@ -1,0 +1,403 @@
+{
+  "$defs": {
+    "Part": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "skill_id": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "skill_id",
+        "title"
+      ],
+      "title": "Part",
+      "type": "object"
+    },
+    "Problem": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^P-\\d{3,6}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "primary_skill_id": {
+          "title": "Primary Skill Id",
+          "type": "string"
+        },
+        "skill_title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Skill Title"
+        },
+        "family_reviewed": {
+          "default": true,
+          "title": "Family Reviewed",
+          "type": "boolean"
+        },
+        "secondary_skill_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Secondary Skill Ids",
+          "type": "array"
+        },
+        "problem_family_id": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Problem Family Id",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "A",
+            "B",
+            "C"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "level_reason": {
+          "minLength": 1,
+          "title": "Level Reason",
+          "type": "string"
+        },
+        "pool": {
+          "enum": [
+            "train",
+            "holdout",
+            "extension"
+          ],
+          "title": "Pool",
+          "type": "string"
+        },
+        "status": {
+          "const": "published",
+          "title": "Status",
+          "type": "string"
+        },
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "topic_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Topic Id"
+        },
+        "estimated_minutes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Minutes"
+        },
+        "content_language": {
+          "const": "en",
+          "title": "Content Language",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "prerequisites": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prerequisites",
+          "type": "array"
+        },
+        "parts": {
+          "items": {
+            "$ref": "#/$defs/Part"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Parts",
+          "type": "array"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "title": "Provenance",
+          "type": "object"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        },
+        "statement": {
+          "maxLength": 30000,
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        },
+        "hints": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Hints",
+          "type": "array"
+        },
+        "solution": {
+          "maxLength": 50000,
+          "minLength": 1,
+          "title": "Solution",
+          "type": "string"
+        },
+        "remember": {
+          "maxLength": 6000,
+          "minLength": 1,
+          "title": "Remember",
+          "type": "string"
+        },
+        "completion_criteria": {
+          "title": "Completion Criteria",
+          "type": "string"
+        },
+        "typical_errors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Typical Errors",
+          "type": "array"
+        },
+        "theory_sections": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Theory Sections",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "title",
+        "primary_skill_id",
+        "secondary_skill_ids",
+        "problem_family_id",
+        "level",
+        "level_reason",
+        "pool",
+        "status",
+        "section",
+        "topic_id",
+        "content_language",
+        "revision",
+        "prerequisites",
+        "parts",
+        "provenance",
+        "review",
+        "statement",
+        "hints",
+        "solution",
+        "remember",
+        "completion_criteria",
+        "typical_errors",
+        "theory_sections"
+      ],
+      "title": "Problem",
+      "type": "object"
+    },
+    "Review": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "verified",
+            "source_preserved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "method": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "method",
+        "reviewed_at"
+      ],
+      "title": "Review",
+      "type": "object"
+    },
+    "Topic": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "widget": {
+          "anyOf": [
+            {
+              "enum": [
+                "expectation",
+                "svd",
+                "vault-indicators"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Widget"
+        },
+        "skill_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Skill Ids",
+          "type": "array"
+        },
+        "prerequisites": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prerequisites",
+          "type": "array"
+        },
+        "core": {
+          "anyOf": [
+            {
+              "maxLength": 120000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Core"
+        },
+        "theory": {
+          "anyOf": [
+            {
+              "maxLength": 120000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Theory"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "title": "Provenance",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "skill_ids",
+        "prerequisites"
+      ],
+      "title": "Topic",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "problems": {
+      "items": {
+        "$ref": "#/$defs/Problem"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Problems",
+      "type": "array"
+    },
+    "topics": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Topic"
+      },
+      "title": "Topics",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "problems",
+    "topics"
+  ],
+  "title": "ContentBundle",
+  "type": "object"
+}

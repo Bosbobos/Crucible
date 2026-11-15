@@ -1,0 +1,48 @@
+schema_version: 1
+id: P-002
+title: Three cards
+primary_skill_id: PR-01
+skill_title: Условная вероятность и ловушки условия
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-01
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: vault-bayes
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-01
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-002
+  legacy_type: PR-01
+  source_reference: classic
+  source_file: Задачи/P-002 - Three cards.md
+  source_sha256: ef80303ee3f92a5d3ea572426fa01cd4c9bd2ac439138e01efbdd0c355d7ddc0
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Three cards are in a hat: one is red on both sides, one is white on both sides, one is red on one side and white on the other. A card is drawn at random and placed on the table with a random side up. The visible side is red. What is the probability that the other side is also red?'
+solution: 'Each of the 6 sides is equally likely to face up. Three of them are red: two belong to the red–red card, one to the red–white card. Given that a red side is up, the probability it belongs to the red–red card is $\frac23$.
+
+
+  Via Bayes: $P(RR\mid \text{red up})=\dfrac{\frac13\cdot1}{\frac13\cdot1+\frac13\cdot\frac12}=\frac23$.'
+remember: The natural guess $\frac12$ treats the two candidate cards as equally likely — but the red–red card is **twice as likely** to show red. Condition on what was actually observed.
+hints:
+- 'Count sides, not cards: the observation is «a red side is visible».'
+- There are 3 red sides, equally likely to be the visible one. On how many of them is the other side red?
+- 📘 Сначала — [ядро темы «Условная вероятность и формула Байеса»](study-material:vault-bayes). Conditional probability, Bayes' formula — Blitzstein–Hwang, 2.3.
+completion_criteria: ''
+typical_errors: []
+theory_sections:
+- vault-bayes/core

@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-034
+title: A linear combination of normals
+primary_skill_id: PR-08
+skill_title: Свойства нормального распределения
+secondary_skill_ids: []
+problem_family_id: unclassified-PR-08
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: probability
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: PR-08
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-034
+  legacy_type: PR-08
+  source_reference: classic
+  source_file: Задачи/P-034 - A linear combination of normals.md
+  source_sha256: 38b39f7f055c3c260f603ccdf7056574ef9f40d9c87723877fff7bc829f8a7a3
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Let $X,Y$ be independent standard normal. Find $P(X>2Y+1)$ in terms of the standard normal CDF $\Phi$.
+solution: $X-2Y\sim N(0,5)$, hence $P(X-2Y>1)=1-\Phi\left(\frac1{\sqrt5}\right)\approx0.327$.
+remember: '**Independent normals** → any linear combination is normal; variances add with squared coefficients. Then standardise.'
+hints:
+- $X-2Y$ is normal. With which mean and variance?
+- $X-2Y\sim N(0,1+4)$, so $P(X-2Y>1)=P\left(Z>\frac1{\sqrt5}\right)$.
+- Linear combinations of independent normals — Blitzstein–Hwang, 7.5.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

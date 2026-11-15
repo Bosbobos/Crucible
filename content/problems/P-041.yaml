@@ -1,0 +1,60 @@
+schema_version: 1
+id: P-041
+title: Three characteristic equations
+primary_skill_id: OD-03
+skill_title: Линейные с постоянными коэффициентами
+secondary_skill_ids: []
+problem_family_id: unclassified-OD-03
+family_reviewed: false
+level: A
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: ode
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: OD-03
+  title: Часть (a)
+- id: b
+  skill_id: OD-03
+  title: Часть (b)
+- id: c
+  skill_id: OD-03
+  title: Часть (c)
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-041
+  legacy_type: OD-03
+  source_reference: classic
+  source_file: Задачи/P-041 - Three characteristic equations.md
+  source_sha256: 05c8539f94ba6b898609da2defcf3d07ef32c8edaf4724892b4308ea6fd52eff
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: 'Find the general solution:
+
+  (a) $y''''-5y''+6y=0$;
+
+  (b) $y''''+2y''+5y=0$;
+
+  (c) $y''''-4y''+4y=0$.'
+solution: '(a) $r^2-5r+6=0$, $r=2,3$: $y=C_1e^{2x}+C_2e^{3x}$.
+
+  (b) $r=-1\pm2i$: $y=e^{-x}(C_1\cos2x+C_2\sin2x)$.
+
+  (c) $r=2$ (double): $y=(C_1+C_2x)e^{2x}$.'
+remember: '**$ay''''+by''+cy=0$** → roots of $ar^2+br+c$: real distinct / complex / double — three formulas to know by heart.'
+hints:
+- 'Try $y=e^{rx}$: you get the characteristic equation $r^2+br+c=0$.'
+- Two real roots → two exponentials; complex roots $\alpha\pm i\beta$ → $e^{\alpha x}\cos\beta x$, $e^{\alpha x}\sin\beta x$; a double root $r$ → $e^{rx}$, $xe^{rx}$.
+- Linear equations with constant coefficients — Hirsch–Smale, ch. 3; the MIT ODE course, lecture 13.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

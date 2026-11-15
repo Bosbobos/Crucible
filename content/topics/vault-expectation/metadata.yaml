@@ -1,0 +1,11 @@
+id: vault-expectation
+title: Матожидание, дисперсия и индикаторы
+widget: vault-indicators
+skill_ids:
+- PR-03
+prerequisites: []
+provenance:
+  kind: obsidian_vault
+  source_file: Ядро темы/Матожидание, дисперсия и индикаторы.md
+  source_sha256: 611dd038c452292166b1d848e3f0d51b8b21079aec807231bf371ddb4bdea4f7
+  adaptation: Formatting and data-only widget conversion; no new educational prose

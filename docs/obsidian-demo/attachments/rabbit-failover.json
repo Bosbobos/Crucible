@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-13 16:21:17.852448+00:00",
+  "leader_before": "rabbit@rabbitmq",
+  "leader_after": "rabbit@rabbitmq2",
+  "queues_before": [
+    {
+      "name": "reports.in",
+      "type": "quorum",
+      "leader": "rabbit@rabbitmq",
+      "members": [
+        "rabbit@rabbitmq",
+        "rabbit@rabbitmq2",
+        "rabbit@rabbitmq3"
+      ]
+    },
+    {
+      "name": "learning.in",
+      "type": "quorum",
+      "leader": "rabbit@rabbitmq",
+      "members": [
+        "rabbit@rabbitmq",
+        "rabbit@rabbitmq2",
+        "rabbit@rabbitmq3"
+      ]
+    },
+    {
+      "name": "learning.dlq",
+      "type": "quorum",
+      "leader": "rabbit@rabbitmq",
+      "members": [
+        "rabbit@rabbitmq",
+        "rabbit@rabbitmq2",
+        "rabbit@rabbitmq3"
+      ]
+    },
+    {
+      "name": "reports.dlq",
+      "type": "quorum",
+      "leader": "rabbit@rabbitmq",
+      "members": [
+        "rabbit@rabbitmq",
+        "rabbit@rabbitmq2",
+        "rabbit@rabbitmq3"
+      ]
+    }
+  ],
+  "delivery_resumed_seconds": 1.1339462920441292,
+  "applied_practice_seq": 4
+}

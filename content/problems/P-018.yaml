@@ -1,0 +1,44 @@
+schema_version: 1
+id: P-018
+title: f′(c) = f(c)
+primary_skill_id: CA-07
+skill_title: Конструкции с теоремами Ролля и Лагранжа
+secondary_skill_ids: []
+problem_family_id: unclassified-CA-07
+family_reviewed: false
+level: B
+level_reason: Уровень из исходной карточки
+pool: train
+status: published
+section: calculus
+topic_id: null
+estimated_minutes: null
+content_language: en
+revision: 1
+prerequisites: []
+parts:
+- id: a
+  skill_id: CA-07
+  title: Результат
+provenance:
+  kind: obsidian_vault
+  legacy_id: P-018
+  legacy_type: CA-07
+  source_reference: classic
+  source_file: Задачи/P-018 - f'(c) = f(c).md
+  source_sha256: 3c92c564165c9a0953d33162872fb886135a6f8e106d17f0a729a332638ebd47
+  mathematical_review: not_performed_on_import
+review:
+  status: source_preserved
+  method: Educational fields extracted from source; structure and checksums checked; not an expert mathematical review
+  reviewed_at: '2026-11-14'
+statement: Let $f$ be continuous on $[a,b]$, differentiable on $(a,b)$, with $f(a)=f(b)=0$. Prove that there is $c\in(a,b)$ with $f'(c)=f(c)$.
+solution: $g(x)=e^{-x}f(x)$ is continuous on $[a,b]$, differentiable on $(a,b)$, $g(a)=g(b)=0$. By Rolle there is $c$ with $0=g'(c)=e^{-c}(f'(c)-f(c))$, and $e^{-c}\ne0$.
+remember: '**$f''=\lambda f$ at a point** → Rolle for $e^{-\lambda x}f(x)$. In general: guess $g$ so that $g''$ equals (nonzero factor) × (target expression).'
+hints:
+- Rolle's theorem for a cleverly chosen auxiliary function that vanishes at $a$ and $b$.
+- 'Take $g(x)=e^{-x}f(x)$: $g''(x)=e^{-x}(f''(x)-f(x))$.'
+- Rolle's theorem — MIT Матан 06 · Mean-value theorem *(ссылка в исходном vault)*.
+completion_criteria: ''
+typical_errors: []
+theory_sections: []

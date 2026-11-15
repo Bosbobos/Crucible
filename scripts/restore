@@ -1,0 +1,11 @@
+#!/bin/sh
+# Ошибка сборки или восстановления становится ненулевым кодом команды.
+set -eu
+# Восстановление использует относительные пути текущего checkout.
+cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+# Доступ к backup не нужен для просмотра подсказки.
+if [ "$#" = 0 ]; then echo 'Usage: scripts/restore BACKUP --project crucible-restore-NEW --port 18082' >&2; exit 2; fi
+# Сборка выполняется с host CLI, которому доступен registry.
+docker compose build content practice learning reports web migrations content-init >&2
+# Новый project и пустые volumes проверяет сам restore до первой записи.
+exec scripts/operator scripts/restore.py "$@"

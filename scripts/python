@@ -1,0 +1,28 @@
+#!/bin/sh
+# Останавливаемся при ошибках; совместимый wrapper больше не требует host Python.
+set -eu
+# Находим репозиторий по расположению самого файла.
+PROJECT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+# В образе используем его Linux-зависимости и не подключаем host .deps.
+if [ "${CRUCIBLE_IN_CONTAINER:-0}" = 1 ]; then
+    # Общие технические пакеты импортируются из исходников текущего checkout.
+    export PYTHONPATH="$PROJECT_ROOT/packages:$PROJECT_ROOT/apps:$PROJECT_ROOT/scripts"
+    # Python уже находится в PATH контейнера.
+    exec python "$@"
+# Локальный IAD остаётся явно включаемым удобством разработчика.
+elif [ "${CRUCIBLE_LOCAL_PYTHON:-0}" = 1 ]; then
+    # Базовый каталог conda используется только в этом необязательном режиме.
+    CONDA_BASE=$(conda info --base)
+    # Локальные зависимости проекта по-прежнему изолированы в .deps.
+    export PYTHONPATH="$PROJECT_ROOT/.deps:$PROJECT_ROOT/packages:$PROJECT_ROOT/apps:$PROJECT_ROOT/scripts"
+    # Путь можно явно задать для другого локального интерпретатора.
+    exec "${CRUCIBLE_PYTHON:-$CONDA_BASE/envs/IAD/bin/python}" "$@"
+else # Выбираем альтернативную ветку того же условия.
+    # Прежний pytest-вызов направляется в тестовый профиль с минимальными правами.
+    if [ "${1:-}" = -m ] && [ "${2:-}" = pytest ] && [ "${CRUCIBLE_RESILIENCE:-0}" != 1 ]; then
+        # API-тесты получают только API-сеть, обычные тесты выполняются без сети.
+        if [ "${CRUCIBLE_INTEGRATION:-0}" = 1 ]; then exec "$PROJECT_ROOT/scripts/test" integration "$@"; else exec "$PROJECT_ROOT/scripts/test" unit "$@"; fi
+    fi # Завершаем совместимый выбор pytest-профиля.
+    # Операторские Python-команды выполняются в одноразовом администраторе Docker.
+    exec "$PROJECT_ROOT/scripts/operator" "$@"
+fi # Завершаем выбор среды выполнения.

@@ -1,0 +1,55 @@
+{
+  "project": "crucible-restore-container-check",
+  "port": 18084,
+  "backup_sha256": "dab85b03a86be2fd7e814ad6ad7b0d1c888d205758e4cbc47fe262d418dd9909",
+  "at": "2026-11-14 15:30:27.196512+00:00",
+  "tables_verified": {
+    "content": [
+      "active_publication|1",
+      "command_receipts|4",
+      "outbox|3",
+      "releases|2",
+      "schema_migrations|2",
+      "source_stream|1"
+    ],
+    "practice": [
+      "attempt_revisions|47",
+      "attempts|11",
+      "command_receipts|53",
+      "correction_proposals|2",
+      "login_limits|1",
+      "outbox|27",
+      "questions|2",
+      "reviews|2",
+      "schema_migrations|1",
+      "sessions|1",
+      "source_stream|1"
+    ],
+    "learning": [
+      "attempt_facts_projection|11",
+      "catalog_projection|1",
+      "command_receipts|1",
+      "daily_plan_revisions|1",
+      "daily_plans|1",
+      "inbox_receipts|30",
+      "outbox|30",
+      "plan_drafts|0",
+      "schema_migrations|2",
+      "settings_revisions|1",
+      "settings|1",
+      "source_cursors|2",
+      "source_stream|1"
+    ],
+    "reports": [
+      "command_receipts|1",
+      "inbox_receipts|32",
+      "jobs|1",
+      "outbox|2",
+      "schema_migrations|1",
+      "source_stream|1"
+    ]
+  },
+  "seconds": 22.916364884993527,
+  "retained_outbox_replayed": true,
+  "applied_practice_seq": 27
+}

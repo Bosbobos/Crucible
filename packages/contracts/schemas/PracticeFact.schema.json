@@ -1,0 +1,132 @@
+{
+  "$defs": {
+    "PartFact": {
+      "additionalProperties": false,
+      "properties": {
+        "part_id": {
+          "title": "Part Id",
+          "type": "string"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "independent",
+            "assisted",
+            "reviewed",
+            "unfinished"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        }
+      },
+      "required": [
+        "part_id",
+        "skill_id",
+        "outcome"
+      ],
+      "title": "PartFact",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "problem_id": {
+      "title": "Problem Id",
+      "type": "string"
+    },
+    "content_release_id": {
+      "title": "Content Release Id",
+      "type": "string"
+    },
+    "problem_family_id": {
+      "title": "Problem Family Id",
+      "type": "string"
+    },
+    "primary_skill_id": {
+      "title": "Primary Skill Id",
+      "type": "string"
+    },
+    "level": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ],
+      "title": "Level",
+      "type": "string"
+    },
+    "attempt_status": {
+      "enum": [
+        "running",
+        "paused",
+        "completed",
+        "abandoned"
+      ],
+      "title": "Attempt Status",
+      "type": "string"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Completed At"
+    },
+    "part_outcomes": {
+      "items": {
+        "$ref": "#/$defs/PartFact"
+      },
+      "title": "Part Outcomes",
+      "type": "array"
+    },
+    "mathematical_help_used": {
+      "title": "Mathematical Help Used",
+      "type": "boolean"
+    },
+    "active_minutes": {
+      "minimum": 0,
+      "title": "Active Minutes",
+      "type": "number"
+    },
+    "eligible_for_progress": {
+      "title": "Eligible For Progress",
+      "type": "boolean"
+    },
+    "active_attempt_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Active Attempt Id"
+    }
+  },
+  "required": [
+    "problem_id",
+    "content_release_id",
+    "problem_family_id",
+    "primary_skill_id",
+    "level",
+    "attempt_status",
+    "completed_at",
+    "part_outcomes",
+    "mathematical_help_used",
+    "active_minutes",
+    "eligible_for_progress",
+    "active_attempt_id"
+  ],
+  "title": "PracticeFact",
+  "type": "object"
+}

@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-13 16:18:21.368623+00:00",
+  "old_primary_role": "standby",
+  "new_primary": "standby",
+  "replication": "crucible_rejoined:streaming:sync"
+}
