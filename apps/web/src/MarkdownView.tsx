@@ -18,7 +18,9 @@ function Callout({children}:{children:ReactNode}){
   const rest=start.slice(marker[0].length);
   const body=[...nodes];body[index]=cloneElement(first,{},rest,...contents.slice(1));
   const title=marker[3]||marker[1];
-  return marker[2]?<details className={'source-callout '+marker[1]} open={marker[2]==='+'}><summary>{title}</summary>{body}</details>:<aside className={'source-callout '+marker[1]}><strong>{title}</strong>{body}</aside>;
+  // Вопросы — содержимое страницы; отдельно скрываются только вложенные ответы.
+  const collapsible=marker[2]&&marker[1].toLowerCase()!=='quiz';
+  return collapsible?<details className={'source-callout '+marker[1]} open={marker[2]==='+'}><summary>{title}</summary>{body}</details>:<aside className={'source-callout '+marker[1]}><strong>{title}</strong>{body}</aside>;
 }
 
 function SourceFlow({text}:{text:string}){

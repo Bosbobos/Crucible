@@ -3,12 +3,15 @@ import {createRoot} from 'react-dom/client';
 import 'katex/dist/katex.min.css';
 import './style.css';
 import './study.css';
+import './atmosphere.css';
 import {MathText} from './MarkdownView';
 import {Workspace} from './Workspace';
 import {TheoryReader} from './TheoryReader';
 import {StudyNavigation} from './StudyNavigation';
 import {ChoiceButtons} from './Choice';
 import {migrateBrowserStorage} from './BrowserStorage';
+import {materialRouteKey, openedMaterial, rememberOpenedMaterial, useBrowserNavigation} from './BrowserNavigation';
+import type {Page, Route} from './BrowserNavigation';
 import {useCharacter,CharacterDashboard,CharacterScreen} from './Character';
 import {Emblem} from './Emblem';
 import {PaperDollLab} from './PaperDollLab';
@@ -42,23 +45,28 @@ const sections:Obj={probability:'Вероятности',statistics:'Стати�
 const skillLabels:Obj={not_seen:'Нет завершённых попыток',learning:'Требует разбора',practicing:'В работе',transfer_confirmed:'Перенос подтверждён',review_due:'Пора повторить',insufficient_bank:'Мало размеченных семейств'};
 
 function App(){
- const [libraryQuery,setLibraryQuery]=useState(''),[librarySection,setLibrarySection]=useState('');
+ const {route,go}=useBrowserNavigation(),page=route.page,locationKey=materialRouteKey(route);
+ const routeRef=useRef(route);routeRef.current=route;
+ const libraryQuery=route.query||'',librarySection=route.section||'';
+ const setLibraryQuery=(query:string)=>go({...route,query},true),setLibrarySection=(section:string)=>go({...route,section},true);
+ const [attemptLoading,setAttemptLoading]=useState(false),[materialLoading,setMaterialLoading]=useState(false),[materialRetry,setMaterialRetry]=useState(0);
+ const [attemptError,setAttemptError]=useState(false);
  const [dataLoading,setDataLoading]=useState(false);
  const [logged,setLogged]=useState(false),[loading,setLoading]=useState(true),[password,setPassword]=useState(''),[error,setError]=useState('');
  const character=useCharacter(logged,api);
  const [demoProfile,setDemoProfile]=useState(false);
- const [page,setPage]=useState('today'),[catalog,setCatalog]=useState<Obj|null>(null),[today,setToday]=useState<Obj|null>(null),[progress,setProgress]=useState<Obj|null>(null),[history,setHistory]=useState<Obj[]>([]),[questions,setQuestions]=useState<Obj[]>([]);
+ const [catalog,setCatalog]=useState<Obj|null>(null),[today,setToday]=useState<Obj|null>(null),[progress,setProgress]=useState<Obj|null>(null),[history,setHistory]=useState<Obj[]>([]),[questions,setQuestions]=useState<Obj[]>([]);
  const [attempt,setAttempt]=useState<Obj|null>(null),[draft,setDraft]=useState(''),[saveState,setSaveState]=useState('saved'),[busy,setBusy]=useState(false),[panel,setPanel]=useState<Obj|null>(null),[outcomes,setOutcomes]=useState<Obj>({}),[reflection,setReflection]=useState(''),[question,setQuestion]=useState(''),[job,setJob]=useState<Obj|null>(null),[tick,setTick]=useState(0),[pendingCommand,setPendingCommand]=useState(false);
  const [qualities,setQualities]=useState<Obj>({}),[freshness,setFreshness]=useState<Obj>({statement_seen_before_attempt:null,solution_seen_before_attempt:null,worked_example_seen_before_attempt:null});
  const [restore,setRestore]=useState<Obj|null>(null),[editSettings,setEditSettings]=useState(false),[dailyCount,setDailyCount]=useState(3),[zone,setZone]=useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
- const aRef=useRef<Obj|null>(null),savedDraft=useRef(''),draftRef=useRef(''),chain=useRef(Promise.resolve(true)),seqRef=useRef(0);
- function receive(a:Obj|null,open=false){aRef.current=a;setAttempt(a);if(a){seqRef.current=Math.max(seqRef.current,a.learning_input_seq||0);}if(open&&a){setDraft(a.draft);draftRef.current=a.draft;savedDraft.current=a.draft;setOutcomes(Object.fromEntries(a.problem.parts.map((p:Obj)=>[p.id,a.part_outcomes?.find((x:Obj)=>x.part_id===p.id)?.outcome||(a.help?.some((h:Obj)=>h.mathematical&&!h.retracted)?'assisted':'independent')])));setQualities(Object.fromEntries(a.problem.parts.map((p:Obj)=>[p.id,100*(a.part_outcomes?.find((x:Obj)=>x.part_id===p.id)?.quality??1)])));setFreshness(a.reward_freshness||{statement_seen_before_attempt:null,solution_seen_before_attempt:null,worked_example_seen_before_attempt:null});setReflection(a.reflection||'');setPage('practice');setPanel(null);setSaveState('saved');const old=localStorage.getItem('crucible-emergency-'+a.id);if(old){const d=JSON.parse(old);if(d.draft!==a.draft)setRestore(d);}}}
+ const aRef=useRef<Obj|null>(null),draftAttempt=useRef<string|null>(null),savedDraft=useRef(''),draftRef=useRef(''),chain=useRef(Promise.resolve(true)),seqRef=useRef(0);
+ function receive(a:Obj|null,open=false){aRef.current=a;setAttempt(a);if(a){seqRef.current=Math.max(seqRef.current,a.learning_input_seq||0);}if(open&&a){draftAttempt.current=a.id;setDraft(a.draft);draftRef.current=a.draft;savedDraft.current=a.draft;setOutcomes(Object.fromEntries(a.problem.parts.map((p:Obj)=>[p.id,a.part_outcomes?.find((x:Obj)=>x.part_id===p.id)?.outcome||(a.help?.some((h:Obj)=>h.mathematical&&!h.retracted)?'assisted':'independent')])));setQualities(Object.fromEntries(a.problem.parts.map((p:Obj)=>[p.id,100*(a.part_outcomes?.find((x:Obj)=>x.part_id===p.id)?.quality??1)])));setFreshness(a.reward_freshness||{statement_seen_before_attempt:null,solution_seen_before_attempt:null,worked_example_seen_before_attempt:null});setReflection(a.reflection||'');setSaveState('saved');setRestore(null);const old=localStorage.getItem('crucible-emergency-'+a.id);if(old){const d=JSON.parse(old);if(d.draft!==a.draft)setRestore(d);}}}
  function enqueue(work:()=>Promise<void>){chain.current=chain.current.then(async()=>{try{await work();return true;}catch(e){setError((e as Error).message);setSaveState('error');setPendingCommand(unknownCommand());return false;}});return chain.current;}
 
  async function load(){
   setDataLoading(true);
   const results=await Promise.allSettled([api('practice/current'),api('learning/today?at_least_practice_seq='+seqRef.current),api('learning/progress?at_least_practice_seq='+seqRef.current),api('content/catalog'),api('practice/attempts'),api('practice/review-queue')]);
-  if(results[0].status==='fulfilled'){seqRef.current=Math.max(seqRef.current,results[0].value.learning_input_seq);if(!aRef.current||aRef.current.state!=='completed')receive(results[0].value.attempt);}
+  if(results[0].status==='fulfilled'){seqRef.current=Math.max(seqRef.current,results[0].value.learning_input_seq);const current=results[0].value.attempt,wanted=routeRef.current;if((wanted.page!=='practice'||!wanted.attemptId||wanted.attemptId===current?.id)&&(!aRef.current||aRef.current.state!=='completed'))receive(current);}
   if(results[1].status==='fulfilled'){let t=results[1].value;if(!t.plan&&t.catalog_available){try{await send('learning/daily-plans','POST',{});t=await api('learning/today?at_least_practice_seq='+seqRef.current);}catch{}}setToday(t);setDailyCount(t.settings.daily_count);setZone(t.settings.timezone);}
   if(results[2].status==='fulfilled')setProgress(results[2].value);
   if(results[3].status==='fulfilled')setCatalog(results[3].value);
@@ -70,17 +78,55 @@ function App(){
  }
  useEffect(()=>{api('practice/auth/session').then(s=>{csrf=s.csrf;setDemoProfile(!!s.demo_profile);setLogged(true);setPendingCommand(unknownCommand());}).catch(()=>{}).finally(()=>setLoading(false));},[]);
  useEffect(()=>{if(logged)load();},[logged]);
+ useEffect(()=>{
+  if(!logged||page!=='practice'||!route.attemptId)return;
+  if(aRef.current?.id===route.attemptId&&draftAttempt.current===route.attemptId)return;
+  let cancelled=false;setAttemptLoading(true);setAttemptError(false);
+  api('practice/attempts/'+encodeURIComponent(route.attemptId)).then(a=>{if(!cancelled)receive(a,true);}).catch(e=>{if(!cancelled){setError(e.message);setAttemptError(true);}}).finally(()=>{if(!cancelled)setAttemptLoading(false);});
+  return()=>{cancelled=true;setAttemptLoading(false);};
+ },[logged,page,route.attemptId]);
+ useEffect(()=>{if(logged&&page==='practice'&&!route.attemptId&&attempt)go({...route,attemptId:attempt.id},true);},[logged,page,route.attemptId,attempt?.id]);
+ useEffect(()=>{
+  if(!logged)return;
+  if(!locationKey){setPanel(null);setMaterialLoading(false);return;}
+  const current=routeRef.current;
+  if(current.page==='practice'&&(!attempt||attempt.id!==current.attemptId||draftAttempt.current!==current.attemptId))return;
+  let cancelled=false;
+  const cached=current.page==='practice'?openedMaterial(locationKey):null;
+  if(cached){setPanel({...cached,locationKey});setMaterialLoading(false);return;}
+  const publicMaterial=current.material==='core'||current.material==='theory';
+  if(!publicMaterial){setPanel({kind:'help',title:'Материал к попытке',text:'Этот материал нужно открыть из рабочего места задачи.',locationKey});setMaterialLoading(false);return;}
+  const release=current.releaseId||(current.page==='practice'?attempt?.problem.content_release_id:catalog?.content_release_id),topic=current.topicId||attempt?.problem.topic_id;
+  if(!release||!topic)return;
+  if(current.page==='practice'&&attempt?.state!=='completed'&&!attempt?.help?.some((h:Obj)=>h.kind===current.material&&!h.retracted)){
+   setPanel({kind:'help',title:'Материал к попытке',text:'Откройте конспект через «Помощь и материалы», чтобы чтение было учтено в попытке.',locationKey});return;
+  }
+  setMaterialLoading(true);setPanel(null);
+  api('content/topics/'+encodeURIComponent(topic)+'/'+current.material+'?release_id='+encodeURIComponent(release)).then(result=>{
+   if(cancelled)return;
+   setPanel({...result,kind:current.material,locationKey});
+   if(!current.releaseId)go({...routeRef.current,releaseId:release},true);
+  }).catch(e=>{if(!cancelled)setError(e.message);}).finally(()=>{if(!cancelled)setMaterialLoading(false);});
+  return()=>{cancelled=true;};
+ },[logged,locationKey,catalog?.content_release_id,attempt?.id,attemptLoading,materialRetry]);
  useEffect(()=>{const id=setInterval(()=>setTick(t=>t+1),1000);return()=>clearInterval(id);},[]);
  useEffect(()=>{if(!logged)return;const id=setInterval(()=>{api('learning/progress?at_least_practice_seq='+seqRef.current).then(setProgress).catch(()=>{});},2500);return()=>clearInterval(id);},[logged]);
- async function persist(extra:Obj={}){const a=aRef.current;if(!a||!['running','paused'].includes(a.state))return;setSaveState('saving');const text=draftRef.current;const result=await send('practice/attempts/'+a.id,'PATCH',{expected_revision:a.revision,draft:text,...extra});receive(result);setPendingCommand(unknownCommand());savedDraft.current=text;setSaveState(draftRef.current===text?'saved':'unsaved');if(draftRef.current===text)localStorage.removeItem('crucible-emergency-'+a.id);}
+ async function persist(extra:Obj={}){const a=aRef.current;if(!a||draftAttempt.current!==a.id||!['running','paused'].includes(a.state))return;setSaveState('saving');const text=draftRef.current;const result=await send('practice/attempts/'+a.id,'PATCH',{expected_revision:a.revision,draft:text,...extra});receive(result);setPendingCommand(unknownCommand());savedDraft.current=text;setSaveState(draftRef.current===text?'saved':'unsaved');if(draftRef.current===text)localStorage.removeItem('crucible-emergency-'+a.id);}
  useEffect(()=>{if(!attempt||draft===savedDraft.current)return;setSaveState('unsaved');const id=setTimeout(()=>enqueue(()=>persist()),1200);return()=>clearTimeout(id);},[draft]);
  useEffect(()=>{if(!logged)return;const id=setInterval(()=>{if(aRef.current?.state==='running'&&document.visibilityState==='visible'&&document.hasFocus())enqueue(()=>persist());},20000);return()=>clearInterval(id);},[logged]);
  async function login(e:React.FormEvent){e.preventDefault();setError('');try{const s=await api('practice/auth/login','POST',{password});csrf=s.csrf;setPassword('');setDemoProfile(!!s.demo_profile);setLogged(true);setPendingCommand(unknownCommand());}catch(e){setError((e as Error).message);}}
  async function run(work:()=>Promise<void>){setError('');setBusy(true);try{await work();}catch(e){setError((e as Error).message);}finally{setBusy(false);setPendingCommand(unknownCommand());}}
- async function start(p:Obj){await run(async()=>{await chain.current;if(aRef.current&&['running','paused'].includes(aRef.current.state)){if(!await enqueue(()=>persist()))return;receive(aRef.current,true);return;}const a=await send('practice/attempts','POST',{problem_id:p.id,content_release_id:p.content_release_id||today?.plan?.content_release_id||catalog?.content_release_id,...(p.review_obligation_id?{review_obligation_id:p.review_obligation_id}:{})});receive(a,true);await load();});}
- async function openAttempt(id:string){await run(async()=>receive(await api('practice/attempts/'+id),true));}
- async function help(kind:string,topicId?:string,anchor?:string){await run(async()=>{if(!await enqueue(()=>persist()))throw new Error('Сохранение не подтверждено. Разрешите конфликт или повторите прежнюю команду.');const a=aRef.current!;const result=await send('practice/attempts/'+a.id+'/help','POST',{expected_revision:a.revision,kind,...(topicId?{topic_id:topicId}:{})});receive(result.attempt);if(result.attempt.help?.some((h:Obj)=>h.mathematical&&!h.retracted))setOutcomes(previous=>Object.fromEntries(Object.entries(previous).map(([key,value])=>[key,value==='independent'?'assisted':value])));if(result.material&&kind!=='core'&&kind!=='theory')setPanel({kind:'help',text:result.material.text,title:kind==='solution'?'Разбор решения':'Подсказка '+kind.slice(1)});else if(kind==='core'||kind==='theory'){const t=result.material;setPanel({kind,text:t.text,title:t.title,widget:t.widget==='vault-indicators'?t.widget:undefined,provenance:t.provenance,anchor});}else setPanel({kind:'help',title:'Разбор с внешним агентом',text:'Сохранённый контекст доступен через study-mcp. Откройте внешний агент и вызовите get_study_context. Встроенного чата и вызовов LLM в приложении нет.'});});}
- async function finish(){await run(async()=>{if(!await enqueue(()=>persist()))throw new Error('Сохранение не подтверждено. Разрешите конфликт или повторите прежнюю команду.');const a=aRef.current!;const result=await send('practice/attempts/'+a.id+'/complete','POST',{expected_revision:a.revision,part_outcomes:a.problem.parts.map((p:Obj)=>({part_id:p.id,outcome:outcomes[p.id],quality:(qualities[p.id]??100)/100})),reflection,freshness});receive(result);setSaveState('saved');setPanel(null);if(result.character_operation_id)void character.wait(result.character_operation_id);await load();});}
+ async function start(p:Obj){await run(async()=>{await chain.current;if(aRef.current&&['running','paused'].includes(aRef.current.state)){if(!await enqueue(()=>persist()))return;receive(aRef.current,true);go({page:'practice',attemptId:aRef.current.id});return;}const a=await send('practice/attempts','POST',{problem_id:p.id,content_release_id:p.content_release_id||today?.plan?.content_release_id||catalog?.content_release_id,...(p.review_obligation_id?{review_obligation_id:p.review_obligation_id}:{})});receive(a,true);go({page:'practice',attemptId:a.id});await load();});}
+ function openAttempt(id:string){go({page:'practice',attemptId:id});window.scrollTo({top:0});}
+ async function help(kind:string,topicId?:string,anchor?:string){await run(async()=>{
+  if(!await enqueue(()=>persist()))throw new Error('Сохранение не подтверждено. Разрешите конфликт или повторите прежнюю команду.');
+  const a=aRef.current!,result=await send('practice/attempts/'+a.id+'/help','POST',{expected_revision:a.revision,kind,...(topicId?{topic_id:topicId}:{})});receive(result.attempt);
+  if(result.attempt.help?.some((h:Obj)=>h.mathematical&&!h.retracted))setOutcomes(previous=>Object.fromEntries(Object.entries(previous).map(([key,value])=>[key,value==='independent'?'assisted':value])));
+  const next:Route={page:'practice',attemptId:a.id,material:kind,topicId:topicId||a.problem.topic_id,releaseId:a.problem.content_release_id,anchor};
+  const t=result.material,material=kind==='core'||kind==='theory'?{...t,kind}:t?{kind:'help',text:t.text,title:kind==='solution'?'Разбор решения':'Подсказка '+kind.slice(1)}:{kind:'help',title:'Разбор с внешним агентом',text:'Сохранённый контекст доступен через study-mcp. Откройте внешний агент и вызовите get_study_context. Встроенного чата и вызовов LLM в приложении нет.'};
+  const key=materialRouteKey(next);rememberOpenedMaterial(key,material);setPanel({...material,locationKey:key});go(next);
+ });}
+ async function finish(){await run(async()=>{if(!await enqueue(()=>persist()))throw new Error('Сохранение не подтверждено. Разрешите конфликт или повторите прежнюю команду.');const a=aRef.current!;const result=await send('practice/attempts/'+a.id+'/complete','POST',{expected_revision:a.revision,part_outcomes:a.problem.parts.map((p:Obj)=>({part_id:p.id,outcome:outcomes[p.id],quality:(qualities[p.id]??100)/100})),reflection,freshness});receive(result);setSaveState('saved');go({page:'practice',attemptId:result.id});if(result.character_operation_id)void character.wait(result.character_operation_id);await load();});}
  async function addQuestion(){await run(async()=>{if(!await enqueue(()=>persist()))throw new Error('Сохранение не подтверждено. Разрешите конфликт или повторите прежнюю команду.');const a=aRef.current!;await send('practice/attempts/'+a.id+'/questions','POST',{expected_revision:a.revision,text:question});setQuestion('');receive(await api('practice/attempts/'+a.id));await load();});}
  const completedIds=new Set(history.filter(h=>h.state==='completed'&&today?.plan&&h.completed_at>=today.plan.generated_at).map(h=>h.problem_id));
  const plan=today?.plan;
@@ -91,10 +137,15 @@ function App(){
  void tick;
 
  async function retryPendingCommand(){const pending=JSON.parse(localStorage.getItem('crucible-pending-command')!);const result=await api(pending.path,pending.method,pending.payload);localStorage.removeItem('crucible-pending-command');setPendingCommand(false);const updated=result.attempt||(result.problem?result:null);if(updated&&updated.id===aRef.current?.id){receive(updated);if(updated.draft===draftRef.current){savedDraft.current=updated.draft;setSaveState('saved');localStorage.removeItem('crucible-emergency-'+updated.id);}else setSaveState('unsaved');}await load();}
- function readMaterial(id:string,anchor?:string){if(page==='practice'&&attempt){help('core',id,anchor);return;}run(async()=>{const topic=catalog?.topics.find((t:Obj)=>t.id===id);const section=topic?.materials?.core?'core':'theory';const result=await api('content/topics/'+encodeURIComponent(id)+'/'+section+'?release_id='+encodeURIComponent(catalog!.content_release_id));setPanel({kind:section,text:result.text,title:result.title,widget:result.widget==='vault-indicators'?result.widget:undefined,provenance:result.provenance,anchor});setPage('library');window.scrollTo({top:0});});}
- function navigate(next:string){setPage(next);setPanel(null);window.scrollTo({top:0});if(next==='practice'&&attempt&&!draft&&attempt.draft)receive(attempt,true);}
+ function readMaterial(id:string,anchor?:string){if(page==='practice'&&attempt){help('core',id,anchor);return;}const topic=catalog?.topics.find((t:Obj)=>t.id===id);go({page:'library',topicId:id,material:topic?.materials?.core?'core':'theory',releaseId:catalog?.content_release_id,anchor});window.scrollTo({top:0});}
+ function navigate(next:Page){go({page:next,...(next==='practice'&&attempt?{attemptId:attempt.id}:{})});window.scrollTo({top:0});}
  function changeDraft(text:string){setDraft(text);draftRef.current=text;const a=aRef.current;if(a)localStorage.setItem('crucible-emergency-'+a.id,JSON.stringify({draft:text,revision:a.revision}));}
- function closeMaterial(){setPanel(null);if(active)enqueue(()=>persist({timer_mode:'solving'}));}
+ function closeMaterial(){go({page,attemptId:route.attemptId});if(page==='practice'&&active)enqueue(()=>persist({timer_mode:'solving'}));}
+ const visiblePanel=panel?.locationKey===locationKey?{...panel,anchor:route.anchor}:null;
+ const readerLocation={chapter:route.chapter??(route.anchor?undefined:0),laboratory:route.laboratory,onLocationChange:(location:{chapter:number;laboratory:boolean})=>go({...route,...location,anchor:undefined})};
+ const attemptUnavailable=page==='practice'&&!!route.attemptId&&attempt?.id!==route.attemptId;
+ const routePending=attemptLoading||attemptUnavailable&&!attemptError;
+ const materialPlaceholder=<section className="empty card"><p>{materialLoading?'Загрузка материала…':'Не удалось открыть материал.'}</p>{!materialLoading&&<button onClick={()=>setMaterialRetry(value=>value+1)}>Повторить загрузку</button>}<button onClick={closeMaterial}>Вернуться</button></section>;
  if(loading)return <div className="loading">Crucible · загрузка…</div>;
  if(!logged)return <main className="login">
    <div className="brandmark" aria-hidden="true"><Emblem/></div><span className="eyebrow">Подготовка к магистратуре</span>
@@ -103,11 +154,11 @@ function App(){
    {error&&<p role="alert" className="error">{error}</p>}<small>Локальный учебный профиль</small>
  </main>;
  if(import.meta.env.DEV&&location.hash==='#paper-doll-lab'&&character.data.catalog)return <main className="main"><PaperDollLab items={character.data.catalog.items}/></main>;
- return <StudyNavigation.Provider value={{material:readMaterial,problem:(id:string)=>{navigate('library');setLibraryQuery(id);},lab:()=>{}}}><div className={'shell' + (panel && ['practice','library'].includes(page) ? ' shell-reading' : '')}>
+ return <StudyNavigation.Provider value={{material:readMaterial,problem:(id:string)=>{go({page:'library',query:id});window.scrollTo({top:0});},lab:()=>{}}}><div className={'shell' + (visiblePanel && ['practice','library'].includes(page) ? ' shell-reading' : '')}>
    <aside className="sidebar">
      <a className="brand" href="#" aria-label="Crucible — на главную" onClick={e=>{e.preventDefault();navigate('today');}}><div className="brandmark small" aria-hidden="true"><Emblem/></div><strong>Crucible<span>Математика</span></strong></a>
      <div className="nav-caption">Учебный профиль</div>
-     <nav aria-label="Основная навигация">{[['today','today','Сегодня'],['practice','practice','Рабочее место'],['library','library','Материалы'],['questions','questions','Вопросы и разбор'],['character','character','Персонаж'],['path','path','Путь'],['collection','collection','Коллекция']].map(([id,icon,label])=><button key={id} aria-label={label} aria-current={page===id?'page':undefined} className={page===id?'selected':''} onClick={()=>navigate(id)}><span className="nav-icon" aria-hidden="true"><Emblem name={icon}/></span><span className="nav-label">{label}</span>{id==='questions'&&questions.length>0&&<small>{questions.length}</small>}</button>)}</nav>
+     <nav aria-label="Основная навигация">{[['today','today','Сегодня'],['practice','practice','Рабочее место'],['library','library','Материалы'],['questions','questions','Вопросы и разбор'],['character','character','Персонаж'],['path','path','Путь'],['collection','collection','Коллекция']].map(([id,icon,label])=><button key={id} aria-label={label} aria-current={page===id?'page':undefined} className={page===id?'selected':''} onClick={()=>navigate(id as Page)}><span className="nav-icon" aria-hidden="true"><Emblem name={icon}/></span><span className="nav-label">{label}</span>{id==='questions'&&questions.length>0&&<small>{questions.length}</small>}</button>)}</nav>
      <div className="sidebar-note"><span className="status-dot"/>Белый Атлас<p>Знание обретает форму.</p></div>
      <button className="logout" onClick={()=>run(async()=>{await api('practice/auth/logout','POST',{});setLogged(false);csrf='';})}>Выйти</button>
    </aside>
@@ -133,8 +184,8 @@ function App(){
          {job&&<div className="card"><p>Экспорт: {job.status==='ready'?'готов':job.status==='queued'?'в очереди':job.status}</p><button onClick={()=>run(async()=>{const j=await api('reports/jobs/'+(job.job_id||job.id));setJob({...j,job_id:job.job_id||job.id});if(j.status==='ready'){const data=await api('reports/jobs/'+(job.job_id||job.id)+'/artifact');const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='study-export.json';a.click();URL.revokeObjectURL(url);}})}>Проверить и скачать</button></div>}
        </aside></div>
      </>}
-     {page==='practice'&&(!attempt?<section className="empty card"><h1>Нет текущей попытки</h1><p>Выберите задачу из плана или материалов.</p><button className="primary" onClick={()=>navigate('today')}>Открыть план</button></section>:<Workspace
-       attempt={attempt} draft={draft} saveState={saveState} active={active} seconds={seconds} busy={busy} panel={panel} pending={pending} outcomes={outcomes} qualities={qualities} freshness={freshness} reflection={reflection} question={question} restore={restore}
+     {page==='practice'&&(routePending?<div className="loading">Загрузка попытки…</div>:route.material&&!visiblePanel?materialPlaceholder:!attempt||attemptUnavailable?<section className="empty card"><h1>Нет текущей попытки</h1><p>Выберите задачу из плана или материалов.</p><button className="primary" onClick={()=>navigate('today')}>Открыть план</button></section>:<Workspace
+       attempt={attempt} draft={draft} saveState={saveState} active={active} seconds={seconds} busy={busy} panel={visiblePanel} readerLocation={readerLocation} pending={pending} outcomes={outcomes} qualities={qualities} freshness={freshness} reflection={reflection} question={question} restore={restore}
        onDraft={changeDraft} onSave={()=>enqueue(()=>persist())} onPause={()=>enqueue(()=>persist({state:attempt.state==='running'?'paused':'running'}))} onHelp={help} onCloseMaterial={closeMaterial} onFinish={finish}
        onAbandon={()=>enqueue(async()=>{await persist({state:'abandoned'});await load();navigate('today');})} onToday={()=>navigate('today')}
        onOutcome={(id:string,value:string)=>setOutcomes({...outcomes,[id]:value})} onQuality={(id:string,value:number)=>setQualities({...qualities,[id]:value})} onFreshness={(key:string,value:boolean|null)=>setFreshness({...freshness,[key]:value})} onReflection={setReflection} onQuestion={setQuestion} onAddQuestion={addQuestion}
@@ -143,7 +194,7 @@ function App(){
        onApprove={(id:string)=>run(async()=>{receive(await send('practice/proposals/'+id+'/approve','POST',{}));await load();})}
        onRestore={()=>{changeDraft(restore!.draft);setRestore(null);}} onKeepServer={()=>{localStorage.removeItem('crucible-emergency-'+attempt.id);setRestore(null);}}
      />)}
-     {page==='library'&&(panel?<TheoryReader material={panel as any} onClose={()=>setPanel(null)} closeLabel="К материалам"/>:<>
+     {page==='library'&&(route.material?(visiblePanel?<TheoryReader material={visiblePanel as any} {...readerLocation} onClose={closeMaterial} closeLabel="К материалам"/>:materialPlaceholder):<>
        <div className="page-heading"><div><span className="eyebrow">Учебный банк</span><h1>Материалы</h1><p>{catalog?.problems.length||0} задач · {catalog?.topics.length||0} заметки из Obsidian</p></div></div>
        <div className="topic-grid">{catalog?.topics.map((t:Obj)=><section className="card" key={t.id}><span className="eyebrow">Из Obsidian</span><h2><MathText text={t.title} inline/></h2><button onClick={()=>readMaterial(t.id)}>Читать конспект →</button></section>)}</div>
        <div className="library-filters"><label>Поиск по задачам<input type="search" value={libraryQuery} onChange={event=>setLibraryQuery(event.target.value)} placeholder="ID, название или тип"/></label><ChoiceButtons label="Раздел" className="section-choices" value={librarySection} onChange={setLibrarySection} options={[{value:"",label:"Все разделы"},...[...new Set<string>((catalog?.problems||[]).map((p:Obj)=>p.section))].map(section=>({value:section,label:sections[section]||section}))]}/></div>

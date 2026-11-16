@@ -28,7 +28,7 @@ function DraftEditor({draft, onChange, saveState, active, onSave, mode, setMode}
   </section>;
 }
 
-export function Workspace({attempt, draft, saveState, active, seconds, busy, panel, pending, outcomes, qualities, freshness, reflection, question, restore,
+export function Workspace({attempt, draft, saveState, active, seconds, busy, panel, readerLocation, pending, outcomes, qualities, freshness, reflection, question, restore,
   onDraft, onSave, onPause, onHelp, onCloseMaterial, onFinish, onAbandon, onToday, onOutcome, onQuality, onFreshness, onReflection, onQuestion,
   onAddQuestion, onResolve, onApprove, onRestore, onKeepServer,onCorrect}: Obj) {
   const [editorMode, setEditorMode] = useState('edit');
@@ -63,7 +63,7 @@ export function Workspace({attempt, draft, saveState, active, seconds, busy, pan
   function closeMaterial() {onCloseMaterial(); requestAnimationFrame(() => window.scrollTo({top: returnScroll.current}));}
   const editor = <DraftEditor draft={draft} onChange={onDraft} saveState={saveState} active={active} onSave={onSave} mode={editorMode} setMode={setEditorMode}/>;
 
-  if (panel) return <TheoryReader material={panel} editor={editor} onClose={closeMaterial} assistance={active && helped}/>;
+  if (panel) return <TheoryReader material={panel} {...readerLocation} editor={editor} onClose={closeMaterial} assistance={active && helped}/>;
 
   return <div className="study-workspace">
     <div className="workspace-heading">
