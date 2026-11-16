@@ -1,4 +1,4 @@
-name: crucible
+name: paladin
 x-postgres: &postgres
   image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
   restart: unless-stopped
@@ -49,6 +49,12 @@ services:
     secrets: [{source: pg_reports_admin, target: pg_admin}, {source: postgres_reports_init, target: /docker-entrypoint-initdb.d/10-init.sql}]
     volumes: [postgres-reports-data:/var/lib/postgresql/data]
     networks: [reports_storage]
+  postgres-character:
+    <<: *postgres
+    environment: {POSTGRES_PASSWORD_FILE: /run/secrets/pg_admin}
+    secrets: [{source: pg_character_admin, target: pg_admin}, {source: postgres_character_init, target: /docker-entrypoint-initdb.d/10-init.sql}]
+    volumes: [postgres-character-data:/var/lib/postgresql/data]
+    networks: [character_storage]
   redis:
     image: redis:8-alpine@sha256:7958cfbb9d152f87dadfbc89f1b0b15938f0b81ff8982feb327476f4911935c3
     command: [redis-server, /run/secrets/redis_config]
@@ -74,43 +80,50 @@ services:
       retries: 30
     mem_limit: 512m
   migrations:
-    image: crucible/migrations:0.1.0
+    image: paladin/migrations:0.1.0
     build: {context: ., dockerfile: infra/Dockerfile.migrations}
     secrets: [migrations]
-    networks: [content_storage, practice_storage, learning_storage, reports_storage]
+    networks: [content_storage, practice_storage, learning_storage, reports_storage, character_storage]
     depends_on:
       postgres-content: {condition: service_healthy}
       postgres-practice: {condition: service_healthy}
       postgres-learning: {condition: service_healthy}
       postgres-reports: {condition: service_healthy}
+      postgres-character: {condition: service_healthy}
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
   content:
     <<: *api
-    image: crucible/content:0.1.0
+    image: paladin/content:0.1.0
     build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: content_service}}
     secrets: [{source: content_config, target: config}]
     networks: [content_api, content_storage, messages]
   practice:
     <<: *api
-    image: crucible/practice:0.1.0
+    image: paladin/practice:0.1.0
     build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: practice_service}}
     secrets: [{source: practice_config, target: config}]
     networks: [practice_api, content_api, practice_storage, messages]
   learning:
     <<: *api
-    image: crucible/learning:0.1.0
+    image: paladin/learning:0.1.0
     build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: learning_service}}
     secrets: [{source: learning_config, target: config}]
     networks: [learning_api, learning_storage, messages, cache]
   reports:
     <<: *api
-    image: crucible/reports:0.1.0
+    image: paladin/reports:0.1.0
     build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: report_worker}}
     secrets: [{source: reports_config, target: config}]
-    networks: [reports_api, practice_api, learning_api, reports_storage, messages]
+    networks: [reports_api, practice_api, learning_api, character_api, reports_storage, messages]
+  character:
+    <<: *api
+    image: paladin/character:0.1.0
+    build: {context: ., dockerfile: infra/Dockerfile.api, args: {SERVICE: character_service}}
+    secrets: [{source: character_config, target: config}]
+    networks: [character_api, character_storage, messages]
   content-init:
-    image: crucible/tools:0.2.0
+    image: paladin/tools:0.2.0
     build: {context: ., dockerfile: infra/Dockerfile.tools}
     command: [scripts/publish.py, --if-empty, --wait-learning]
     secrets: [operator]
@@ -129,7 +142,7 @@ services:
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
   tools:
-    image: crucible/tools:0.2.0
+    image: paladin/tools:0.2.0
     build: {context: ., dockerfile: infra/Dockerfile.tools}
     profiles: [tools]
     command: [scripts/doctor.py]
@@ -138,13 +151,13 @@ services:
       CRUCIBLE_OPERATOR_CONFIG: /run/secrets/operator
       CRUCIBLE_BASE_URL: http://web:8080
     volumes: [./content:/app/content:ro, ./.private/backups:/app/.private/backups:ro]
-    networks: [content_api, practice_api, learning_api, reports_api]
+    networks: [content_api, practice_api, learning_api, reports_api, character_api]
     read_only: true
     tmpfs: [/tmp]
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
   study-mcp:
-    image: crucible/mcp:0.3.0
+    image: paladin/mcp:0.3.0
     build: {context: ., dockerfile: infra/Dockerfile.mcp}
     profiles: [mcp]
     stdin_open: true
@@ -155,10 +168,10 @@ services:
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
   web:
-    image: crucible/web:0.1.0
+    image: paladin/web:0.1.0
     build: {context: ., dockerfile: apps/web/Dockerfile}
-    ports: [127.0.0.1:18080:8080]
-    networks: [edge, content_api, practice_api, learning_api, reports_api]
+    ports: [127.0.0.1:28080:8080]
+    networks: [edge, content_api, practice_api, learning_api, reports_api, character_api]
     depends_on:
       content: {condition: service_healthy}
       practice: {condition: service_healthy}
@@ -182,10 +195,12 @@ networks:
   practice_api: {internal: true}
   learning_api: {internal: true}
   reports_api: {internal: true}
+  character_api: {internal: true}
   content_storage: {internal: true}
   practice_storage: {internal: true}
   learning_storage: {internal: true}
   reports_storage: {internal: true}
+  character_storage: {internal: true}
   messages: {internal: true}
   cache: {internal: true}
 volumes:
@@ -193,6 +208,7 @@ volumes:
   postgres-practice-data:
   postgres-learning-data:
   postgres-reports-data:
+  postgres-character-data:
   rabbit-data:
 secrets:
   mcp: {file: .secrets/mcp.json}
@@ -201,10 +217,12 @@ secrets:
   pg_practice_admin: {file: .secrets/pg-practice-admin}
   pg_learning_admin: {file: .secrets/pg-learning-admin}
   pg_reports_admin: {file: .secrets/pg-reports-admin}
+  pg_character_admin: {file: .secrets/pg-character-admin}
   postgres_content_init: {file: .secrets/postgres-content-init.sql}
   postgres_practice_init: {file: .secrets/postgres-practice-init.sql}
   postgres_learning_init: {file: .secrets/postgres-learning-init.sql}
   postgres_reports_init: {file: .secrets/postgres-reports-init.sql}
+  postgres_character_init: {file: .secrets/postgres-character-init.sql}
   migrations: {file: .secrets/migrations.json}
   redis_config: {file: .secrets/redis.conf}
   rabbit_definitions: {file: .secrets/rabbit-definitions.json}
@@ -212,3 +230,4 @@ secrets:
   practice_config: {file: .secrets/practice.json}
   learning_config: {file: .secrets/learning.json}
   reports_config: {file: .secrets/reports.json}
+  character_config: {file: .secrets/character.json}

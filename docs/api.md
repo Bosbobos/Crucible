@@ -14,3 +14,9 @@
 Каждый сервис предоставляет `/health/live`, `/health/ready`, `/hello`, собственный OpenAPI и авторизованную диагностику outbox внутри сети. Proxy не публикует внутренние маршруты и служебные схемы. `GET /hello` доступен через web.
 
 Внутренние контракты: content/protected — только practice identity; practice/snapshot — reports; practice/learning-facts — learning для восстановления. Полномочия проверяются самим владельцем. Proxy не заменяет эти проверки.
+
+## Character v3
+
+Префикс `/api/character/v1`, прежняя session/JWT и Origin/CSRF. GET catalog, me/summary, me/inventory, me/items/{id}, me/path, me/journal, me/operations/{correlation_id}; GET/PUT me/loadout и me/collection; GET/PATCH me/preferences. Изменения требуют command_id и expected_revision. Preview локален. Отсутствующий арт не запрещает owned equip; unowned/wrong-slot отклоняются.
+
+В practice добавлены PATCH attempts/{id}/assessment (подтверждение владельцем с причиной), POST learning-evidence/{unit_id}, POST assessments/{blueprint_id}/results. Источник проверяет зарегистрированную content publication и сохраняет ответы в своей БД. В content POST campaign-publications доступен только content:publish; внутренние metadata/assessment routes закрыты от web gateway. Неизвестные привязки означают BLOCKED_CONTENT. Character snapshot доступен reports по отдельному scope; browser/MCP не имеют grant_xp/give_item.

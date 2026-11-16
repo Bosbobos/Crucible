@@ -1,6 +1,6 @@
-name: crucible-tasks
+name: paladin-tasks
 x-python: &python
-  image: crucible/operator:0.3.0
+  image: paladin/operator:0.3.0
   build: {context: ., dockerfile: infra/Dockerfile.operator}
   read_only: true
   tmpfs: [/tmp]

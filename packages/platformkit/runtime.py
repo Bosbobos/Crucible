@@ -4,6 +4,7 @@ import hashlib
 import json
 import logging
 import os
+import random
 import time
 import uuid
 from contextlib import asynccontextmanager, contextmanager
@@ -88,13 +89,16 @@ def command(conn, actor, body, operation, effect):
     return result
 
 
-def emit(conn, cfg, event_type, profile, aggregate, revision, payload, correlation):
+def emit(conn, cfg, event_type, profile, aggregate, revision, payload, correlation, *, source_stream='main'):
     seq = conn.execute('''INSERT INTO source_stream(profile_id,seq) VALUES (%s,1)
-        ON CONFLICT(profile_id) DO UPDATE SET seq=source_stream.seq+1 RETURNING seq''', (profile,)).fetchone()['seq']
+        ON CONFLICT(profile_id) DO UPDATE SET seq=source_stream.seq+1 RETURNING seq''',
+        (profile if source_stream=='main' else profile+':'+source_stream,)).fetchone()['seq']
     event = {'schema_version': 1, 'event_id': str(uuid.uuid4()), 'event_type': event_type,
              'producer': cfg['service'], 'profile_id': profile, 'source_seq': seq,
              'aggregate_id': str(aggregate), 'aggregate_revision': revision,
              'occurred_at': iso(), 'correlation_id': str(correlation), 'payload': payload}
+    if source_stream!='main':
+        event['source_stream']=source_stream
     if len(canonical(event).encode()) > 512_000:
         raise HTTPException(413, 'Событие слишком большое')
     conn.execute('INSERT INTO outbox(event_id,event) VALUES (%s,%s)', (event['event_id'], Jsonb(event)))
@@ -145,7 +149,8 @@ async def broker_loop(cfg, consume=None):
                             await message.reject(requeue=False)
                             log.warning(canonical({'service': cfg['service'], 'operation': 'consumer.dlq'}))
                         except Exception:
-                            await asyncio.sleep(1)
+                            count=int(message.headers.get('x-delivery-count',0))
+                            await asyncio.sleep(min(2**min(count,4),15)*random.uniform(.8,1.2))
                             await message.nack(requeue=True)
                             log.warning(canonical({'service': cfg['service'], 'operation': 'consumer.retry'}))
                         else:
@@ -176,10 +181,10 @@ async def broker_loop(cfg, consume=None):
             if asyncio.current_task().cancelling():
                 raise
             log.warning(canonical({'service': cfg['service'], 'operation': 'broker.cancelled_future_retry'}))
-            await asyncio.sleep(delay)
+            await asyncio.sleep(delay*random.uniform(.8,1.2))
         except Exception as exc:
             log.warning(canonical({'service': cfg['service'], 'operation': 'broker.retry', 'error_type': type(exc).__name__, 'backoff_seconds': delay}))
-            await asyncio.sleep(delay)
+            await asyncio.sleep(delay*random.uniform(.8,1.2))
             delay = min(delay*2, 15)
 
 

@@ -23,7 +23,7 @@ def test_fresh_configuration_has_independent_admins_and_roles(tmp_path):
         assert f'CREATE DATABASE {owner}_db' in sql
         assert 'FROM PUBLIC' in sql
         assert all(f'CREATE ROLE {other}_' not in sql for other in OWNERS if other != owner)
-    assert len(admins) == 4
+    assert len(admins) == len(OWNERS)
 
 
 def test_split_preserves_owner_password_tokens_and_runtime_credentials(tmp_path):
@@ -56,7 +56,7 @@ def test_compose_services_mount_only_own_storage_and_admin():
         runtime = config['services'][owner]
         assert {n for n in runtime['networks'] if n.endswith('_storage')} == {owner+'_storage'}
         assert config['networks'][owner+'_storage']['internal'] is True
-    assert len(set(mounts)) == 4
+    assert len(set(mounts)) == len(OWNERS)
     assert not any(n.endswith('_storage') for n in config['services']['web']['networks'])
 
 

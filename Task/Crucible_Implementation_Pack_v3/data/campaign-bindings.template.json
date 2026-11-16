@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "unbound",
+  "publication_version": null,
+  "bindings": [],
+  "required_binding_fields": [
+    "blueprint_id",
+    "problem_id",
+    "reward_equivalence_id",
+    "family_id",
+    "rubric_version",
+    "content_version",
+    "volume_id_or_discipline_id",
+    "pool",
+    "learning_owner"
+  ],
+  "notes": "Нет фиктивных problem IDs. Не публиковать этот template как заполненный банк. Holdout manifests и решения не отправлять обычному frontend/MCP."
+}

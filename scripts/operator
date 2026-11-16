@@ -18,7 +18,7 @@ if [ "${CRUCIBLE_ASSESSMENT:-0}" = 1 ]; then export CRUCIBLE_SOURCE_COMPOSE_FILE
 # При offline/повторном показе можно явно использовать уже собранный образ.
 if [ "${CRUCIBLE_BUILD_TOOLS:-1}" = 1 ]; then
     # Операторский образ собирается host CLI; build-вывод направляется только в stderr.
-    docker compose -f compose.tasks.yaml -p crucible-tasks build operator >&2
+    docker compose -f compose.tasks.yaml -p paladin-tasks build operator >&2
 fi # Завершаем выбор повторной сборки.
 # Запускаем Python внутри одноразового администратора Docker; TTY не создаётся.
-exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm -T --no-deps operator "$@"
+exec docker compose -f compose.tasks.yaml -p paladin-tasks run --rm -T --no-deps operator "$@"

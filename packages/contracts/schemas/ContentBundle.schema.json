@@ -1,5 +1,94 @@
 {
   "$defs": {
+    "DiagnosticMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "rubric_version": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Rubric Version",
+          "type": "string"
+        },
+        "check_answers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "maxProperties": 4,
+          "minProperties": 4,
+          "title": "Check Answers",
+          "type": "object"
+        }
+      },
+      "required": [
+        "rubric_version",
+        "check_answers"
+      ],
+      "title": "DiagnosticMetadata",
+      "type": "object"
+    },
+    "LearningUnitMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "theory_section",
+            "core",
+            "lab",
+            "volume_final_check"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "section": {
+          "enum": [
+            "core",
+            "theory",
+            "widget"
+          ],
+          "title": "Section",
+          "type": "string"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Anchor"
+        },
+        "rubric_version": {
+          "maxLength": 150,
+          "minLength": 1,
+          "title": "Rubric Version",
+          "type": "string"
+        },
+        "check_answers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Check Answers",
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "section",
+        "rubric_version"
+      ],
+      "title": "LearningUnitMetadata",
+      "type": "object"
+    },
     "Part": {
       "additionalProperties": false,
       "properties": {
@@ -20,6 +109,12 @@
           "minLength": 1,
           "title": "Title",
           "type": "string"
+        },
+        "weight": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "title": "Weight",
+          "type": "number"
         }
       },
       "required": [
@@ -69,6 +164,20 @@
           "default": true,
           "title": "Family Reviewed",
           "type": "boolean"
+        },
+        "reward_equivalence_id": {
+          "anyOf": [
+            {
+              "maxLength": 150,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reward Equivalence Id"
         },
         "secondary_skill_ids": {
           "items": {
@@ -356,6 +465,20 @@
         "provenance": {
           "additionalProperties": true,
           "title": "Provenance",
+          "type": "object"
+        },
+        "learning_units": {
+          "additionalProperties": {
+            "$ref": "#/$defs/LearningUnitMetadata"
+          },
+          "title": "Learning Units",
+          "type": "object"
+        },
+        "diagnostic_checks": {
+          "additionalProperties": {
+            "$ref": "#/$defs/DiagnosticMetadata"
+          },
+          "title": "Diagnostic Checks",
           "type": "object"
         }
       },

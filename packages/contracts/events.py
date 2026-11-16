@@ -17,6 +17,7 @@ class Event(BaseModel):
     occurred_at: datetime
     correlation_id: UUID
     payload: dict
+    source_stream: Literal['main','character-evidence','character-campaign','character-profile','review-obligations'] = 'main'
 
 
 class PartFact(BaseModel):
@@ -40,3 +41,4 @@ class PracticeFact(BaseModel):
     active_minutes: float = Field(ge=0)
     eligible_for_progress: bool
     active_attempt_id: UUID | None
+    character_fact: dict | None = None

@@ -30,7 +30,7 @@ for path in Path('.secrets').glob('*.json'):
     if 'origin' in data:data['origin']='http://localhost:'+str(args.port)
     if 'base_url' in data:data['base_url']='http://localhost:'+str(args.port)
     target=folder/path.name;target.write_text(json.dumps(data,indent=2));target.chmod(0o644);host_owned(target)
-override={'services':{'web':{'ports':[]}},'secrets':{n+'_config':{'file':str((folder/(n+'.json')).resolve())} for n in ['content','practice','learning','reports']}}
+override={'services':{'web':{'ports':[]}},'secrets':{n+'_config':{'file':str((folder/(n+'.json')).resolve())} for n in OWNERS}}
 override['secrets']['operator']={'file':str((folder/'operator.json').resolve())}
 override['secrets']['mcp']={'file':str((folder/'mcp.json').resolve())}
 if os.getenv('CRUCIBLE_RESTORE_SUBNET_BASE'):
@@ -39,7 +39,7 @@ if os.getenv('CRUCIBLE_RESTORE_SUBNET_BASE'):
     network=ipaddress.ip_network(prefix+'.0.0/16')
     if not network.is_private or str(network.network_address).split('.')[:2]!=prefix.split('.'):
         raise SystemExit('CRUCIBLE_RESTORE_SUBNET_BASE должен задавать частную IPv4 /16 сеть, например 10.237')
-    override['networks']={name:{'ipam':{'config':[{'subnet':prefix+'.'+str(i)+'.0/24'}]}} for i,name in enumerate(['edge','content_api','practice_api','learning_api','reports_api',*(o+'_storage' for o in OWNERS),'messages','cache'],10)}
+    override['networks']={name:{'ipam':{'config':[{'subnet':prefix+'.'+str(i)+'.0/24'}]}} for i,name in enumerate(['edge','content_api','practice_api','learning_api','reports_api','character_api',*(o+'_storage' for o in OWNERS),'messages','cache'],10)}
 out=Path('.private')/args.project;out.mkdir(parents=True,exist_ok=False)
 # Compose's explicit override tag avoids retaining the source project's host port.
 import yaml
@@ -52,7 +52,9 @@ with tempfile.TemporaryDirectory(prefix='crucible-restore-') as temp:
     root=Path(temp)
     with tarfile.open(fileobj=io.BytesIO(archive),mode='r:gz') as tar:
         members=tar.getmembers()
-        if {m.name for m in members}!={'manifest.json','content.dump','practice.dump','learning.dump','reports.dump'}:raise ValueError('Unexpected archive members')
+        expected={'manifest.json',*(o+'.dump' for o in OWNERS)}
+        legacy={'manifest.json','content.dump','practice.dump','learning.dump','reports.dump'}
+        if {m.name for m in members} not in (expected,legacy):raise ValueError('Unexpected archive members')
         if any(not m.isfile() or '/' in m.name for m in members):raise ValueError('Unsafe archive member')
         tar.extractall(root,filter='data')
     manifest=json.loads((root/'manifest.json').read_text())
@@ -75,7 +77,7 @@ replay="""import json;from pathlib import Path;from platformkit.runtime import d
 cfg=json.loads(Path('/run/secrets/config').read_text())
 with db(cfg) as conn: conn.execute('UPDATE outbox SET published_at=NULL')
 """
-for service in ['content','practice','learning','reports']:
+for service in manifest['databases']:
     run(base+['exec','-T',service,'python','-c',replay])
 operator=json.loads((folder/'operator.json').read_text())
 if os.getenv('CRUCIBLE_OPERATOR_CONTAINER')=='1':operator['base_url']=api_base_url(base)
@@ -93,4 +95,4 @@ while True:
 evidence('restore',{'project':args.project,'port':args.port,'backup_sha256':hashlib.sha256(raw).hexdigest(),
                     'at':datetime.now(timezone.utc),'tables_verified':manifest['tables'],'seconds':time.monotonic()-started,
                     'retained_outbox_replayed':True,'applied_practice_seq':seq})
-print('Restored and verified four databases in '+args.project+' at http://localhost:'+str(args.port))
+print('Restored and verified '+str(len(manifest['databases']))+' databases in '+args.project+' at http://localhost:'+str(args.port))

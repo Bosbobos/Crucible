@@ -88,6 +88,25 @@ services:
       timeout: 3s
       retries: 40
     mem_limit: 512m
+  postgres-character:
+    secrets: [{source: replication_character_password, target: replication_password}]
+    environment: {POSTGRES_INITDB_ARGS: --data-checksums}
+    command: [postgres, -c, wal_level=replica, -c, max_wal_senders=10, -c, wal_log_hints=on, -c, hba_file=/etc/crucible-pg-hba.conf]
+    volumes: [./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+  postgres-character-standby:
+    image: postgres:17@sha256:846a7ddaa67a4b354ae1d21087b683901aa6113a4ed626d3787cfbf6c85e3e07
+    entrypoint: [bash, /opt/crucible-standby.sh]
+    environment: {PRIMARY_HOST: postgres-character}
+    volumes: [postgres-character-standby-data:/var/lib/postgresql/data, ./infra/postgres/standby.sh:/opt/crucible-standby.sh:ro, ./infra/postgres/replication-hba.conf:/etc/crucible-pg-hba.conf:ro]
+    secrets: [{source: replication_character_password, target: replication_password}, {source: pg_character_admin, target: pg_admin}]
+    networks: [character_storage]
+    depends_on: {postgres-character: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+    mem_limit: 512m
   rabbitmq:
     <<: *rabbit
     hostname: rabbitmq
@@ -108,6 +127,7 @@ volumes:
   postgres-content-standby-data:
   postgres-practice-standby-data:
   postgres-learning-standby-data:
+  postgres-character-standby-data:
   postgres-reports-standby-data:
   rabbit2-data:
   rabbit3-data:
@@ -127,6 +147,10 @@ secrets:
   practice_config: {file: .secrets/assessment/practice.json}
   learning_config: {file: .secrets/assessment/learning.json}
   reports_config: {file: .secrets/assessment/reports.json}
+  character_config: {file: .secrets/assessment/character.json}
+  pg_character_admin: {file: .secrets/pg-character-admin}
+  postgres_character_init: {file: .secrets/assessment/postgres-character-init.sql}
+  replication_character_password: {file: .secrets/assessment/replication-character-password}
   replication_content_password: {file: .secrets/assessment/replication-content-password}
   replication_practice_password: {file: .secrets/assessment/replication-practice-password}
   replication_learning_password: {file: .secrets/assessment/replication-learning-password}

@@ -44,15 +44,18 @@ if [ "$action" = publish ]; then
     exit 0
 fi # Завершаем обработку отдельной публикации.
 # Собираем Linux probe с iptables для namespaces приложений.
-docker build -f infra/Dockerfile.probe -t crucible-probe:0.2.0 .
+docker build -f infra/Dockerfile.probe -t paladin-probe:0.2.0 .
 # Дожидаемся готовности трёх инфраструктурных компонентов.
-crucible_compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports redis rabbitmq
+crucible_compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports postgres-character redis rabbitmq
+# Обновление definitions необходимо и для уже существующего volume брокера.
+crucible_compose cp .secrets/rabbit-definitions.json rabbitmq:/tmp/crucible-definitions.json
+crucible_compose exec -T rabbitmq rabbitmqctl import_definitions /tmp/crucible-definitions.json
 # Запускаем одноразовые SQL-миграции после готовности PostgreSQL.
-crucible_compose up -d --build migrations
+crucible_compose up -d --build --force-recreate migrations
 # Успех означает код 0 завершившегося процесса, а не бесконечно работающий контейнер.
 crucible_compose wait migrations
 # Создаём backend namespaces без ожидания health, чтобы сначала актуализировать firewall.
-crucible_compose up -d --build --no-deps content practice learning reports
+crucible_compose up -d --build --no-deps --force-recreate content practice learning reports character
 # Обновляем правила работающих приложений; web при первой установке ещё отсутствует.
 scripts/firewall apply --available
 # Compose запускает content-init и web после выполнения health/dependency-условий.

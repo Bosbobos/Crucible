@@ -1,0 +1,3 @@
+# Только offline pipeline, не runtime-сервисы. Установка в .deps через conda IAD.
+Pillow==12.1.0
+numpy==1.25.2

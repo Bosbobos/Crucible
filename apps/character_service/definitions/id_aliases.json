@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "item_id_aliases": {
+    "armor-0-gauntlets": "armor-0-bracers",
+    "armor-0-greaves": "armor-0-legs",
+    "armor-1-gauntlets": "armor-1-bracers",
+    "armor-1-greaves": "armor-1-legs",
+    "armor-2-gauntlets": "armor-2-bracers",
+    "armor-2-greaves": "armor-2-legs",
+    "armor-3-gauntlets": "armor-3-bracers",
+    "armor-3-greaves": "armor-3-legs",
+    "armor-4-gauntlets": "armor-4-bracers",
+    "armor-4-greaves": "armor-4-legs",
+    "armor-5-gauntlets": "armor-5-bracers",
+    "armor-5-greaves": "armor-5-legs",
+    "aura-1": "ornament-1",
+    "aura-2": "ornament-2",
+    "aura-3": "ornament-3"
+  },
+  "slot_aliases": {
+    "gauntlets": "bracers",
+    "greaves": "legs",
+    "aura": "back_ornament"
+  },
+  "policy": "Только явная миграция найденных legacy записей; aliases не новые предметы. Никогда не определять asset_id по имени Tier_*.png."
+}

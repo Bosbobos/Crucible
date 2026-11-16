@@ -10,7 +10,7 @@
 | Docker CLI и Compose | На компьютере владельца | Читают YAML, отправляют build/create/start/exec в Docker Engine |
 | Docker Engine / BuildKit | В Linux VM Docker Desktop либо на Linux-сервере | Собирают образы, создают namespaces, сети, mounts и volumes |
 | web | Контейнер nginx | Отдаёт собранный React, проверяет сессию, проксирует API |
-| content / practice / learning / reports | Четыре контейнера Python | Исполняют разные предметные контексты с собственными БД/ролями |
+| content / practice / learning / reports / character | Пять контейнеров Python | Исполняют разные предметные контексты с собственными БД/ролями |
 | PostgreSQL / Redis / RabbitMQ | Системные контейнеры | Хранят факты, ускоряют чтение, доставляют события |
 | bootstrap / migrations / content-init | Одноразовые контейнеры | Подготавливают конфигурацию, SQL-схемы и первую публикацию |
 | probe | Одноразовый операторский контейнер | Меняет только проектную цепь в network namespace выбранного приложения |
@@ -23,7 +23,7 @@
 flowchart LR
     Shell[Терминал владельца] --> CLI[Docker CLI / Compose]
     CLI --> Engine[Docker Engine]
-    Engine --> App[web + четыре API]
+    Engine --> App[web + пять API]
     Engine --> Data[PostgreSQL / Redis / RabbitMQ]
     Op[Одноразовый operator] -->|Docker socket, полномочия владельца| Engine
     MCP[MCP stdio, scoped token] -->|HTTP| App
@@ -81,7 +81,7 @@ docker compose -f compose.bootstrap.yaml run --rm --build bootstrap
 # Probe содержит Python stdlib и iptables; NET_ADMIN выдаётся только при запуске.
 docker build -f infra/Dockerfile.probe -t crucible-probe:0.2.0 .
 # Собираем собственные образы API, web и одноразовых задач.
-docker compose build content practice learning reports web migrations content-init
+docker compose build content practice learning reports character web migrations content-init
 ```
 
 Dockerfile.api начинает с зафиксированного Python 3.11 image digest, устанавливает requirements.lock, копирует технические пакеты и только выбранный предметный сервис, переключается на UID 10001 и запускает uvicorn. ARG SERVICE выбирает каталог на **этапе сборки**; отдельные сервисы получают разные образы.
@@ -94,7 +94,7 @@ RUN выполняется при сборке слоя образа, CMD — п
 
 ```sh
 # Создаём именованные volumes и ждём готовности БД, cache и broker.
-docker compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports redis rabbitmq
+docker compose up -d --wait --wait-timeout 180 postgres-content postgres-practice postgres-learning postgres-reports postgres-character redis rabbitmq
 # Запускаем одноразовый migration-процесс после здорового PostgreSQL.
 docker compose up -d migrations
 # Проверяем его настоящий код завершения: успешная задача должна закончиться с 0.
@@ -114,14 +114,14 @@ Exited (0) у migrations — правильное состояние. Ожида
 ### 2.5. Backend и firewall до ожидания API
 
 ```sh
-# Создаём четыре network namespace, не запуская их зависимости повторно.
-docker compose up -d --no-deps content practice learning reports
+# Создаём пять network namespace, не запуская их зависимости повторно.
+docker compose up -d --no-deps content practice learning reports character
 # Сохраняем metadata только контейнеров текущего project в закрытый файл.
 docker inspect $(docker compose ps -q) > .private/evidence/manual-network.json
 # Metadata читается внутри отдельного probe; родительский приватный каталог остаётся закрыт.
 chmod 644 .private/evidence/manual-network.json
-# Применяем правила к четырём уже работающим backend namespaces.
-for crucible_service in content practice learning reports; do
+# Применяем правила к пяти уже работающим backend namespaces.
+for crucible_service in content practice learning reports character; do
   # ID приходит от Compose, а не из произвольного пользовательского текста.
   crucible_cid=$(docker compose ps -q "$crucible_service")
   # Probe разделяет только сеть выбранного контейнера; Docker socket ему не выдаётся.
@@ -169,7 +169,7 @@ docker compose ps --all
 
 content-init использует только API content, scoped operator token и read-only файлы content. Если активная публикация уже есть, она сохраняется: изменённые авторские файлы не активируются от простого restart. Для пустой установки создаётся команда с command_id, API валидирует bundle и фиксирует immutable release, command receipt и outbox в одной транзакции. Publisher передаёт событие RabbitMQ; learning записывает собственную проекцию. Первичная инициализация ждёт достижения нужного каталога learning. Существующая установка может догонять retained outbox после restore асинхронно.
 
-web зависит от успешного content-init и health четырёх API. Это порядок начального запуска, а не постоянный мониторинг зависимостей Compose. После старта отказ broker/cache не должен запрещать сохранение practice: readiness API проверяет собственную БД, а факты и outbox фиксируются локально.
+web зависит от успешного content-init и health четырёх учебных API; character имеет независимую readiness. Это порядок начального запуска, а не постоянный мониторинг зависимостей Compose. После старта отказ broker/cache не должен запрещать сохранение practice: readiness API проверяет собственную БД, а факты и outbox фиксируются локально.
 
 ### 2.7. Политика web и итоговая проверка
 
@@ -179,7 +179,7 @@ docker inspect $(docker compose ps -q) > .private/evidence/manual-network.json
 # Metadata читается внутри отдельного probe; родительский приватный каталог остаётся закрыт.
 chmod 644 .private/evidence/manual-network.json
 # Повторяем установку для всех пяти приложений и сразу сверяем её с текущими IP.
-for crucible_service in web content practice learning reports; do
+for crucible_service in web content practice learning reports character; do
   # Получаем ID актуального экземпляра, а не имя старого контейнера.
   crucible_cid=$(docker compose ps -q "$crucible_service")
   # Устанавливаем ровно проектную политику этого namespace.
@@ -188,12 +188,12 @@ for crucible_service in web content practice learning reports; do
   docker run --rm --pull=never --network "container:$crucible_cid" --cap-drop ALL --cap-add NET_ADMIN --read-only --mount "type=bind,source=$PWD/.private/evidence/manual-network.json,target=/metadata.json,readonly" crucible-probe:0.2.0 python /opt/firewall.py check --source "$crucible_service"
 done
 # Проверяем доступность gateway с хоста через единственный опубликованный порт.
-curl -fsS http://localhost:18080/hello
+curl -fsS http://127.0.0.1:28080/hello
 # Контейнерный диагностический клиент читает настоящие предметные API.
 docker compose run --rm --no-deps tools scripts/doctor.py --require-ready
 ```
 
-На хост опубликован только 127.0.0.1:18080 → nginx:8080; backend слушают 8000 только внутри сетей, PostgreSQL/Redis/AMQP не опубликованы. Правила и пробы относятся к IPv4 текущего Compose. До успешной проверки всей процедуры стенд не считается готовым; ручной запуск содержит короткое локальное служебное окно между созданием namespace и установкой правил.
+На хост опубликован только 127.0.0.1:28080 → nginx:8080; backend слушают 8000 только внутри сетей, PostgreSQL/Redis/AMQP не опубликованы. Правила и пробы относятся к IPv4 текущего Compose. До успешной проверки всей процедуры стенд не считается готовым; ручной запуск содержит короткое локальное служебное окно между созданием namespace и установкой правил.
 
 Для порта, изменённого overlay-файлом, используй фактический host port и соответствующий CRUCIBLE_ORIGIN при bootstrap. В контейнерном HTTP-запросе localhost означает сам контейнер, поэтому tools/MCP обращаются к web:8080. Operator при необходимости присоединяет **себя** к API-сети целевого project и использует уникальное имя его web-контейнера; source и restore не путаются.
 
@@ -234,7 +234,7 @@ docker compose run --rm -T --no-deps study-mcp
 # Сохраняем ID уже работающего web; это не команда его пересоздания.
 export CRUCIBLE_WEB_CONTAINER="$(docker compose ps -q web)"
 # Используем тот же Origin, который был установлен bootstrap (здесь стандартный порт).
-CRUCIBLE_ORIGIN=http://localhost:18080 docker compose -f compose.yaml -f compose.e2e.yaml run --rm --build -T --no-deps e2e
+CRUCIBLE_ORIGIN=http://127.0.0.1:28080 docker compose -f compose.yaml -f compose.e2e.yaml run --rm --build -T --no-deps e2e
 ```
 
 Последняя команда сама по себе не открывает чат: MCP-host должен выполнить initialize, list_tools и вызовы по протоколу. SDK-тест запускает отдельный настоящий stdio-процесс, но не подтверждает регистрацию в конкретном desktop-host. При подключении через scripts/study-mcp build-диагностика идёт в stderr, stdout занят протоколом.
@@ -252,15 +252,15 @@ export CRUCIBLE_PROJECT_DIR="$PWD"
 export CRUCIBLE_TARGET_PROJECT="$(docker compose config --format yaml | sed -n 's/^name: //p')"
 # Собираем Python + Docker CLI; daemon остаётся прежним внешним Docker Engine.
 docker compose -f compose.tasks.yaml -p crucible-tasks build operator
-# Проверяем собственные SQL-права четырёх владельцев и безопасный CRUD черновика.
+# Проверяем собственные SQL-права пяти владельцев и безопасный CRUD черновика.
 docker compose -f compose.tasks.yaml -p crucible-tasks run --rm -T --no-deps operator scripts/check_sql_isolation.py
-# На синтетическом стенде создаём согласованный зашифрованный backup четырёх БД.
+# На синтетическом стенде создаём согласованный зашифрованный backup пяти БД.
 CRUCIBLE_DEMO=1 docker compose -f compose.tasks.yaml -p crucible-tasks run --rm -T --no-deps operator scripts/backup.py
 ```
 
 Operator монтирует checkout по тому же абсолютному пути и Docker socket. Поэтому созданный им новый Compose project ссылается на **host-пути**, а не на несуществующий для daemon внутренний /app. read_only защищает его образ, но bind mount проекта намеренно доступен для записи отчётов, backup и восстановленной конфигурации. Ограниченные Linux capabilities не отменяют административных возможностей Docker socket.
 
-Backup останавливает все приложения-писатели/consumers, создаёт четыре pg_dump, manifest и checksums, шифрует AES-GCM отдельным ключом и возвращает приложения с актуальными правилами. Restore принимает только новый project, проверяет архив и таблицы до старта приложений, затем повторяет retained outbox и ждёт актуальную проекцию. Это не замена реальной проверке восстановления.
+Backup останавливает все приложения-писатели/consumers, создаёт пять pg_dump, manifest и checksums, шифрует AES-GCM отдельным ключом и возвращает приложения с актуальными правилами. Restore принимает только новый project, проверяет архив и таблицы до старта приложений, затем повторяет retained outbox и ждёт актуальную проекцию. Это не замена реальной проверке восстановления.
 
 Assessment использует отдельные volumes, primary/standby и три RabbitMQ с quorum queues. Он наследует тот же предметный код; переключение выполняется оператором с fencing, а не называется автоматическим. После прежнего failover имя standby может обозначать текущий primary — роли нужно читать через pg_is_in_recovery(). Rejoin сначала пытается выполнить pg_rewind. Если нужный WAL уже удалён и rewind не завершился, старый узел остаётся fenced: сначала выполняются новый pg_basebackup и pg_verifybackup, прежний каталог сохраняется под .pre-rejoin внутри закрытого volume, затем устанавливается новая копия и включается standby.signal. Только после возврата и sync-проверки узел считается репликой. Эта ветка следует [правилу восстановления после ошибки pg_rewind](https://www.postgresql.org/docs/17/app-pgrewind.html); сохранённая старая копия требует отдельного обслуживания, автоматического retention нет.
 

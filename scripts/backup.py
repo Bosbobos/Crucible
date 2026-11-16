@@ -1,4 +1,4 @@
-"""Coordinated four-DB backup, AES-GCM encrypted with a separately stored local key."""
+"""Coordinated owner-DB backup, AES-GCM encrypted with a separately stored local key."""
 import hashlib
 import io
 import json
@@ -12,8 +12,8 @@ from platformkit.backup_format import encrypt_backup, SUFFIX
 from ops import COMPOSE, compose, evidence, host_owned, refresh_firewall, writable_databases
 
 if os.getenv('CRUCIBLE_DEMO')!='1':raise SystemExit('This initial workflow is restricted to the synthetic stack: CRUCIBLE_DEMO=1')
-names=['content','practice','learning','reports']
-apps=['web','content','practice','learning','reports']
+names=['content','practice','learning','reports','character']
+apps=['web',*names]
 folder=Path('.private/backups');folder.mkdir(parents=True,exist_ok=True)
 key_path=Path('.secrets/backup-key')
 if not key_path.exists():key_path.write_bytes(os.urandom(32));key_path.chmod(0o600);host_owned(key_path)

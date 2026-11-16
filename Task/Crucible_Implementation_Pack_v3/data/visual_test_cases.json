@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "status": "not_run",
+  "backgrounds": [
+    "#FFFFFF",
+    "#252B31",
+    "#00BCD4"
+  ],
+  "scene_width_css_px": [
+    240,
+    360,
+    480
+  ],
+  "full_sets": [
+    "ARM-00",
+    "ARM-01",
+    "ARM-02",
+    "ARM-03",
+    "ARM-04"
+  ],
+  "individual_parts": {
+    "set_ids": [
+      "ARM-00",
+      "ARM-01",
+      "ARM-02",
+      "ARM-03",
+      "ARM-04"
+    ],
+    "slots": [
+      "chest",
+      "shoulders",
+      "bracers",
+      "legs"
+    ]
+  },
+  "mixed_outfits": [
+    {
+      "id": "mixed-01",
+      "slots": {
+        "chest": "armor-2-chest",
+        "shoulders": "armor-4-shoulders",
+        "bracers": "armor-0-bracers",
+        "legs": "armor-1-legs"
+      }
+    },
+    {
+      "id": "mixed-02",
+      "slots": {
+        "chest": "armor-0-chest",
+        "shoulders": "armor-3-shoulders",
+        "bracers": "armor-4-bracers",
+        "legs": "armor-2-legs"
+      }
+    },
+    {
+      "id": "mixed-03",
+      "slots": {
+        "chest": "armor-4-chest",
+        "shoulders": "armor-0-shoulders",
+        "bracers": "armor-2-bracers",
+        "legs": "armor-3-legs"
+      }
+    },
+    {
+      "id": "mixed-04",
+      "slots": {
+        "chest": "armor-1-chest",
+        "shoulders": "armor-2-shoulders",
+        "bracers": "armor-3-bracers",
+        "legs": "armor-0-legs"
+      }
+    },
+    {
+      "id": "mixed-05",
+      "slots": {
+        "chest": "armor-3-chest",
+        "shoulders": "armor-1-shoulders",
+        "bracers": "armor-0-bracers",
+        "legs": "armor-4-legs"
+      }
+    },
+    {
+      "id": "mixed-06",
+      "slots": {
+        "chest": "armor-0-chest",
+        "shoulders": "armor-4-shoulders",
+        "bracers": "armor-1-bracers",
+        "legs": "armor-3-legs"
+      }
+    },
+    {
+      "id": "mixed-07",
+      "slots": {
+        "chest": "armor-4-chest",
+        "shoulders": "armor-2-shoulders",
+        "bracers": "armor-3-bracers",
+        "legs": "armor-1-legs"
+      }
+    },
+    {
+      "id": "mixed-08",
+      "slots": {
+        "chest": "armor-2-chest",
+        "shoulders": "armor-0-shoulders",
+        "bracers": "armor-4-bracers",
+        "legs": "armor-3-legs"
+      }
+    },
+    {
+      "id": "mixed-09",
+      "slots": {
+        "chest": "armor-1-chest",
+        "shoulders": "armor-3-shoulders",
+        "bracers": "armor-2-bracers",
+        "legs": "armor-4-legs"
+      }
+    },
+    {
+      "id": "mixed-10",
+      "slots": {
+        "chest": "armor-3-chest",
+        "shoulders": "armor-4-shoulders",
+        "bracers": "armor-1-bracers",
+        "legs": "armor-0-legs"
+      }
+    }
+  ],
+  "sword_tests": [
+    "on_vs_none",
+    "all_five_bracers",
+    "before_both_legs",
+    "grip_dependency_missing",
+    "load_failure",
+    "newer_loadout_wins"
+  ],
+  "ornament_tests": [
+    "behind_face_and_horns",
+    "ARM-00",
+    "ARM-04",
+    "none",
+    "no_clip"
+  ],
+  "special_tests": [
+    "base_reassembly",
+    "wrap_restore_on_missing_legs",
+    "tail_survives",
+    "collar_neck_overlap",
+    "unknown_asset_fallback",
+    "manifest_atomic_switch"
+  ]
+}

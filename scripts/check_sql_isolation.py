@@ -61,4 +61,4 @@ print('INSERT SELECT UPDATE DELETE passed')'''
 print(compose('exec', '-T', 'learning', 'python', '-c', code).stdout.strip())
 evidence('sql-isolation', {'at': datetime.now(timezone.utc), 'topology': 'one-postgres-container-per-service',
                            'results': results, 'crud': 'passed on ephemeral plan draft'})
-print('4 own DB connections passed; 12 foreign PostgreSQL TCP connections denied; 4 maintenance CONNECT denied; runtime roles restricted.')
+print(f'{len(OWNERS)} own DB connections passed; {len(OWNERS)*(len(OWNERS)-1)} foreign PostgreSQL TCP connections denied; runtime roles restricted.')

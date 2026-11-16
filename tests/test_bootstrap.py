@@ -36,3 +36,16 @@ def test_bootstrap_rejects_mismatched_password_without_repair(tmp_path):
     with pytest.raises(ValueError, match='Конфигурация повреждена'):
         bootstrap.setup(root)
     assert checksums(root) == before
+
+
+def test_fresh_character_tokens_have_scoped_permissions_and_stable_reuse(tmp_path):
+    import json,jwt
+    root=tmp_path/'secrets';bootstrap.setup(root)
+    public=json.loads((root/'practice.json').read_text())['public_key']
+    for filename,expected in [('operator.json',{'character:read','character:write','character:snapshot'}),
+        ('test-owner.json',{'character:read','character:write'}),('mcp.json',{'character:read'})]:
+        token=json.loads((root/filename).read_text())['tokens']['character']
+        claims=jwt.decode(token,public,algorithms=['EdDSA'],audience='character-service',issuer='crucible')
+        assert expected<=set(claims['scopes'])
+        if filename=='mcp.json':assert 'character:write' not in claims['scopes']
+    before=checksums(root);bootstrap.setup(root);assert checksums(root)==before

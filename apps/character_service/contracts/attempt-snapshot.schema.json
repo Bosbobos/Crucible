@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Confirmed attempt result snapshot (target contract)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attempt_id",
+    "problem_id",
+    "content_version",
+    "rubric_version",
+    "reward_equivalence_id",
+    "family_id",
+    "discipline_id",
+    "mapped_volume_id",
+    "mapping_version",
+    "difficulty",
+    "parts",
+    "began_at",
+    "completed_at",
+    "source_sequence",
+    "provenance",
+    "freshness",
+    "help_during_attempt",
+    "review_context"
+  ],
+  "properties": {
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problem_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rubric_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reward_equivalence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "family_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "discipline_id": {
+      "enum": [
+        "LA",
+        "CA",
+        "PR",
+        "DS",
+        "OD"
+      ]
+    },
+    "mapped_volume_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mapping_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "difficulty": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "part_id",
+          "weight",
+          "outcome",
+          "quality",
+          "note_saved"
+        ],
+        "properties": {
+          "part_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "weight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "outcome": {
+            "enum": [
+              "independent",
+              "assisted",
+              "reviewed",
+              "skipped"
+            ]
+          },
+          "quality": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "note_saved": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "began_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessment_source",
+        "owner_confirmed"
+      ],
+      "properties": {
+        "assessment_source": {
+          "enum": [
+            "self_assessment",
+            "verified_rubric",
+            "import"
+          ]
+        },
+        "owner_confirmed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement_seen_before_attempt",
+        "solution_seen_before_attempt",
+        "worked_example_seen_before_attempt"
+      ],
+      "properties": {
+        "statement_seen_before_attempt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "solution_seen_before_attempt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "worked_example_seen_before_attempt": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "help_during_attempt": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "review_context": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "obligation_id",
+            "owner",
+            "due_at",
+            "last_credited_learning_at",
+            "is_scheduler_obligation"
+          ],
+          "properties": {
+            "obligation_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "owner": {
+              "type": "string",
+              "minLength": 1
+            },
+            "due_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_credited_learning_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "is_scheduler_obligation": {
+              "const": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

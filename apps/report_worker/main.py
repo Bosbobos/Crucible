@@ -17,7 +17,7 @@ def consume(raw):
         with db(cfg) as conn:
             conn.execute('INSERT INTO inbox_receipts(event_id) VALUES (%s) ON CONFLICT DO NOTHING', (event.event_id,))
         return
-    if event.event_type == 'learning.progress.updated.v1' and event.producer == 'learning-service':
+    if (event.event_type,event.producer) in {('learning.progress.updated.v1','learning-service'),('character.progress.updated.v1','character-service')}:
         with db(cfg) as conn:
             if conn.execute('INSERT INTO inbox_receipts(event_id) VALUES (%s) ON CONFLICT DO NOTHING RETURNING event_id', (event.event_id,)).fetchone():
                 conn.execute("UPDATE jobs SET stale=true WHERE status='ready'")
@@ -32,6 +32,11 @@ def consume(raw):
     if progress['pending']:
         raise RuntimeError('Learning projection is pending')
     artifact = {'schema_version': 1, 'kind': 'study-export', 'generated_at': iso(), 'practice': snapshot, 'learning': progress}
+    if 'character' in cfg['downstreams']:
+        try:
+            artifact['character']=call(cfg,'character','/internal/character/snapshot')
+        except HTTPException:
+            artifact['character']={'status':'unavailable'}
     markdown = ['# Итог подготовки', '', f'Попыток: {len(snapshot["attempts"])}', f'Минут: {progress["active_minutes"]}', '']
     for a in snapshot['attempts']:
         markdown += ['## '+a['problem']['id'], a['problem']['statement'], '', a['draft'], '']

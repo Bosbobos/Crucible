@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "fixtures_only_not_production_tests",
+  "scenarios": [
+    {
+      "id": "duplicate_event",
+      "delivery": [
+        "event1",
+        "event1"
+      ],
+      "expected_award_count": 1
+    },
+    {
+      "id": "same_fact_new_event_id",
+      "facts": [
+        {
+          "revision": 1,
+          "candidate_xp": 80
+        },
+        {
+          "revision": 1,
+          "candidate_xp": 80
+        }
+      ],
+      "expected_total": 80
+    },
+    {
+      "id": "out_of_order",
+      "facts": [
+        {
+          "revision": 3,
+          "candidate_xp": 80
+        },
+        {
+          "revision": 2,
+          "candidate_xp": 56
+        }
+      ],
+      "expected_total": 80
+    },
+    {
+      "id": "correction",
+      "facts": [
+        {
+          "revision": 1,
+          "candidate_xp": 80
+        },
+        {
+          "revision": 2,
+          "candidate_xp": 56
+        }
+      ],
+      "expected_deltas": [
+        80,
+        -24
+      ]
+    },
+    {
+      "id": "another_attempt_preserves_max",
+      "current_valid_candidates": [
+        80,
+        56
+      ],
+      "expected_total": 80
+    },
+    {
+      "id": "revoked_only_evidence",
+      "previous_total": 80,
+      "current_valid_candidates": [],
+      "expected_delta": -80
+    },
+    {
+      "id": "crash_after_commit_before_ack",
+      "expected_award_count": 1
+    },
+    {
+      "id": "replay_historical",
+      "expected_today_activity": false,
+      "expected_reward_notifications": 0
+    }
+  ]
+}

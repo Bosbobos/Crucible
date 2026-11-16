@@ -26,7 +26,7 @@ for source in $sources; do
     docker run --rm --pull=never --network "container:$cid" --cap-drop ALL --cap-add NET_ADMIN --security-opt no-new-privileges:true --read-only --tmpfs /tmp \
         --mount "type=bind,source=$folder/metadata.json,target=/metadata.json,readonly" \
         --mount "type=bind,source=$folder/$source,target=/results" \
-        "$@" crucible-probe:0.2.0 python /opt/firewall_capture.py --source "$source"
+        "$@" paladin-probe:0.2.0 python /opt/firewall_capture.py --source "$source"
 done
 printf '%s\n' "$folder" > .private/evidence/firewall-capture-latest.txt
 printf 'Правила и оригинальные ulogd2-журналы: %s\n' "$folder" >&2

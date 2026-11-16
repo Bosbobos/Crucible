@@ -1,0 +1,15 @@
+{
+  "command_id": "0ed5dc12-8f22-4cf0-82bf-c4658823e7c3",
+  "expected_revision": 7,
+  "slots": {
+    "chest": "armor-0-chest",
+    "shoulders": "armor-0-shoulders",
+    "bracers": "armor-0-bracers",
+    "legs": "armor-0-legs",
+    "sword": "sword-0",
+    "shield": null,
+    "cloak": null,
+    "back_ornament": null,
+    "insignia": null
+  }
+}

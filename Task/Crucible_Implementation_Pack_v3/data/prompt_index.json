@@ -1,0 +1,495 @@
+{
+  "schema_version": 1,
+  "policy": "one prompt, one output; no batch generation",
+  "prompts": [
+    {
+      "asset_id": "ARM-05",
+      "title": "Регалии Высокого Конклава — кандидат «Инквизитор истины»",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png",
+        "ARM-04.png"
+      ],
+      "priority": "P1",
+      "status": "Художественная гипотеза; финальный сет ещё НЕ утверждён",
+      "kind": "art",
+      "file": "art_prompts/ARM-05.md"
+    },
+    {
+      "asset_id": "SWD-00",
+      "title": "Походный клинок",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-00.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SWD-00.md"
+    },
+    {
+      "asset_id": "SWD-01",
+      "title": "Ясный довод",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-01.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SWD-01.md"
+    },
+    {
+      "asset_id": "SWD-02",
+      "title": "Связь",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-02.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SWD-02.md"
+    },
+    {
+      "asset_id": "SWD-03",
+      "title": "Пять граней",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-03.png"
+      ],
+      "priority": "P1",
+      "status": "Дизайн есть в примере; сначала извлечение без новой генерации",
+      "kind": "art",
+      "file": "art_prompts/SWD-03.md"
+    },
+    {
+      "asset_id": "SWD-04",
+      "title": "Верность свету",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-04.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SWD-04.md"
+    },
+    {
+      "asset_id": "SWD-05",
+      "title": "Рассветный предел",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png",
+        "ARM-03.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SWD-05.md"
+    },
+    {
+      "asset_id": "ORN-01",
+      "title": "Линия опоры",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png",
+        "ARM-04.png"
+      ],
+      "priority": "P1",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/ORN-01.md"
+    },
+    {
+      "asset_id": "ORN-02",
+      "title": "Пять свидетельств",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png",
+        "ARM-04.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/ORN-02.md"
+    },
+    {
+      "asset_id": "ORN-03",
+      "title": "Тихий рассвет",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png",
+        "ARM-04.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/ORN-03.md"
+    },
+    {
+      "asset_id": "HAND-R-GRIP-01",
+      "title": "общая правая кисть для одноручного меча",
+      "references": [
+        "BASE-00.png",
+        "SWORD-POSE-REF.png"
+      ],
+      "priority": "P1",
+      "status": "УСЛОВНЫЙ: запускать только если хват нельзя корректно извлечь/подготовить из примера",
+      "kind": "technical",
+      "file": "art_prompts/HAND-R-GRIP-01.md"
+    },
+    {
+      "asset_id": "SHD-00",
+      "title": "Походный щит",
+      "references": [
+        "BASE-00.png",
+        "ARM-00.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-00.md"
+    },
+    {
+      "asset_id": "SHD-01",
+      "title": "Опора",
+      "references": [
+        "BASE-00.png",
+        "ARM-01.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-01.md"
+    },
+    {
+      "asset_id": "SHD-02",
+      "title": "Проверка",
+      "references": [
+        "BASE-00.png",
+        "ARM-02.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-02.md"
+    },
+    {
+      "asset_id": "SHD-03",
+      "title": "Память формы",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-03.md"
+    },
+    {
+      "asset_id": "SHD-04",
+      "title": "Непрерывность",
+      "references": [
+        "BASE-00.png",
+        "ARM-04.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-04.md"
+    },
+    {
+      "asset_id": "SHD-05",
+      "title": "Страж Рассвета",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/SHD-05.md"
+    },
+    {
+      "asset_id": "CLK-00",
+      "title": "Дорожная мантия",
+      "references": [
+        "BASE-00.png",
+        "ARM-00.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-00.md"
+    },
+    {
+      "asset_id": "CLK-01",
+      "title": "Белый лист",
+      "references": [
+        "BASE-00.png",
+        "ARM-01.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-01.md"
+    },
+    {
+      "asset_id": "CLK-02",
+      "title": "Поля рукописи",
+      "references": [
+        "BASE-00.png",
+        "ARM-02.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-02.md"
+    },
+    {
+      "asset_id": "CLK-03",
+      "title": "Пять залов",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-03.md"
+    },
+    {
+      "asset_id": "CLK-04",
+      "title": "Свет Горнила",
+      "references": [
+        "BASE-00.png",
+        "ARM-04.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-04.md"
+    },
+    {
+      "asset_id": "CLK-05",
+      "title": "Мантия Конклава",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/CLK-05.md"
+    },
+    {
+      "asset_id": "REL-01",
+      "title": "Линза ясности",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-01.md"
+    },
+    {
+      "asset_id": "REL-02",
+      "title": "Печать первого довода",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-02.md"
+    },
+    {
+      "asset_id": "REL-03",
+      "title": "Кристалл базиса",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-03.md"
+    },
+    {
+      "asset_id": "REL-04",
+      "title": "Часы предела",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-04.md"
+    },
+    {
+      "asset_id": "REL-05",
+      "title": "Весы возможностей",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-05.md"
+    },
+    {
+      "asset_id": "REL-06",
+      "title": "Ключ связей",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-06.md"
+    },
+    {
+      "asset_id": "REL-07",
+      "title": "Сфера потока",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-07.md"
+    },
+    {
+      "asset_id": "REL-08",
+      "title": "Призма согласия",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-08.md"
+    },
+    {
+      "asset_id": "REL-09",
+      "title": "Уголь Горнила",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/REL-09.md"
+    },
+    {
+      "asset_id": "ENV-SILK",
+      "title": "белая ткань для баннера",
+      "references": [
+        "ARM-03.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/ENV-SILK.md"
+    },
+    {
+      "asset_id": "ENV-ARCHIVE",
+      "title": "светлая библиотечная ниша",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P2",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/ENV-ARCHIVE.md"
+    },
+    {
+      "asset_id": "HALL-LA",
+      "title": "Зал Форм",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-LA.md"
+    },
+    {
+      "asset_id": "HALL-CA",
+      "title": "Зал Пределов",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-CA.md"
+    },
+    {
+      "asset_id": "HALL-PR",
+      "title": "Зал Возможностей",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-PR.md"
+    },
+    {
+      "asset_id": "HALL-DS",
+      "title": "Зал Связей",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-DS.md"
+    },
+    {
+      "asset_id": "HALL-OD",
+      "title": "Зал Изменений",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-OD.md"
+    },
+    {
+      "asset_id": "HALL-CONCLAVE",
+      "title": "Порог Высокого Конклава",
+      "references": [
+        "BASE-00.png",
+        "ARM-03.png"
+      ],
+      "priority": "P3",
+      "status": "Не создан",
+      "kind": "art",
+      "file": "art_prompts/HALL-CONCLAVE.md"
+    }
+  ]
+}

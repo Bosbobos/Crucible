@@ -1,16 +1,17 @@
 # Сети и firewall
 
-Единственный публикуемый порт основного стенда — 127.0.0.1:18080. PostgreSQL, Redis, RabbitMQ и служебные HTTP-маршруты не публикуются. В assessment web использует 18081; восстановление выполняется в новом project на 18082.
+Единственный публикуемый порт основного стенда — 127.0.0.1:28080. PostgreSQL, Redis, RabbitMQ и служебные HTTP-маршруты не публикуются. В assessment web использует 18081; восстановление выполняется в новом project на 18082.
 
-Сегменты: edge для входа web; отдельные content_api/practice_api/learning_api/reports_api; четыре content_storage/practice_storage/learning_storage/reports_storage для PostgreSQL; messages для AMQP; cache только для learning и Redis. Все внутренние сети имеют internal=true. Web не входит ни в одну storage-сеть, messages или cache. Каждый runtime подключён только к собственной storage-сети. Сами Docker-сети не выдаются за полную межсервисную allowlist.
+Сегменты: edge для входа web; отдельные content_api/practice_api/learning_api/reports_api/character_api; пять content_storage/practice_storage/learning_storage/reports_storage/character_storage для PostgreSQL; messages для AMQP; cache только для learning и Redis. Все внутренние сети имеют internal=true. Web не входит ни в одну storage-сеть, messages или cache. Каждый runtime подключён только к собственной storage-сети. Сами Docker-сети не выдаются за полную межсервисную allowlist.
 
 | Источник | Разрешённый исходящий поток |
 |---|---|
-| web | четыре API:8000 |
+| web | пять API:8000 |
 | content | postgres-content:5432, RabbitMQ:5672 |
 | practice | postgres-practice:5432, RabbitMQ:5672, content:8000 |
 | learning | postgres-learning:5432, RabbitMQ:5672, Redis:6379 |
-| reports | postgres-reports:5432, RabbitMQ:5672, practice/learning:8000 |
+| reports | postgres-reports:5432, RabbitMQ:5672, practice/learning/character:8000 |
+| character | postgres-character:5432, RabbitMQ:5672 |
 
 Bootstrap/rebuild learning запускается в явном режиме обслуживания и временно нуждается в сетях practice_api/content_api; обычный планировщик туда не ходит. Для scoped восстановления оператор подключает learning к этим сетям на время команды и затем отключает их.
 
@@ -37,7 +38,7 @@ scripts/doctor
 
 Датированные отчёты и исходные результаты каждого namespace находятся в `.private/evidence/firewall-*`. `show` выводит полный ruleset и счётчики; остальные команды — краткий итог и путь к полному JSON. `rollback` явно удаляет только собственную цепь. Совместимый `scripts/python scripts/firewall.py ...` вызывает тот же Docker CLI wrapper.
 
-У каждого PostgreSQL свой IP и storage-сеть. `scripts/operator scripts/check_sql_isolation.py` проверяет 4 собственных подключения, 12 недоступных чужих PostgreSQL по фактическим IP, ограниченные runtime-роли и 4 запрета CONNECT к служебной postgres. SQL-ACL проверяется внутри собственного экземпляра; запрет чужого TCP проверяется отдельно. В assessment allowlist добавляет только собственную реплику сервиса.
+У каждого PostgreSQL свой IP и storage-сеть. `scripts/operator scripts/check_sql_isolation.py` проверяет 5 собственных подключений, 20 недоступных чужих PostgreSQL по фактическим IP, ограниченные runtime-роли и 5 запретов CONNECT к служебной postgres. SQL-ACL проверяется внутри собственного экземпляра; запрет чужого TCP проверяется отдельно. В assessment allowlist добавляет только собственную реплику сервиса.
 
 Proxy удаляет внешние X-Session-Assertion и выдаёт доверенное утверждение после проверки opaque cookie. Bearer-токены проверяются сервисами локально, без вызова practice. Ошибка 403 не называется блокировкой TCP.
 
@@ -52,3 +53,5 @@ CRUCIBLE_DEMO=1 scripts/firewall-capture
 В internal-сетях без default route пакет к чужой сети может не дойти до OUTPUT. Только во время диагностических проб добавляются /32 маршруты через собственный интерфейс: это позволяет отдельно наблюдать NFLOG и финальный REJECT для чужих PostgreSQL. Членство контейнеров в сетях и разрешения ACCEPT не расширяются; до выхода из namespace SYN блокируется. Маршруты и прежняя политика восстанавливаются в finally. В журнале подтверждается каждый разрешённый и запрещённый маршрут, включая все 12 межсервисных попыток к чужим БД.
 
 Документация механизмов: [iptables NFLOG](https://manpages.debian.org/trixie/iptables/iptables-extensions.8.en.html#NFLOG), [штатная конфигурация ulogd2 NFLOG → LOGEMU](https://sources.debian.org/src/ulogd2/2.0.9-1/ulogd.conf.in/).
+
+Character не подключён к учебным API/storage/cache. Новые факты и review obligations доставляются через разрешённые topic routes; practice не получает HTTP-зависимости от scheduler для старта или сохранения. SVG topology обновлён для пяти владельцев БД.

@@ -1,0 +1,1684 @@
+{
+  "schema_version": 1,
+  "manifest_version": "draft-3.0.0",
+  "assets": [
+    {
+      "asset_id": "BASE-00",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/BASE-00.png",
+      "source_sha256": "1a8cd143a1aa90e320bd64d4e22caf241d911beec881161cf698396395c3b41a",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "main": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-00",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/ARM-00.png",
+      "source_sha256": "f12bcc39b6dff9688d36588c7cf9b38035eb21130904098f91633836b96e77de",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "chest": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-01",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/ARM-01.png",
+      "source_sha256": "378e5d80fa01150e6dc08d083ffb83f463d623fa0b3df79a6ba4498ab9a36c6b",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "chest": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-02",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/ARM-02.png",
+      "source_sha256": "963376b33dde7041d5e7052e06720d04bfbc59ebe8e63ed13505cd8f2b5f9c8d",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "chest": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-03",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/ARM-03.png",
+      "source_sha256": "a0d9f732507166fafed1b5e959057b1de66f7fae8efbd5b47ae59ee37bfe67b8",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "chest": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-04",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": true,
+      "source_status": "reference_available",
+      "source_path": "references/ARM-04.png",
+      "source_sha256": "df596d60f34dff6bfd060ecf73aa52301abb7a023a0ae13c7f73c4121359154a",
+      "reference_source_id": null,
+      "prompt_file": null,
+      "runtime_status": "not_prepared",
+      "representations": {
+        "chest": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "not_prepared",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ARM-05",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ARM-05.md",
+      "runtime_status": "missing",
+      "representations": {
+        "chest": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "shoulders": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "bracers": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        },
+        "legs": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-00",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SWD-00.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-01",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SWD-01.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-02",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SWD-02.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-03",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "reference_available",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": "SWORD-POSE-REF",
+      "prompt_file": "art_prompts/SWD-03.md",
+      "runtime_status": "not_prepared",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-04",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SWD-04.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SWD-05",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SWD-05.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-00",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-00.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-01",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-01.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-02",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-02.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-03",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-03.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-04",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-04.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "SHD-05",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/SHD-05.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-00",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-00.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-01",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-01.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-02",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-02.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-03",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-03.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-04",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-04.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "CLK-05",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/CLK-05.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-01",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-01.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-02",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-02.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-03",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-03.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-04",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-04.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-05",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-05.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-06",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-06.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-07",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-07.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-08",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-08.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "REL-09",
+      "target_size": [
+        1024,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/REL-09.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ENV-SILK",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ENV-SILK.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ENV-ARCHIVE",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ENV-ARCHIVE.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-LA",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-LA.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-CA",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-CA.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-PR",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-PR.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-DS",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-DS.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-OD",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-OD.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "HALL-CONCLAVE",
+      "target_size": [
+        1536,
+        1024
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/HALL-CONCLAVE.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ORN-01",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ORN-01.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ORN-02",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ORN-02.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    },
+    {
+      "asset_id": "ORN-03",
+      "target_size": [
+        1024,
+        1536
+      ],
+      "source_generation_complete": false,
+      "source_status": "missing",
+      "source_path": null,
+      "source_sha256": null,
+      "reference_source_id": null,
+      "prompt_file": "art_prompts/ORN-03.md",
+      "runtime_status": "missing",
+      "representations": {
+        "main": {
+          "status": "missing",
+          "path": null,
+          "hide_base_path": null,
+          "rig_id": null,
+          "sha256": null,
+          "qa_report": null
+        }
+      },
+      "icon": {
+        "status": "missing",
+        "path": null
+      },
+      "provenance": {
+        "tool": null,
+        "generated_at": null,
+        "usage_terms_confirmed": false
+      }
+    }
+  ],
+  "references": [
+    {
+      "asset_id": "SWORD-POSE-REF",
+      "path": "references/SWORD-POSE-REF.png",
+      "sha256": "ac343db462947808e888a9224c7f4f64d2737abb36d08a5b629a7f3a26e3a8ba",
+      "usage": "composition/design reference; not production sword"
+    }
+  ],
+  "technical_assets": [
+    {
+      "asset_id": "HAND-R-GRIP-01",
+      "status": "conditional_not_prepared",
+      "prompt_file": "art_prompts/HAND-R-GRIP-01.md",
+      "parts": [
+        "grip_back",
+        "grip_front",
+        "hide_neutral_hand"
+      ],
+      "paths": null,
+      "is_reward": false
+    }
+  ],
+  "code_assets": [
+    {
+      "asset_id": "SIGIL-LA",
+      "status": "to_implement_svg",
+      "path": null
+    },
+    {
+      "asset_id": "SIGIL-CA",
+      "status": "to_implement_svg",
+      "path": null
+    },
+    {
+      "asset_id": "SIGIL-PR",
+      "status": "to_implement_svg",
+      "path": null
+    },
+    {
+      "asset_id": "SIGIL-DS",
+      "status": "to_implement_svg",
+      "path": null
+    },
+    {
+      "asset_id": "SIGIL-OD",
+      "status": "to_implement_svg",
+      "path": null
+    }
+  ]
+}

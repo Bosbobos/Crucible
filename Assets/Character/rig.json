@@ -1,0 +1,83 @@
+{
+  "rig_id": "crucible-dragonborn-front-v3",
+  "canvas": [
+    1024,
+    1536
+  ],
+  "anchors": {
+    "head": [
+      555,
+      117
+    ],
+    "neck": [
+      548,
+      251
+    ],
+    "shoulder_right": [
+      347,
+      360
+    ],
+    "shoulder_left": [
+      700,
+      363
+    ],
+    "elbow_right": [
+      277,
+      548
+    ],
+    "elbow_left": [
+      748,
+      550
+    ],
+    "wrist_right": [
+      230,
+      755
+    ],
+    "wrist_left": [
+      792,
+      755
+    ],
+    "waist": [
+      533,
+      661
+    ],
+    "knee_right": [
+      399,
+      1040
+    ],
+    "knee_left": [
+      654,
+      1042
+    ],
+    "sole_right": [
+      285,
+      1515
+    ],
+    "sole_left": [
+      707,
+      1515
+    ],
+    "tail_root": [
+      353,
+      897
+    ],
+    "sword_grip": [
+      272,
+      838
+    ],
+    "sword_guard": [
+      339,
+      892
+    ],
+    "sword_tip": [
+      899,
+      1480
+    ],
+    "back_ornament": [
+      510,
+      185
+    ]
+  },
+  "measurement": "Ручная разметка пиксельных ориентиров BASE-00 и SWORD-POSE-REF, 16.11.2026; общий identity transform по совпадению запястий/талии/подошв пяти plates. Контуры редактируются независимо от исходников.",
+  "base_source_sha256": "1a8cd143a1aa90e320bd64d4e22caf241d911beec881161cf698396395c3b41a"
+}

@@ -10,6 +10,7 @@ class Part(DTO):
     id:str=Field(min_length=1,max_length=40)
     skill_id:str=Field(min_length=1,max_length=80)
     title:str=Field(min_length=1,max_length=200)
+    weight:float=Field(default=1,gt=0,allow_inf_nan=False)
 
 
 class Review(DTO):
@@ -25,6 +26,7 @@ class Problem(DTO):
     primary_skill_id:str
     skill_title:str | None = None
     family_reviewed:bool = True
+    reward_equivalence_id:str | None = Field(default=None,min_length=1,max_length=150)
     secondary_skill_ids:list[str]
     problem_family_id:str=Field(min_length=1,max_length=150)
     level:Literal['A','B','C']
@@ -49,6 +51,20 @@ class Problem(DTO):
     theory_sections:list[str]
 
 
+class LearningUnitMetadata(DTO):
+    kind:Literal['theory_section','core','lab','volume_final_check']
+    title:str=Field(min_length=1,max_length=200)
+    section:Literal['core','theory','widget']
+    anchor:str|None=None
+    rubric_version:str=Field(min_length=1,max_length=150)
+    check_answers:dict[str,str]=Field(default_factory=dict)
+
+
+class DiagnosticMetadata(DTO):
+    rubric_version:str=Field(min_length=1,max_length=150)
+    check_answers:dict[str,str]=Field(min_length=4,max_length=4)
+
+
 class Topic(DTO):
     id:str
     title:str
@@ -58,6 +74,8 @@ class Topic(DTO):
     core:str | None=Field(default=None,min_length=1,max_length=120000)
     theory:str | None=Field(default=None,min_length=1,max_length=120000)
     provenance:dict = Field(default_factory=dict)
+    learning_units:dict[str,LearningUnitMetadata] = Field(default_factory=dict)
+    diagnostic_checks:dict[str,DiagnosticMetadata] = Field(default_factory=dict)
 
 
 class ContentBundle(DTO):

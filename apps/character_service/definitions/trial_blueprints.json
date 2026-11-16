@@ -1,0 +1,1195 @@
+{
+  "schema_version": 1,
+  "blueprints": [
+    {
+      "id": "E-LA-01",
+      "seal": "E",
+      "volume_id": "LA-01",
+      "problem_count": 2,
+      "profile": "Два независимых решения: система с параметром и геометрическая задача на ядро/образ.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-LA-01",
+      "seal": "R",
+      "volume_id": "LA-01",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-LA-01",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-LA-02",
+      "seal": "E",
+      "volume_id": "LA-02",
+      "problem_count": 2,
+      "profile": "Проектор на подпространство и задача наименьших квадратов в другой постановке.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-LA-02",
+      "seal": "R",
+      "volume_id": "LA-02",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-LA-02",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-LA-03",
+      "seal": "E",
+      "volume_id": "LA-03",
+      "problem_count": 2,
+      "profile": "Диагонализация с обоснованием и вычисление функции матрицы с использованием структуры.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-LA-03",
+      "seal": "R",
+      "volume_id": "LA-03",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-LA-03",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-LA-04",
+      "seal": "E",
+      "volume_id": "LA-04",
+      "problem_count": 2,
+      "profile": "Классификация формы с параметром и экстремальная оценка на сфере.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-LA-04",
+      "seal": "R",
+      "volume_id": "LA-04",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-LA-04",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-LA-05",
+      "seal": "E",
+      "volume_id": "LA-05",
+      "problem_count": 2,
+      "profile": "SVD прямоугольной матрицы и структурная задача о ранге/сингулярных числах.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-LA-05",
+      "seal": "R",
+      "volume_id": "LA-05",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-LA-05",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-CA-01",
+      "seal": "E",
+      "volume_id": "CA-01",
+      "problem_count": 2,
+      "profile": "Предел с ненулевым остаточным порядком и рекуррентная последовательность с доказательством.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-CA-01",
+      "seal": "R",
+      "volume_id": "CA-01",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-CA-01",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-CA-02",
+      "seal": "E",
+      "volume_id": "CA-02",
+      "problem_count": 2,
+      "profile": "Оптимизация с параметром и доказательство неравенства.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-CA-02",
+      "seal": "R",
+      "volume_id": "CA-02",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-CA-02",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-CA-03",
+      "seal": "E",
+      "volume_id": "CA-03",
+      "problem_count": 2,
+      "profile": "Несобственный интеграл с исследованием сходимости и интеграл с параметром.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-CA-03",
+      "seal": "R",
+      "volume_id": "CA-03",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-CA-03",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-CA-04",
+      "seal": "E",
+      "volume_id": "CA-04",
+      "problem_count": 2,
+      "profile": "Ряд с параметром и степенной ряд с проверкой граничных точек.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-CA-04",
+      "seal": "R",
+      "volume_id": "CA-04",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-CA-04",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-CA-05",
+      "seal": "E",
+      "volume_id": "CA-05",
+      "problem_count": 2,
+      "profile": "Стационарные точки/ограничение и замена переменных в кратном интеграле.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-CA-05",
+      "seal": "R",
+      "volume_id": "CA-05",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-CA-05",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-PR-01",
+      "seal": "E",
+      "volume_id": "PR-01",
+      "problem_count": 2,
+      "profile": "Байес с выбором модели и условная независимость в другой постановке.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-PR-01",
+      "seal": "R",
+      "volume_id": "PR-01",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-PR-01",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-PR-02",
+      "seal": "E",
+      "volume_id": "PR-02",
+      "problem_count": 2,
+      "profile": "Выбор распределения по механизму опыта и непрерывная модель с нормировкой.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-PR-02",
+      "seal": "R",
+      "volume_id": "PR-02",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-PR-02",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-PR-03",
+      "seal": "E",
+      "volume_id": "PR-03",
+      "problem_count": 2,
+      "profile": "Индикаторный подсчёт без лишней независимости и дисперсия зависимой суммы.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-PR-03",
+      "seal": "R",
+      "volume_id": "PR-03",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-PR-03",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-PR-04",
+      "seal": "E",
+      "volume_id": "PR-04",
+      "problem_count": 2,
+      "profile": "Совместная плотность/условный закон и экстремум случайных величин.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-PR-04",
+      "seal": "R",
+      "volume_id": "PR-04",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-PR-04",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-PR-05",
+      "seal": "E",
+      "volume_id": "PR-05",
+      "problem_count": 2,
+      "profile": "Вероятностная оценка с условиями и задача на состоятельность/выборочную величину.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-PR-05",
+      "seal": "R",
+      "volume_id": "PR-05",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-PR-05",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-DS-01",
+      "seal": "E",
+      "volume_id": "DS-01",
+      "problem_count": 2,
+      "profile": "Подсчёт с ограничениями и доказательство комбинаторного тождества.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-DS-01",
+      "seal": "R",
+      "volume_id": "DS-01",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-DS-01",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-DS-02",
+      "seal": "E",
+      "volume_id": "DS-02",
+      "problem_count": 2,
+      "profile": "Рекуррентный подсчёт и независимая задача через коэффициент/свёртку.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-DS-02",
+      "seal": "R",
+      "volume_id": "DS-02",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-DS-02",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-DS-03",
+      "seal": "E",
+      "volume_id": "DS-03",
+      "problem_count": 2,
+      "profile": "Доказательство о графе и задача на инвариант/невозможность.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-DS-03",
+      "seal": "R",
+      "volume_id": "DS-03",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-DS-03",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-DS-04",
+      "seal": "E",
+      "volume_id": "DS-04",
+      "problem_count": 2,
+      "profile": "Новая постановка DP и доказательство корректности перехода.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-DS-04",
+      "seal": "R",
+      "volume_id": "DS-04",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-DS-04",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-DS-05",
+      "seal": "E",
+      "volume_id": "DS-05",
+      "problem_count": 2,
+      "profile": "Алгоритмическое сведение и обоснование корректности/асимптотики.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-DS-05",
+      "seal": "R",
+      "volume_id": "DS-05",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-DS-05",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-OD-01",
+      "seal": "E",
+      "volume_id": "OD-01",
+      "problem_count": 2,
+      "profile": "Разделяющееся уравнение с исключёнными решениями и задача Коши с областью.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-OD-01",
+      "seal": "R",
+      "volume_id": "OD-01",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-OD-01",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-OD-02",
+      "seal": "E",
+      "volume_id": "OD-02",
+      "problem_count": 2,
+      "profile": "Линейная задача с условием и самостоятельный выбор замены.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-OD-02",
+      "seal": "R",
+      "volume_id": "OD-02",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-OD-02",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-OD-03",
+      "seal": "E",
+      "volume_id": "OD-03",
+      "problem_count": 2,
+      "profile": "Задача с кратным/комплексным корнем и доказательная проверка полноты решения.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-OD-03",
+      "seal": "R",
+      "volume_id": "OD-03",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-OD-03",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-OD-04",
+      "seal": "E",
+      "volume_id": "OD-04",
+      "problem_count": 2,
+      "profile": "Неоднородная задача с резонансом и структурная замена.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-OD-04",
+      "seal": "R",
+      "volume_id": "OD-04",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-OD-04",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "E-OD-05",
+      "seal": "E",
+      "volume_id": "OD-05",
+      "problem_count": 2,
+      "profile": "Система с классификацией и обратная задача по поведению решения.",
+      "min_distinct_families": 2,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false,
+      "exclusive_E_volume_mapping": true
+    },
+    {
+      "id": "R-OD-05",
+      "seal": "R",
+      "volume_id": "OD-05",
+      "problem_count": 1,
+      "profile": "Новое условие B/C из третьего семейства относительно E; профиль выбрать при авторинге.",
+      "min_distinct_families_including_E": 3,
+      "min_quality_each": 0.8,
+      "independent": true,
+      "fresh": true,
+      "requires_seal": "E-OD-05",
+      "min_hours_after_first_E_evidence": 168,
+      "binding_status": "unbound",
+      "allowed_difficulties": [
+        "B",
+        "C"
+      ],
+      "requires_verified_family_mapping": true,
+      "numeric_clones_count_as_distinct": false
+    },
+    {
+      "id": "K-LA",
+      "seal": "K",
+      "discipline_id": "LA",
+      "problem_count": 4,
+      "profiles": [
+        "Ранг/ядро при параметре",
+        "Проектор/наименьшие квадраты",
+        "Прямоугольное SVD с нулевыми направлениями",
+        "Структурная спектральная задача с доказательством или контрпримером"
+      ],
+      "weights": [
+        20,
+        25,
+        25,
+        30
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "min_distinct_families": 3,
+      "requires_E": 5,
+      "requires_R": 3,
+      "independent": true,
+      "fresh": true,
+      "suggested_minutes": 120,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "K-CA",
+      "seal": "K",
+      "discipline_id": "CA",
+      "problem_count": 4,
+      "profiles": [
+        "Предел с контролем порядка",
+        "Интеграл/ряд с параметром и областью",
+        "Условный многомерный экстремум",
+        "Доказательная оценка/сходимость, где нужно выбрать инструмент"
+      ],
+      "weights": [
+        20,
+        25,
+        25,
+        30
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "min_distinct_families": 3,
+      "requires_E": 5,
+      "requires_R": 3,
+      "independent": true,
+      "fresh": true,
+      "suggested_minutes": 120,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "K-PR",
+      "seal": "K",
+      "discipline_id": "PR",
+      "problem_count": 4,
+      "profiles": [
+        "Построение условной модели",
+        "Индикаторы и зависимая дисперсия",
+        "Совместный закон/преобразование",
+        "Вероятностная оценка либо состоятельность с проверкой условий"
+      ],
+      "weights": [
+        20,
+        25,
+        25,
+        30
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "min_distinct_families": 3,
+      "requires_E": 5,
+      "requires_R": 3,
+      "independent": true,
+      "fresh": true,
+      "suggested_minutes": 120,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "K-DS",
+      "seal": "K",
+      "discipline_id": "DS",
+      "problem_count": 4,
+      "profiles": [
+        "Подсчёт с ограничениями",
+        "Графовый инвариант",
+        "Новая динамика с описанием состояния",
+        "Доказательство корректности алгоритма и оценка сложности"
+      ],
+      "weights": [
+        20,
+        25,
+        25,
+        30
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "min_distinct_families": 3,
+      "requires_E": 5,
+      "requires_R": 3,
+      "independent": true,
+      "fresh": true,
+      "suggested_minutes": 120,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "K-OD",
+      "seal": "K",
+      "discipline_id": "OD",
+      "problem_count": 4,
+      "profiles": [
+        "Область решения задачи Коши",
+        "Неоднородное уравнение и резонанс",
+        "Линейная система и устойчивость",
+        "Составная задача с выбором замены/метода и обоснованием поведения"
+      ],
+      "weights": [
+        20,
+        25,
+        25,
+        30
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "min_distinct_families": 3,
+      "requires_E": 5,
+      "requires_R": 3,
+      "independent": true,
+      "fresh": true,
+      "suggested_minutes": 120,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "M-01",
+      "seal": "M",
+      "problem_count": 6,
+      "profiles": [
+        "По одной B/B+ задаче от каждой из LA, CA, PR, DS, OD",
+        "Одна C/составная задача"
+      ],
+      "weights": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        25
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "independent": true,
+      "fresh": true,
+      "disjoint_families_between_M": true,
+      "suggested_minutes": 150,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "M-02",
+      "seal": "M",
+      "problem_count": 6,
+      "profiles": [
+        "По одной B/B+ задаче от каждой из LA, CA, PR, DS, OD",
+        "Одна C/составная задача"
+      ],
+      "weights": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        25
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "independent": true,
+      "fresh": true,
+      "disjoint_families_between_M": true,
+      "suggested_minutes": 150,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    },
+    {
+      "id": "M-03",
+      "seal": "M",
+      "problem_count": 6,
+      "profiles": [
+        "По одной B/B+ задаче от каждой из LA, CA, PR, DS, OD",
+        "Одна C/составная задача"
+      ],
+      "weights": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        25
+      ],
+      "min_score": 80,
+      "min_C_fraction": 0.5,
+      "independent": true,
+      "fresh": true,
+      "disjoint_families_between_M": true,
+      "suggested_minutes": 150,
+      "time_limit_required": false,
+      "binding_status": "unbound"
+    }
+  ]
+}

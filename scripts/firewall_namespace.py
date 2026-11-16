@@ -14,19 +14,20 @@ from urllib.request import Request, urlopen
 
 CHAIN = 'CRUCIBLE_EGRESS'
 TARGETS = {
-    'web': [('content', 8000), ('practice', 8000), ('learning', 8000), ('reports', 8000)],
+    'web': [('content', 8000), ('practice', 8000), ('learning', 8000), ('reports', 8000), ('character',8000)],
     'content': [('postgres-content', 5432), ('rabbitmq', 5672)],
     'practice': [('postgres-practice', 5432), ('rabbitmq', 5672), ('content', 8000)],
     'learning': [('postgres-learning', 5432), ('rabbitmq', 5672), ('redis', 6379)],
-    'reports': [('postgres-reports', 5432), ('rabbitmq', 5672), ('practice', 8000), ('learning', 8000)],
+    'reports': [('postgres-reports', 5432), ('rabbitmq', 5672), ('practice', 8000), ('learning', 8000), ('character',8000)],
+    'character': [('postgres-character',5432),('rabbitmq',5672)],
 }
-DENIED = {'web': [('postgres-'+name, 5432) for name in ('content', 'practice', 'learning', 'reports')] + [('redis', 6379)],
+DENIED = {'web': [('postgres-'+name, 5432) for name in ('content', 'practice', 'learning', 'reports','character')] + [('redis', 6379)],
           'content': [('practice', 8000), ('learning', 8000)],
           'practice': [('redis', 6379), ('learning', 8000)],
           'learning': [('practice', 8000), ('content', 8000)],
-          'reports': [('content', 8000)]}
-for owner in ('content', 'practice', 'learning', 'reports'):
-    DENIED[owner] += [('postgres-'+other, 5432) for other in ('content', 'practice', 'learning', 'reports') if other != owner]
+          'reports': [('content', 8000)], 'character':[('practice',8000),('learning',8000),('content',8000),('redis',6379)]}
+for owner in ('content', 'practice', 'learning', 'reports','character'):
+    DENIED[owner] += [('postgres-'+other, 5432) for other in ('content', 'practice', 'learning', 'reports','character') if other != owner]
 
 
 def run(*args, input=None, check=True):

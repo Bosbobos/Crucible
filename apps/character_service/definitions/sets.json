@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "sets": [
+    {
+      "id": "ARM-00",
+      "tier": 0,
+      "name": "Странник Архивов",
+      "identity": "Кремовый лён, коньячная кожа, медь; архивный путешественник",
+      "source_path": "references/ARM-00.png",
+      "visual_status": "approved_reference",
+      "runtime_status": "not_prepared"
+    },
+    {
+      "id": "ARM-01",
+      "tier": 1,
+      "name": "Изумрудный Дозор",
+      "identity": "Хвойно-зелёная стёганая ткань, тёмная кожа, бронзовые мерные пластины",
+      "source_path": "references/ARM-01.png",
+      "visual_status": "approved_reference",
+      "runtime_status": "not_prepared"
+    },
+    {
+      "id": "ARM-02",
+      "tier": 2,
+      "name": "Серебряный Геометр",
+      "identity": "Холодная серебристая сталь, тёмно-синий текстиль, геометрические рёбра",
+      "source_path": "references/ARM-02.png",
+      "visual_status": "approved_reference",
+      "runtime_status": "not_prepared"
+    },
+    {
+      "id": "ARM-03",
+      "tier": 3,
+      "name": "Рыцарь Белого Атласа",
+      "identity": "Молочно-белая эмаль, золото, звезда, светло-голубые линии",
+      "source_path": "references/ARM-03.png",
+      "visual_status": "approved_reference",
+      "runtime_status": "not_prepared"
+    },
+    {
+      "id": "ARM-04",
+      "tier": 4,
+      "name": "Аметистовый Арбитр",
+      "identity": "Тёмная фиолетово-стальная броня, платиновые контуры, аметисты",
+      "source_path": "references/ARM-04.png",
+      "visual_status": "approved_reference",
+      "runtime_status": "not_prepared"
+    },
+    {
+      "id": "ARM-05",
+      "tier": 5,
+      "name": "Регалии Высокого Конклава",
+      "identity": "Финал не утверждён. Генерационная гипотеза: монументальный рыцарь-инквизитор, без маски",
+      "source_path": null,
+      "visual_status": "not_approved",
+      "runtime_status": "missing"
+    }
+  ]
+}

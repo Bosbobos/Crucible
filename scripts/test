@@ -14,9 +14,9 @@ export CRUCIBLE_TARGET_PROJECT="$(crucible_compose config --format yaml | sed -n
 # Команды соответствуют разным правам: обычные тесты не получают socket.
 case "$kind" in
   # Unit-тесты запускаются без сети, секретов и Docker API.
-  unit) exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm --build -T unit-tests "$@" ;;
+  unit) exec docker compose -f compose.tasks.yaml -p paladin-tasks run --rm --build -T unit-tests "$@" ;;
   # API и MCP SDK проверяются в контейнере с доступом только к API-сети.
-  integration) exec docker compose -f compose.tasks.yaml -p crucible-tasks run --rm --build -T integration-tests "$@" ;;
+  integration) exec docker compose -f compose.tasks.yaml -p paladin-tasks run --rm --build -T integration-tests "$@" ;;
   # Отказные тесты требуют явной синтетической среды и операторских полномочий.
   resilience)
     # Сценарий останавливает зависимости и разрешён только для синтетических данных.

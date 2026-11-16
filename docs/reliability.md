@@ -1,6 +1,6 @@
 # Надёжность и восстановление
 
-Daily — 11 постоянно работающих контейнеров: 5 приложений, 4 PostgreSQL, Redis и RabbitMQ. Assessment — 17: 5 приложений, 4 пары PostgreSQL primary/standby, Redis и 3 RabbitMQ. Bootstrap, миграции, content-init, tools и операторский probe одноразовые. Во время подключённой MCP stdio-сессии добавляется один временный контейнер адаптера; он удаляется при закрытии клиента.
+Daily — 13 постоянно работающих контейнеров: 6 приложений, 5 PostgreSQL, Redis и RabbitMQ. Assessment — 20: 6 приложений, 5 пар PostgreSQL primary/standby, Redis и 3 RabbitMQ. Bootstrap, миграции, content-init, tools и операторский probe одноразовые. Во время подключённой MCP stdio-сессии добавляется один временный контейнер адаптера; он удаляется при закрытии клиента.
 
 ## Воспроизводимые испытания
 
@@ -11,7 +11,7 @@ scripts/assessment rejoin --service practice
 scripts/assessment rabbit-failover
 ```
 
-Первый шаг выполняется на свежем assessment: отдельная потоковая физическая репликация каждой из четырёх БД и проверка sync_state=sync; все четыре очереди quorum имеют по 3 члена. Параметр `--service content|practice|learning|reports` выбирает пару PostgreSQL (по умолчанию practice). Управляемый failover проверяет остановку старого primary перед promotion, сохранность подтверждённого маркера и новую авторизованную API-запись выбранного владельца. Multi-host DSN с target_session_attrs=read-write используется каждым runtime-владельцем. Старый primary возвращается через pg_rewind, standby.signal и обратную синхронную репликацию; запуск прежнего writable primary запрещён.
+Первый шаг выполняется на свежем assessment: отдельная потоковая физическая репликация каждой из пяти БД и проверка sync_state=sync; все восемь очередей quorum имеют по 3 члена. Параметр `--service content|practice|learning|reports|character` выбирает пару PostgreSQL (по умолчанию practice). Управляемый failover проверяет остановку старого primary перед promotion, сохранность подтверждённого маркера и новую авторизованную API-запись выбранного владельца. Multi-host DSN с target_session_attrs=read-write используется каждым runtime-владельцем. Старый primary возвращается через pg_rewind, standby.signal и обратную синхронную репликацию; запуск прежнего writable primary запрещён.
 
 **Историческое испытание общей БД, до разделения экземпляров:** 13 ноября 2026 проверено: SIGKILL primary → fencing → promotion → сохранение контрольной записи → новая запись через API за 0,74 с → learning cursor → готовый экспорт. Это измерение конкретного синтетического испытания, не средняя доступность сервиса и не обещание будущего RTO. Rejoin был исправлен по результатам запуска и проверяется отдельным свидетельством.
 
@@ -24,7 +24,7 @@ CRUCIBLE_DEMO=1 scripts/operator scripts/backup.py
 scripts/restore .private/backups/FILE.cruciblebackup --project crucible-restore-NEW --port 18082
 ```
 
-Backup останавливает все пять прикладных контейнеров, включая publishers/consumers, затем находит ровно один writable узел в каждом из четырёх кластеров и делает по pg_dump с каждого. Manifest v2 перечисляет `source_primaries`; две writable роли в одной паре останавливают backup. Опубликованные материалы и переносимые артефакты уже входят в собственные БД. Manifest содержит SHA-256, размеры, состав и сверочные количества таблиц. Архив шифруется AES-GCM; ключ `.secrets/backup-key` хранится отдельно и не попадает в архив.
+Backup останавливает все шесть прикладных контейнеров, включая publishers/consumers, затем находит ровно один writable узел в каждом из пяти кластеров и делает по pg_dump с каждого. Manifest v2 перечисляет `source_primaries`; две writable роли в одной паре останавливают backup. Опубликованные материалы и переносимые артефакты уже входят в собственные БД. Manifest содержит SHA-256, размеры, состав и сверочные количества таблиц. Архив шифруется AES-GCM; ключ `.secrets/backup-key` хранится отдельно и не попадает в архив.
 
 Restore отказывается работать с существующим project/volumes, проверяет формат, аутентичность шифротекста, фиксированный список архивных файлов, checksum и количества всех таблиц, восстанавливает каждый дамп в отдельный PostgreSQL и затем запускает новый стек. На прежней топологии 13 ноября проверены восстановления в crucible-restore-first и crucible-restore-final. После restore все владельцы повторно публикуют сохранённые outbox; проверяется достижение канонического practice cursor. Текущий рабочий project не перезаписывался.
 
@@ -43,3 +43,9 @@ Browser cookie проверяется через practice; при его отк�
 При контейнерном испытании 14 ноября для rejoin обнаружена утрата необходимого WAL target. Реализация не запускает частично rewound старый узел: использует свежий pg_basebackup текущего primary, проверяет его pg_verifybackup, сохраняет старый каталог в .pre-rejoin внутри fenced volume и только затем устанавливает новую копию как standby. Метод записывается в новое свидетельство. Синхронность проверяется отдельно; архив старого PGDATA не очищается автоматически. После rejoin и возврата RabbitMQ wrapper обновляет firewall для актуальных адресов.
 
 Новые контейнерные drills 14 ноября имеют отдельные свидетельства в obsidian-demo/attachments/*-container-2026-11-14.*: PostgreSQL write recovery 0,65 с, RabbitMQ delivery recovery 1,14 с, restore четырёх БД 22,92 с. Это показатели конкретных синтетических запусков на одном устройстве; исторические результаты 13 ноября не переименовываются и не заменяют статистические SLO/MTBF/MTTR.
+
+## Приёмка контура v3
+
+Сохранение attempt/outbox не ждёт character-service. Его остановка оставляет durable backlog; возврат consumer применяет snapshot один раз. Отсутствующая сводка в UI не заменяется нулём XP. Учебные команды и команды внешнего вида имеют отдельные каналы повтора. При rollback writer останавливается, outbox/inbox/ledger сохраняются.
+
+Свежие результаты новых сценариев, реальные времена, restore и rollback перечислены в [отчёте v3](crucible/release-report.md). Failover пяти PostgreSQL-пар и регистрация выбранного desktop MCP-host не объявляются пройденными по старым измерениям четырёх БД.

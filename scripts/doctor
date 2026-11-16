@@ -7,7 +7,7 @@ cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 . scripts/compose.sh
 # Собираем результаты обеих проверок, не скрывая вторую при первой ошибке.
 status=0
-# Сверяем настоящие правила с текущими адресами пяти приложений.
+# Сверяем настоящие правила с текущими адресами шести приложений.
 scripts/firewall check || status=1
 # Python находится внутри tools; вывод содержит только HTTP-статусы и показатели.
 crucible_compose run --rm --no-deps tools scripts/doctor.py --require-ready || status=1

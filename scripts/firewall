@@ -36,8 +36,8 @@ docker inspect $ids > "$run_dir/metadata.json"
 chmod 644 "$run_dir/metadata.json"
 # Собираем ошибки всех namespaces в один итоговый код.
 status=0
-# Обрабатываем пять приложений, не касаясь хоста и чужих проектов.
-for service in web content practice learning reports; do
+# Обрабатываем шесть приложений, не касаясь хоста и чужих проектов.
+for service in web content practice learning reports character; do
 # Находим namespace конкретного приложения через Compose.
     container_id=$(crucible_compose ps -q "$service")
 # На первом этапе deploy разрешаем отсутствие ещё не созданного web.
@@ -49,7 +49,7 @@ for service in web content practice learning reports; do
 # Только HTTP-сценарию learning требуется операторский токен.
     if [ "$service" = learning ] && [ "$action" = test ]; then
 # По умолчанию выбираем credentials daily-стенда.
-        config_dir=.secrets
+        config_dir=${CRUCIBLE_TEST_CONFIG_DIR:-.secrets}
 # Assessment читает собственный operator.json.
         [ "${CRUCIBLE_ASSESSMENT:-0}" != 1 ] || config_dir=.secrets/assessment
 # Монтируем ровно один credential-файл только для чтения.
@@ -57,21 +57,21 @@ for service in web content practice learning reports; do
 # Завершаем выбор credential mount.
     fi
 # Запускаем probe в выбранном namespace с NET_ADMIN и сохраняем его JSON; хостовая сеть не меняется.
-    docker run --rm --pull=never --network "container:$container_id" --cap-drop ALL --cap-add NET_ADMIN --security-opt no-new-privileges:true --read-only --tmpfs /tmp --mount "type=bind,source=$run_dir/metadata.json,target=/metadata.json,readonly" "$@" crucible-probe:0.2.0 python /opt/firewall.py "$action" --source "$service" > "$run_dir/$service.result.json" || status=1
+    docker run --rm --pull=never --network "container:$container_id" --cap-drop ALL --cap-add NET_ADMIN --security-opt no-new-privileges:true --read-only --tmpfs /tmp --mount "type=bind,source=$run_dir/metadata.json,target=/metadata.json,readonly" "$@" paladin-probe:0.2.0 python /opt/firewall.py "$action" --source "$service" > "$run_dir/$service.result.json" || status=1
 # Завершаем обработку приложений.
 done
 # Даём полному отчёту дату и действие, сохраняя прежние свидетельства.
 report=".private/evidence/firewall-$action-$(date -u +%Y%m%dT%H%M%SZ).json"
 # Без сети и capabilities собираем JSON из результатов отдельных probes.
-docker run --rm --pull=never --network none --cap-drop ALL --read-only --user "$(id -u):$(id -g)" --mount "type=bind,source=$run_dir,target=/results,readonly" crucible-probe:0.2.0 python /opt/firewall.py report > "$report" || status=1
+docker run --rm --pull=never --network none --cap-drop ALL --read-only --user "$(id -u):$(id -g)" --mount "type=bind,source=$run_dir,target=/results,readonly" paladin-probe:0.2.0 python /opt/firewall.py report > "$report" || status=1
 # Выбираем подробный вывод правил вместо краткого итога.
 if [ "$action" = show ]; then
 # Читаем сохранённый JSON из stdin и печатаем правила и счётчики в удобном для показа виде.
-    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only crucible-probe:0.2.0 python /opt/firewall.py display < "$report" || status=1
+    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only paladin-probe:0.2.0 python /opt/firewall.py display < "$report" || status=1
 # Для изменяющих действий и check выводим компактную сводку.
 else # Выбираем альтернативную ветку того же условия.
 # Из того же JSON печатаем краткий итог; formatter не имеет сети, mounts и capabilities.
-    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only crucible-probe:0.2.0 python /opt/firewall.py summary < "$report" || status=1
+    docker run --rm -i --pull=never --network none --cap-drop ALL --read-only paladin-probe:0.2.0 python /opt/firewall.py summary < "$report" || status=1
 # Завершаем условную ветку.
 fi
 # Показываем путь к полному JSON, не печатая секреты.

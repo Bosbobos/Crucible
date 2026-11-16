@@ -1,0 +1,175 @@
+{
+  "BASE-00": {
+    "status": "runtime_ready",
+    "sha256": "794817fbf960085d04fffab9f5f03f28a850bf0dced0b8fe773b5352d1d23633",
+    "report": "docs/crucible/art-qa.md"
+  },
+  "ARM-00/chest": {
+    "status": "runtime_ready",
+    "paint_sha256": "ffa4fbdfd59f50ef02589d3f6031727360b2b640c0318cafc83c1eaa165b33b0",
+    "mask_sha256": "c93c86698049bc147ee846ffd6fe41cce6bb83e2fa0f4f5096e76efc8b32112e",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-00/legs": {
+    "status": "runtime_ready",
+    "paint_sha256": "778e3709786297b56e642dee31d229afc876300b0ec2986ffcee229cf274ec87",
+    "mask_sha256": "f4731c4c89be17b80fbe56dd044b0b854874df8d6ab80cf84f1494531d13560f",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-00/shoulders": {
+    "status": "runtime_ready",
+    "paint_sha256": "cde4e5b8314e3d35e944cc7a1ea0da81de31313de303e674bb3096bb147934aa",
+    "mask_sha256": "071d060e7af24a84e3c49ab0baab3a7613cb0a4fd293d9ea9f13d074c323cb0a",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-00/bracers": {
+    "status": "runtime_ready",
+    "paint_sha256": "2dec4563684ace9d6278ccb4ac6e92091df8864e7b07f039298c2dd2a18caf5c",
+    "mask_sha256": "5704f4df9af3cb13d8e7bb4e02d6d61e2d3cd66afcee8218b44c478a9f5da208",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-01/chest": {
+    "status": "runtime_ready",
+    "paint_sha256": "7a0d3e8151984584a07f79a71192a2dc1deba8e2dd471710e2046bc5eaa9a900",
+    "mask_sha256": "d3ea565ae0321b79d990bff47b6bb2e67b232d5278e3ac4d9690c5e377e6b8a4",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-01/legs": {
+    "status": "runtime_ready",
+    "paint_sha256": "96bef8c9cf9d892c8a3a8c913b4393a3baca6b66fc430863402cc38837d227b3",
+    "mask_sha256": "f4731c4c89be17b80fbe56dd044b0b854874df8d6ab80cf84f1494531d13560f",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-01/shoulders": {
+    "status": "runtime_ready",
+    "paint_sha256": "314e27a2e5d5b1f0ce69b79c7cda56dd3d0173e9754d2ef763a90446f7af4fde",
+    "mask_sha256": "6005c170b1b3b2552e4a1f3770d22dd0cb91b13302934bab9678f37a3482e488",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-01/bracers": {
+    "status": "runtime_ready",
+    "paint_sha256": "6a6b43bc0148a51b14d6cc33dce470c0a99d0138e6e0f8cd1669ebdee602eaa0",
+    "mask_sha256": "991f2d9a6f3efbb76957a669949a4df892f663767dabf49cf21f242bcf88c720",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-02/chest": {
+    "status": "runtime_ready",
+    "paint_sha256": "e82843fbe834f1f5ed57dfe58fb82b4e9e3b6112d10a8bd08aeece86d40f13b7",
+    "mask_sha256": "9fc39a3159b80cf534bcf5e52ae5e2a965d7f5ed94084fdb39dc0ee78fafb5a8",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-02/legs": {
+    "status": "runtime_ready",
+    "paint_sha256": "c465d07c11b3ef74a78b158989b902675925819609384caa9beb2c548e49820d",
+    "mask_sha256": "f4731c4c89be17b80fbe56dd044b0b854874df8d6ab80cf84f1494531d13560f",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-02/shoulders": {
+    "status": "runtime_ready",
+    "paint_sha256": "4cbcb4ef3388e7490261a447eafdd2f7111c8c137f823a4ea4f46c6f934a3dbc",
+    "mask_sha256": "3b7d964c58b09c4dcb62c439e965dbf08d99bee7ddeb179183efed8b3a7de508",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-02/bracers": {
+    "status": "runtime_ready",
+    "paint_sha256": "4c02d228ec9375ef176889ff939194976b9db5d756db2e1825e8a1da28793e69",
+    "mask_sha256": "75947b11660a44903dd7ea4d8e016a035070ad58ba52f077cc7b5a4fe4cdf832",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-03/chest": {
+    "status": "runtime_ready",
+    "paint_sha256": "c5f2eb6844537c6461758e2a6d1e45556491c5bdce18fc741baffd0c0d79f7f5",
+    "mask_sha256": "db96e426ca457df054dede402d73d74bf1411c7c94fb02c018fb62336398efbd",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-03/legs": {
+    "status": "runtime_ready",
+    "paint_sha256": "5f076d57f4294fce7eda95ed161e836bf0df82a9cf33198c2fda790285259e37",
+    "mask_sha256": "f4731c4c89be17b80fbe56dd044b0b854874df8d6ab80cf84f1494531d13560f",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-03/shoulders": {
+    "status": "runtime_ready",
+    "paint_sha256": "6fe7479c03d72b98db1ab41c7848abcd2268730e2c6031a776646881061ded24",
+    "mask_sha256": "0c172ef8812aba2d5c9b789ecfb27dbda45d54e36a28512b76da162075954f1e",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-03/bracers": {
+    "status": "runtime_ready",
+    "paint_sha256": "7fbf8e8086875dca44d11c3350c7c42e399c80943c2c1aacf3f5ed6773f8def8",
+    "mask_sha256": "63e4db0374ed3052c552b39e66dbcce776bfd24e172a4d6c04ff585a28b02cd6",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-04/chest": {
+    "status": "runtime_ready",
+    "paint_sha256": "6ec458271503f124b23ca29b341fd7e768b3d4b16c22a9057ee0e2fcfdf56112",
+    "mask_sha256": "4acbe8757b1fc69e63c64d7af5bd3099a6c655e0bacd6bf6bfd5aff1627405d1",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-04/legs": {
+    "status": "runtime_ready",
+    "paint_sha256": "3cc9275ac95d430331b73ba8c8fc52e652d0ab7a401a46e912f140ff47372f74",
+    "mask_sha256": "f4731c4c89be17b80fbe56dd044b0b854874df8d6ab80cf84f1494531d13560f",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-04/shoulders": {
+    "status": "runtime_ready",
+    "paint_sha256": "53e159049b7a7d1269fca117e0056db661c0665f5112fbb7ecbd54b4b16956c4",
+    "mask_sha256": "3a6bcd0e9fd8e61496cfb0e6ce46bc9eab1264efd572e708b9b2654df73a0375",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "ARM-04/bracers": {
+    "status": "runtime_ready",
+    "paint_sha256": "d29a2366f662780af22476feb32ad2609680493d41256380f1eb726eeed11434",
+    "mask_sha256": "bcad4ad33e0783585db8b13c94c48dc2367e9a1345280371760d612f4a27eb12",
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": null
+  },
+  "SWD-03/main": {
+    "status": "qa_failed",
+    "paint_sha256": "68f0c3f3e429be2c3abd6e02b7cd0d5528e9a76ab29f0ac47075529a66bda9d1",
+    "mask_sha256": null,
+    "rig_id": "crucible-dragonborn-front-v3",
+    "report": "docs/crucible/art-qa.md",
+    "reason": "Guard segmentation and universal grip require repair; no production rendering."
+  }
+}

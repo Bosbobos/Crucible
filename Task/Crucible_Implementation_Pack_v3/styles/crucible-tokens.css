@@ -1,0 +1,51 @@
+/* Crucible v3 — authoritative UI tokens. Artwork colors are not UI theme colors. */
+:root {
+  color-scheme: light;
+  --cr-bg: #F6F3EC;
+  --cr-surface: #FFFDF8;
+  --cr-raised: #FFFFFF;
+  --cr-subtle: #EFEAE0;
+  --cr-ink: #222B32;
+  --cr-muted: #62685F;
+  --cr-border: #DDD5C6;
+  --cr-control-border: #7D8389;
+  --cr-gold: #C4A15A;
+  --cr-gold-text: #8B641D;
+  --cr-primary: #7A581C;
+  --cr-primary-hover: #684A16;
+  --cr-primary-active: #573D12;
+  --cr-focus: #3A58B7;
+  --cr-error: #A03638;
+  --cr-ok: #24684B;
+  --cr-pending: #805A16;
+  --cr-la: #3A58B7;
+  --cr-ca: #166E8F;
+  --cr-pr: #7450A4;
+  --cr-ds: #A64744;
+  --cr-od: #137C70;
+  --cr-font-ui: "Onest", system-ui, sans-serif;
+  --cr-font-display: "Cormorant Garamond", Georgia, serif;
+  --cr-space-1: 4px;
+  --cr-space-2: 8px;
+  --cr-space-3: 12px;
+  --cr-space-4: 16px;
+  --cr-space-6: 24px;
+  --cr-space-8: 32px;
+  --cr-space-12: 48px;
+  --cr-space-16: 64px;
+  --cr-radius-control: 8px;
+  --cr-radius-card: 12px;
+  --cr-radius-scene: 16px;
+  --cr-shadow-floating: 0 8px 24px rgba(34, 43, 50, .08);
+  --cr-duration-hover: 120ms;
+  --cr-duration-drawer: 180ms;
+  --cr-duration-xp: 300ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cr-duration-hover: 0ms;
+    --cr-duration-drawer: 0ms;
+    --cr-duration-xp: 0ms;
+  }
+}
+/* Map these tokens into the existing UI library. Do not add an unrelated reset. */

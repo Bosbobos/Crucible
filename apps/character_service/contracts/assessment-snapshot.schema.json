@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Registered assessment snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "assessment_id",
+    "assessment_kind",
+    "variant_id",
+    "publication_version",
+    "problem_results",
+    "completed_at",
+    "elapsed_seconds",
+    "owner_confirmed"
+  ],
+  "properties": {
+    "assessment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assessment_kind": {
+      "enum": [
+        "K",
+        "M"
+      ]
+    },
+    "variant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publication_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problem_results": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "attempt_id",
+          "problem_id",
+          "weight",
+          "score_fraction",
+          "is_C",
+          "independent",
+          "fresh_at_start"
+        ],
+        "properties": {
+          "attempt_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "problem_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "weight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "score_fraction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "is_C": {
+            "type": "boolean"
+          },
+          "independent": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "fresh_at_start": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "elapsed_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "owner_confirmed": {
+      "type": "boolean"
+    }
+  }
+}

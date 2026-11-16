@@ -134,6 +134,20 @@ def daily_plan(body: Plan, request: Request):
             plan = make_plan(facts, c['catalog'], skills, at, s['daily_count'], s['timezone'], str(day), s['weights'])
             plan.update(id=str(prior['id']) if prior else str(uuid.uuid4()), revision=prior['revision']+1 if prior else 1,
                         content_release_id=c['release_id'], source_revisions=cursors, settings_revision=s['revision'], generated_at=iso())
+            from datetime import datetime,time,timezone
+            for item in plan['items']:
+                previous=[f for f in facts if f['problem_id']==item['id'] and f['eligible_for_progress'] and f['completed_at']]
+                if not item.get('review_due') or not previous:continue
+                skill=next(skill for skill in skills if skill['skill_id']==item['primary_skill_id'])
+                due=datetime.combine(datetime.fromisoformat(skill['due_date']).date(),time(),ZoneInfo(s['timezone'])).astimezone(timezone.utc)
+                last=max(f['completed_at'] for f in previous)
+                oid=str(uuid.uuid5(uuid.NAMESPACE_URL,plan['id']+':'+str(plan['revision'])+':'+item['id']))
+                context={'obligation_id':oid,'owner':'learning-service','problem_id':item['id'],
+                    'content_release_id':c['release_id'],'due_at':due.isoformat(),'last_credited_learning_at':last,'is_scheduler_obligation':True}
+                conn.execute('INSERT INTO review_obligations VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
+                    (oid,'owner',item['id'],c['release_id'],plan['id'],plan['revision'],due,last))
+                emit(conn,cfg,'learning.review-obligation.registered.v1','owner',oid,1,context,request.state.request_id,source_stream='review-obligations')
+                item['review_obligation_id']=oid
             conn.execute('''INSERT INTO daily_plans VALUES (%s,'owner',%s,%s,%s) ON CONFLICT(profile_id,study_date)
                 DO UPDATE SET revision=excluded.revision,plan=excluded.plan''', (plan['id'], day, plan['revision'], Jsonb(plan)))
             conn.execute('INSERT INTO daily_plan_revisions(plan_id,revision,plan) VALUES (%s,%s,%s)',(plan['id'],plan['revision'],Jsonb(plan)))
@@ -159,5 +173,7 @@ def settings(body: Settings, request: Request):
             if not row:
                 raise HTTPException(409, 'Настройки изменены')
             conn.execute('INSERT INTO settings_revisions(profile_id,revision,settings) VALUES (%s,%s,%s)',('owner',row['revision'],Jsonb(row)))
+            emit(conn,cfg,'learning.character-profile.changed.v1','owner','owner',row['revision'],
+                 {'timezone':row['timezone'],'revision':row['revision']},request.state.request_id,source_stream='character-profile')
             return row
         return command(conn, actor, body, 'learning.settings', effect)

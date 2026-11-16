@@ -69,7 +69,7 @@ def make_plan(facts, catalog, skills, at, n=3, timezone='Europe/Moscow', seed='0
     by_skill = {s['skill_id']: s for s in skills}
     allowed = [p for p in catalog if p['pool'] == 'train' and weights.get(p['primary_skill_id'], 1) > 0]
     tie = lambda p: hashlib.sha256((seed+p['id']).encode()).hexdigest()
-    selected, reasons = [], {}
+    selected, reasons, review_due_ids = [], {}, set()
     active = [f for f in facts if f['attempt_status'] in ['running', 'paused']]
     if active:
         f = sorted(active, key=lambda f: f.get('source_seq', 0))[-1]
@@ -93,6 +93,7 @@ def make_plan(facts, catalog, skills, at, n=3, timezone='Europe/Moscow', seed='0
         p = candidates[0]
         selected.append(p)
         reasons[p['id']] = 'Повторение навыка: другой вариант' if p['id'] not in seen else 'Повторение навыка: свежих вариантов нет'
+        review_due_ids.add(p['id'])
         processed_due += 1
     def priority(p):
         s = by_skill[p['primary_skill_id']]
@@ -106,7 +107,7 @@ def make_plan(facts, catalog, skills, at, n=3, timezone='Europe/Moscow', seed='0
         p = candidates[0]
         selected.append(p)
         reasons[p['id']] = 'Новая практика: приоритет × затруднение'
-    return {'items': [{**p, 'reason': reasons[p['id']], 'factors': {'weight': weights.get(p['primary_skill_id'], 1),
+    return {'items': [{**p, 'reason': reasons[p['id']], 'review_due':p['id'] in review_due_ids,'factors': {'weight': weights.get(p['primary_skill_id'], 1),
                       'weakness': by_skill[p['primary_skill_id']]['weakness']}} for p in selected],
             'requested_count': n, 'deferred_reviews': max(0, len(due)-processed_due),
             'shortfall_reason': 'Недостаточно новых допустимых задач; контрольный резерв исключён' if len(selected) < n else None,

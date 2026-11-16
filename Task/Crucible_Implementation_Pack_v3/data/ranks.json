@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "ranks": [
+    {
+      "id": "archive",
+      "name": "Рыцарь архива",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "grants_xp": 0
+    },
+    {
+      "id": "measure",
+      "name": "Хранитель мер",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 10
+          },
+          {
+            "metric": "seals.V",
+            "gte": 2
+          },
+          {
+            "metric": "seals.E",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 10; V ≥ 2; E ≥ 2",
+      "grants_xp": 0
+    },
+    {
+      "id": "connections",
+      "name": "Толкователь связей",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 20
+          },
+          {
+            "metric": "seals.V",
+            "gte": 6
+          },
+          {
+            "metric": "seals.E",
+            "gte": 8
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 20; V ≥ 6; E ≥ 8",
+      "grants_xp": 0
+    },
+    {
+      "id": "five-halls",
+      "name": "Страж пяти залов",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 30
+          },
+          {
+            "metric": "seals.V",
+            "gte": 12
+          },
+          {
+            "metric": "seals.E",
+            "gte": 15
+          },
+          {
+            "metric": "seals.R",
+            "gte": 8
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 30; V ≥ 12; E ≥ 15; R ≥ 8",
+      "grants_xp": 0
+    },
+    {
+      "id": "crucible",
+      "name": "Паладин Горнила",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 40
+          },
+          {
+            "metric": "seals.V",
+            "gte": 18
+          },
+          {
+            "metric": "seals.R",
+            "gte": 15
+          },
+          {
+            "metric": "seals.K",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 40; V ≥ 18; R ≥ 15; K ≥ 2",
+      "grants_xp": 0
+    },
+    {
+      "id": "conclave",
+      "name": "Рыцарь Высокого Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 55
+          },
+          {
+            "metric": "seals.V",
+            "gte": 25
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          },
+          {
+            "metric": "seals.M",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 55; V ≥ 25; K ≥ 5; M ≥ 3",
+      "grants_xp": 0
+    }
+  ]
+}

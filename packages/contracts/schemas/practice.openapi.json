@@ -1,6 +1,121 @@
 {
   "components": {
     "schemas": {
+      "AssessmentCompletion": {
+        "additionalProperties": false,
+        "properties": {
+          "attempt_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 6,
+            "minItems": 4,
+            "title": "Attempt Ids",
+            "type": "array"
+          },
+          "command_id": {
+            "format": "uuid",
+            "title": "Command Id",
+            "type": "string"
+          },
+          "expected_revision": {
+            "minimum": 0.0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "publication_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Publication Version",
+            "type": "string"
+          },
+          "reason": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Reason",
+            "type": "string"
+          },
+          "revoked": {
+            "default": false,
+            "title": "Revoked",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "command_id",
+          "expected_revision",
+          "publication_version",
+          "attempt_ids"
+        ],
+        "title": "AssessmentCompletion",
+        "type": "object"
+      },
+      "AssessmentCorrection": {
+        "additionalProperties": false,
+        "properties": {
+          "command_id": {
+            "format": "uuid",
+            "title": "Command Id",
+            "type": "string"
+          },
+          "expected_revision": {
+            "minimum": 1.0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "freshness": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Freshness"
+          },
+          "part_outcomes": {
+            "items": {
+              "$ref": "#/components/schemas/Part"
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Part Outcomes",
+            "type": "array"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "reflection": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Reflection",
+            "type": "string"
+          }
+        },
+        "required": [
+          "command_id",
+          "expected_revision",
+          "part_outcomes",
+          "reason"
+        ],
+        "title": "AssessmentCorrection",
+        "type": "object"
+      },
       "Command": {
         "additionalProperties": false,
         "properties": {
@@ -29,6 +144,27 @@
             "title": "Expected Revision",
             "type": "integer"
           },
+          "freshness": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Freshness"
+          },
           "part_outcomes": {
             "items": {
               "$ref": "#/components/schemas/Part"
@@ -51,6 +187,77 @@
           "part_outcomes"
         ],
         "title": "Complete",
+        "type": "object"
+      },
+      "EvidenceCompletion": {
+        "additionalProperties": false,
+        "properties": {
+          "answers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 50,
+            "title": "Answers",
+            "type": "object"
+          },
+          "command_id": {
+            "format": "uuid",
+            "title": "Command Id",
+            "type": "string"
+          },
+          "expected_revision": {
+            "minimum": 0.0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "prediction": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Prediction",
+            "type": "string"
+          },
+          "publication_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Publication Version",
+            "type": "string"
+          },
+          "reason": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Reason",
+            "type": "string"
+          },
+          "revoked": {
+            "default": false,
+            "title": "Revoked",
+            "type": "boolean"
+          },
+          "run": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run"
+          }
+        },
+        "required": [
+          "command_id",
+          "expected_revision",
+          "publication_version"
+        ],
+        "title": "EvidenceCompletion",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -146,6 +353,13 @@
           "part_id": {
             "title": "Part Id",
             "type": "string"
+          },
+          "quality": {
+            "default": 1,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Quality",
+            "type": "number"
           }
         },
         "required": [
@@ -349,6 +563,30 @@
       "Start": {
         "additionalProperties": false,
         "properties": {
+          "assessment_blueprint_id": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment Blueprint Id"
+          },
+          "campaign_publication": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Campaign Publication"
+          },
           "command_id": {
             "format": "uuid",
             "title": "Command Id",
@@ -363,6 +601,18 @@
             "maxLength": 80,
             "title": "Problem Id",
             "type": "string"
+          },
+          "review_obligation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Obligation Id"
           }
         },
         "required": [
@@ -421,6 +671,53 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/practice/assessments/{blueprint_id}/results": {
+      "post": {
+        "operationId": "complete_assessment_api_v1_practice_assessments__blueprint_id__results_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blueprint_id",
+            "required": true,
+            "schema": {
+              "title": "Blueprint Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssessmentCompletion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Complete Assessment"
+      }
+    },
     "/api/v1/practice/attempts": {
       "get": {
         "operationId": "history_api_v1_practice_attempts_get",
@@ -553,6 +850,54 @@
           }
         },
         "summary": "Patch"
+      }
+    },
+    "/api/v1/practice/attempts/{attempt_id}/assessment": {
+      "patch": {
+        "operationId": "correct_assessment_api_v1_practice_attempts__attempt_id__assessment_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "attempt_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Attempt Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssessmentCorrection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Correct Assessment"
       }
     },
     "/api/v1/practice/attempts/{attempt_id}/complete": {
@@ -877,6 +1222,53 @@
           }
         },
         "summary": "Current"
+      }
+    },
+    "/api/v1/practice/learning-evidence/{unit_id}": {
+      "post": {
+        "operationId": "complete_evidence_api_v1_practice_learning_evidence__unit_id__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "unit_id",
+            "required": true,
+            "schema": {
+              "title": "Unit Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceCompletion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Complete Evidence"
       }
     },
     "/api/v1/practice/proposals/{proposal_id}/approve": {

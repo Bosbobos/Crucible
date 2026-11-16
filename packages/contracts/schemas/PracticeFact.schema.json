@@ -111,6 +111,19 @@
         }
       ],
       "title": "Active Attempt Id"
+    },
+    "character_fact": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Character Fact"
     }
   },
   "required": [

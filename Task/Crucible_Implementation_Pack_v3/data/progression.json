@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "ruleset_id": "crucible-v1",
+  "package_version": "3.0.0",
+  "level_cap": 60,
+  "levels": [
+    {
+      "level": 1,
+      "total_xp": 0,
+      "next_level_cost": 100
+    },
+    {
+      "level": 2,
+      "total_xp": 100,
+      "next_level_cost": 116
+    },
+    {
+      "level": 3,
+      "total_xp": 216,
+      "next_level_cost": 132
+    },
+    {
+      "level": 4,
+      "total_xp": 348,
+      "next_level_cost": 148
+    },
+    {
+      "level": 5,
+      "total_xp": 496,
+      "next_level_cost": 164
+    },
+    {
+      "level": 6,
+      "total_xp": 660,
+      "next_level_cost": 180
+    },
+    {
+      "level": 7,
+      "total_xp": 840,
+      "next_level_cost": 196
+    },
+    {
+      "level": 8,
+      "total_xp": 1036,
+      "next_level_cost": 212
+    },
+    {
+      "level": 9,
+      "total_xp": 1248,
+      "next_level_cost": 228
+    },
+    {
+      "level": 10,
+      "total_xp": 1476,
+      "next_level_cost": 244
+    },
+    {
+      "level": 11,
+      "total_xp": 1720,
+      "next_level_cost": 260
+    },
+    {
+      "level": 12,
+      "total_xp": 1980,
+      "next_level_cost": 276
+    },
+    {
+      "level": 13,
+      "total_xp": 2256,
+      "next_level_cost": 292
+    },
+    {
+      "level": 14,
+      "total_xp": 2548,
+      "next_level_cost": 308
+    },
+    {
+      "level": 15,
+      "total_xp": 2856,
+      "next_level_cost": 324
+    },
+    {
+      "level": 16,
+      "total_xp": 3180,
+      "next_level_cost": 340
+    },
+    {
+      "level": 17,
+      "total_xp": 3520,
+      "next_level_cost": 356
+    },
+    {
+      "level": 18,
+      "total_xp": 3876,
+      "next_level_cost": 372
+    },
+    {
+      "level": 19,
+      "total_xp": 4248,
+      "next_level_cost": 388
+    },
+    {
+      "level": 20,
+      "total_xp": 4636,
+      "next_level_cost": 404
+    },
+    {
+      "level": 21,
+      "total_xp": 5040,
+      "next_level_cost": 420
+    },
+    {
+      "level": 22,
+      "total_xp": 5460,
+      "next_level_cost": 436
+    },
+    {
+      "level": 23,
+      "total_xp": 5896,
+      "next_level_cost": 452
+    },
+    {
+      "level": 24,
+      "total_xp": 6348,
+      "next_level_cost": 468
+    },
+    {
+      "level": 25,
+      "total_xp": 6816,
+      "next_level_cost": 484
+    },
+    {
+      "level": 26,
+      "total_xp": 7300,
+      "next_level_cost": 500
+    },
+    {
+      "level": 27,
+      "total_xp": 7800,
+      "next_level_cost": 516
+    },
+    {
+      "level": 28,
+      "total_xp": 8316,
+      "next_level_cost": 532
+    },
+    {
+      "level": 29,
+      "total_xp": 8848,
+      "next_level_cost": 548
+    },
+    {
+      "level": 30,
+      "total_xp": 9396,
+      "next_level_cost": 564
+    },
+    {
+      "level": 31,
+      "total_xp": 9960,
+      "next_level_cost": 580
+    },
+    {
+      "level": 32,
+      "total_xp": 10540,
+      "next_level_cost": 596
+    },
+    {
+      "level": 33,
+      "total_xp": 11136,
+      "next_level_cost": 612
+    },
+    {
+      "level": 34,
+      "total_xp": 11748,
+      "next_level_cost": 628
+    },
+    {
+      "level": 35,
+      "total_xp": 12376,
+      "next_level_cost": 644
+    },
+    {
+      "level": 36,
+      "total_xp": 13020,
+      "next_level_cost": 660
+    },
+    {
+      "level": 37,
+      "total_xp": 13680,
+      "next_level_cost": 676
+    },
+    {
+      "level": 38,
+      "total_xp": 14356,
+      "next_level_cost": 692
+    },
+    {
+      "level": 39,
+      "total_xp": 15048,
+      "next_level_cost": 708
+    },
+    {
+      "level": 40,
+      "total_xp": 15756,
+      "next_level_cost": 724
+    },
+    {
+      "level": 41,
+      "total_xp": 16480,
+      "next_level_cost": 740
+    },
+    {
+      "level": 42,
+      "total_xp": 17220,
+      "next_level_cost": 756
+    },
+    {
+      "level": 43,
+      "total_xp": 17976,
+      "next_level_cost": 772
+    },
+    {
+      "level": 44,
+      "total_xp": 18748,
+      "next_level_cost": 788
+    },
+    {
+      "level": 45,
+      "total_xp": 19536,
+      "next_level_cost": 804
+    },
+    {
+      "level": 46,
+      "total_xp": 20340,
+      "next_level_cost": 820
+    },
+    {
+      "level": 47,
+      "total_xp": 21160,
+      "next_level_cost": 836
+    },
+    {
+      "level": 48,
+      "total_xp": 21996,
+      "next_level_cost": 852
+    },
+    {
+      "level": 49,
+      "total_xp": 22848,
+      "next_level_cost": 868
+    },
+    {
+      "level": 50,
+      "total_xp": 23716,
+      "next_level_cost": 884
+    },
+    {
+      "level": 51,
+      "total_xp": 24600,
+      "next_level_cost": 900
+    },
+    {
+      "level": 52,
+      "total_xp": 25500,
+      "next_level_cost": 916
+    },
+    {
+      "level": 53,
+      "total_xp": 26416,
+      "next_level_cost": 932
+    },
+    {
+      "level": 54,
+      "total_xp": 27348,
+      "next_level_cost": 948
+    },
+    {
+      "level": 55,
+      "total_xp": 28296,
+      "next_level_cost": 964
+    },
+    {
+      "level": 56,
+      "total_xp": 29260,
+      "next_level_cost": 980
+    },
+    {
+      "level": 57,
+      "total_xp": 30240,
+      "next_level_cost": 996
+    },
+    {
+      "level": 58,
+      "total_xp": 31236,
+      "next_level_cost": 1012
+    },
+    {
+      "level": 59,
+      "total_xp": 32248,
+      "next_level_cost": 1028
+    },
+    {
+      "level": 60,
+      "total_xp": 33276,
+      "next_level_cost": null
+    }
+  ],
+  "postcap_chronicle_interval": 2000,
+  "problem_base_xp": {
+    "A": 40,
+    "B": 80,
+    "C": 120
+  },
+  "result_coefficients": {
+    "independent": 1,
+    "assisted": 0.7,
+    "reviewed_with_note": 0.35,
+    "skipped": 0
+  },
+  "rounding": "floor_once_after_weighted_sum; exact rational/decimal arithmetic",
+  "primary_award": "max_valid_candidate_per_reward_equivalence_id",
+  "repeat": {
+    "multiplier": 0.3,
+    "min_elapsed_days": 7,
+    "min_rubric_quality": 0.8,
+    "max_awards_per_equivalence": 3,
+    "requires_scheduler_obligation": true,
+    "reviewed_allowed": false,
+    "stack_with_primary_gain": false
+  },
+  "learning_units_xp": {
+    "theory_section": 12,
+    "core": 8,
+    "lab": 16,
+    "volume_final_check": 12
+  },
+  "seals_xp": {
+    "V": 40,
+    "E": 80,
+    "R": 80,
+    "K": 160,
+    "M": 200
+  },
+  "counts": {
+    "volumes": 25,
+    "V": 25,
+    "E": 25,
+    "R": 25,
+    "K": 5,
+    "M": 3
+  },
+  "activity_goal_days_per_7": 5,
+  "time_policy": "UTC instants; elapsed 7 days = 168 hours; profile IANA timezone for calendar rhythm",
+  "correction_policy": "append compensating ledger deltas; recompute current qualification; preserve ever_granted cosmetics with evidence_recheck",
+  "details_document": "03_PROGRESSION.md"
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "event_id": "a90d881c-764e-42b8-98d8-763bef9b49d0",
+  "event_type": "learning.fact.upserted.v1",
+  "producer": "synthetic-learning-owner",
+  "user_id": "synthetic-test-user",
+  "fact_type": "attempt_result",
+  "fact_id": "synthetic-attempt-B-001",
+  "revision": 1,
+  "occurred_at": "2026-11-16T09:30:00Z",
+  "recorded_at": "2026-11-16T09:30:03Z",
+  "correlation_id": "synthetic-op-001",
+  "payload": {
+    "status": "confirmed",
+    "snapshot": {
+      "attempt_id": "synthetic-attempt-B-001",
+      "problem_id": "synthetic-problem-001",
+      "content_version": "fixture-v1",
+      "rubric_version": "fixture-rubric-v1",
+      "reward_equivalence_id": "synthetic-equivalence-001",
+      "family_id": "synthetic-family-001",
+      "discipline_id": "LA",
+      "mapped_volume_id": "LA-01",
+      "mapping_version": "fixture-mapping-v1",
+      "difficulty": "B",
+      "parts": [
+        {
+          "part_id": "a",
+          "weight": 1,
+          "outcome": "independent",
+          "quality": 1,
+          "note_saved": false
+        },
+        {
+          "part_id": "b",
+          "weight": 1,
+          "outcome": "assisted",
+          "quality": 1,
+          "note_saved": false
+        }
+      ],
+      "began_at": "2026-11-16T09:00:00Z",
+      "completed_at": "2026-11-16T09:30:00Z",
+      "source_sequence": 1,
+      "provenance": {
+        "assessment_source": "self_assessment",
+        "owner_confirmed": true
+      },
+      "freshness": {
+        "statement_seen_before_attempt": false,
+        "solution_seen_before_attempt": false,
+        "worked_example_seen_before_attempt": false
+      },
+      "help_during_attempt": true,
+      "review_context": null
+    }
+  }
+}

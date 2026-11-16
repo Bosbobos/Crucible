@@ -1,0 +1,35 @@
+{
+  "warning": "Static arithmetic only; content availability and time-to-complete unverified. Average repeat amounts are scenario inputs, not tariffs.",
+  "scenarios": [
+    {
+      "scenario": "conservative",
+      "primary": 9280,
+      "repeats": 1600,
+      "theory": 1068,
+      "seals": 2840,
+      "total": 14788,
+      "level": 38,
+      "chronicles": 0
+    },
+    {
+      "scenario": "baseline",
+      "primary": 17480,
+      "repeats": 3900,
+      "theory": 1740,
+      "seals": 6400,
+      "total": 29520,
+      "level": 56,
+      "chronicles": 0
+    },
+    {
+      "scenario": "intensive",
+      "primary": 23520,
+      "repeats": 4590,
+      "theory": 1020,
+      "seals": 6400,
+      "total": 35530,
+      "level": 60,
+      "chronicles": 1
+    }
+  ]
+}

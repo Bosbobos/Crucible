@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning unit completed snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "unit_id",
+    "unit_kind",
+    "volume_id",
+    "content_version",
+    "completed_at",
+    "explicit_completion",
+    "answers_saved",
+    "prediction_saved",
+    "run_saved",
+    "explanation_saved",
+    "correct_count",
+    "total_count",
+    "owner_confirmed"
+  ],
+  "properties": {
+    "unit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "unit_kind": {
+      "enum": [
+        "theory_section",
+        "core",
+        "lab",
+        "volume_final_check"
+      ]
+    },
+    "volume_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "explicit_completion": {
+      "type": "boolean"
+    },
+    "answers_saved": {
+      "type": "boolean"
+    },
+    "prediction_saved": {
+      "type": "boolean"
+    },
+    "run_saved": {
+      "type": "boolean"
+    },
+    "explanation_saved": {
+      "type": "boolean"
+    },
+    "owner_confirmed": {
+      "type": "boolean"
+    },
+    "correct_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "total_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  }
+}

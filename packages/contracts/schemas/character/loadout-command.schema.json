@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Atomic loadout command v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "command_id",
+    "expected_revision",
+    "slots"
+  ],
+  "properties": {
+    "command_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "expected_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "slots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chest",
+        "shoulders",
+        "bracers",
+        "legs",
+        "sword",
+        "shield",
+        "cloak",
+        "back_ornament",
+        "insignia"
+      ],
+      "properties": {
+        "chest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "shoulders": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "bracers": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "legs": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "sword": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "shield": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "cloak": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "back_ornament": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "insignia": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

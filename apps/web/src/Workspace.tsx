@@ -28,12 +28,13 @@ function DraftEditor({draft, onChange, saveState, active, onSave, mode, setMode}
   </section>;
 }
 
-export function Workspace({attempt, draft, saveState, active, seconds, busy, panel, pending, outcomes, reflection, question, restore,
-  onDraft, onSave, onPause, onHelp, onCloseMaterial, onFinish, onAbandon, onToday, onOutcome, onReflection, onQuestion,
-  onAddQuestion, onResolve, onApprove, onRestore, onKeepServer}: Obj) {
+export function Workspace({attempt, draft, saveState, active, seconds, busy, panel, pending, outcomes, qualities, freshness, reflection, question, restore,
+  onDraft, onSave, onPause, onHelp, onCloseMaterial, onFinish, onAbandon, onToday, onOutcome, onQuality, onFreshness, onReflection, onQuestion,
+  onAddQuestion, onResolve, onApprove, onRestore, onKeepServer,onCorrect}: Obj) {
   const [editorMode, setEditorMode] = useState('edit');
   const [finishing, setFinishing] = useState(false);
   const [confirmSolution, setConfirmSolution] = useState(false);
+  const [correcting,setCorrecting]=useState(false),[correctionReason,setCorrectionReason]=useState('');
   const returnScroll = useRef(0);
   const helped = attempt.help?.some((item: Obj) => item.mathematical && !item.retracted);
   const materials=attempt.problem.materials||{core:!!attempt.problem.topic_id,theory:!!attempt.problem.topic_id};
@@ -44,6 +45,7 @@ export function Workspace({attempt, draft, saveState, active, seconds, busy, pan
   const solutionDialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {setFinishing(false); setEditorMode('edit');}, [attempt.id]);
+  useEffect(()=>{setCorrecting(false);},[attempt.revision]);
   useEffect(() => {
     if (!active) return;
     function shortcut(event: KeyboardEvent) {
@@ -86,8 +88,8 @@ export function Workspace({attempt, draft, saveState, active, seconds, busy, pan
         <div className="mobile-resource-shortcuts">{hasMaterial&&<button disabled={busy} onClick={() => openHelp(materials.core?'core':'theory')}>Конспект темы ↗</button>}<button onClick={() => resources.current?.scrollIntoView({behavior:'smooth',block:'start'})}>Подсказки ↓</button></div>
         {editor}
         {active && !finishing && <div className="attempt-actions"><span>{helped ? 'Результат будет отмечен с учётом помощи' : 'Закончите решение и оцените результат'}</span><button className="primary" disabled={busy} onClick={() => {setFinishing(true); requestAnimationFrame(() => completion.current?.scrollIntoView({behavior: 'smooth', block: 'center'}));}}>К результату →</button></div>}
-        {active && finishing && <div ref={completion} className="card completion"><div className="section-heading"><h2>Результат попытки</h2><button className="text-button" onClick={() => setFinishing(false)}>Вернуться к решению</button></div>{helped && <p className="completion-note">Вы открывали математическую помощь. Вариант «Самостоятельно» для этой попытки недоступен.</p>}{attempt.problem.parts.map((part: Obj) => <ChoiceButtons key={part.id} label={<MathText text={part.title} inline/>} value={outcomes[part.id] || (helped ? 'assisted' : 'independent')} onChange={value=>onOutcome(part.id,value)} options={Object.entries(labels).map(([value,label])=>({value,label,disabled:value==='independent'&&helped}))}/>)}<label>Что стоит запомнить?<input value={reflection} onChange={event => onReflection(event.target.value)} placeholder="Метод, первый шаг или причина ошибки"/></label><button className="primary" disabled={busy} onClick={onFinish}>Завершить попытку</button></div>}
-        {attempt.state === 'completed' && <section className="card success"><h2>Попытка сохранена</h2><p>{attempt.part_outcomes.map((part: Obj) => labels[part.outcome]).join(' · ')}</p><p>{pending ? 'Повторения пересчитываются.' : 'Результат учтён в расчёте повторений.'}</p><button onClick={onToday}>Вернуться к плану</button></section>}
+        {((active && finishing)||correcting) && <div ref={completion} className="card completion"><div className="section-heading"><h2>{correcting?'Исправление самооценки':'Результат попытки'}</h2><button className="text-button" onClick={() => {setFinishing(false);setCorrecting(false);}}>Вернуться к решению</button></div>{helped && <p className="completion-note">Вы открывали математическую помощь. Вариант «Самостоятельно» для этой попытки недоступен.</p>}{attempt.problem.parts.map((part: Obj) => <ChoiceButtons key={part.id} label={<MathText text={part.title} inline/>} value={outcomes[part.id] || (helped ? 'assisted' : 'independent')} onChange={value=>onOutcome(part.id,value)} options={Object.entries(labels).map(([value,label])=>({value,label,disabled:value==='independent'&&helped}))}/>)}<div className="rubric-quality">{attempt.problem.parts.filter((p:Obj)=>['independent','assisted'].includes(outcomes[p.id]||'independent')).map((p:Obj)=><label key={p.id}>Качество работы · <MathText text={p.title} inline/><input type="number" aria-label={'Качество работы '+p.id+' в процентах'} min="0" max="100" step="5" value={qualities[p.id]??100} onChange={e=>onQuality(p.id,Math.max(0,Math.min(100,Number(e.target.value))))}/><small>Доля верно выполненной работы, %</small></label>)}</div><details className="freshness-assessment"><summary>Была ли задача новой до этой попытки?</summary><p>Это ваша явная отметка. Если не уверены, оставьте «Не знаю».</p>{[['statement_seen_before_attempt','Раньше видел это условие'],['solution_seen_before_attempt','Раньше видел его решение'],['worked_example_seen_before_attempt','Раньше разбирал этот пример']].map(([key,label])=><ChoiceButtons key={key} label={label} value={freshness[key]===null?'unknown':String(freshness[key])} onChange={value=>onFreshness(key,value==='unknown'?null:value==='true')} options={[{value:'unknown',label:'Не знаю'},{value:'false',label:'Нет'},{value:'true',label:'Да'}]}/>)}</details><p className="muted">Разобранное решение учитывается в пути после сохранения собственной заметки.</p><label>Что стоит запомнить?<input value={reflection} onChange={event => onReflection(event.target.value)} placeholder="Метод, первый шаг или причина ошибки"/></label><>{correcting&&<label>Причина исправления<input value={correctionReason} onChange={e=>setCorrectionReason(e.target.value)} required/></label>}<button className="primary" disabled={busy||(correcting&&!correctionReason.trim())} onClick={()=>correcting?onCorrect(correctionReason):onFinish()}>{correcting?'Подтвердить исправление':'Завершить попытку'}</button></></div>}
+        {attempt.state === 'completed' && <section className="card success"><h2>Попытка сохранена</h2><p>{attempt.part_outcomes.map((part: Obj) => labels[part.outcome]).join(' · ')}</p><p>{pending ? 'Повторения пересчитываются.' : 'Результат учтён в расчёте повторений.'}</p><button onClick={onToday}>Вернуться к плану</button><button onClick={()=>setCorrecting(true)}>Исправить самооценку</button></section>}
         {active && <details className="abandon"><summary>Прервать попытку</summary><p>Черновик сохранится. Результат не попадёт в оценку навыка.</p><button disabled={busy} onClick={onAbandon}>Прервать без оценки</button></details>}
       </div>
     </div>

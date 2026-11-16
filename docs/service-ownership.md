@@ -7,6 +7,10 @@
 | Предложение фактического исправления и подтверждение владельцем | practice | practice_db |
 | Проекции фактов/каталога, политика v1, настройки, дневные планы | learning | learning_db |
 | Временная сводка с ключом ревизии и учебной даты | learning | Redis |
+| Привязка томов/рубрик/вариантов к опубликованным IDs | content | content_db |
+| Учебные единицы, диагностики, подтверждённые итоги K/M | practice | practice_db |
+| Обязательства повторения и их версии | learning | learning_db |
+| XP, печати, косметические права, loadout, коллекция, настройки показа | character | character_db |
 | Job, переносимый JSON/Markdown и checksum manifest | reports | reports_db |
 | MCP tools/resources и композиция контекста | study-mcp | собственной БД нет |
 | Аварийный неподтверждённый черновик и ожидающая команда | web | localStorage браузера |

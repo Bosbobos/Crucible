@@ -6,7 +6,7 @@ cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 # Подключаем общий выбор daily/assessment.
 . scripts/compose.sh
 # При первой регистрации создаём образ; логи сборки идут только в stderr.
-if ! docker image inspect crucible/mcp:0.3.0 >/dev/null 2>&1; then crucible_compose build study-mcp >&2; fi
+if ! docker image inspect paladin/mcp:0.3.0 >/dev/null 2>&1; then crucible_compose build study-mcp >&2; fi
 # Передаём stdin/stdout напрямую контейнеру без TTY и без Docker socket.
 if [ "${CRUCIBLE_ASSESSMENT:-0}" = 1 ]; then
     # Расширенный стенд использует свои scoped credentials и собственный project.

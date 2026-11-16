@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning fact envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_type",
+    "producer",
+    "user_id",
+    "fact_type",
+    "fact_id",
+    "revision",
+    "occurred_at",
+    "recorded_at",
+    "correlation_id",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "event_type": {
+      "const": "learning.fact.upserted.v1"
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fact_type": {
+      "enum": [
+        "attempt_result",
+        "learning_unit_completed",
+        "diagnostic_result",
+        "assessment_result"
+      ]
+    },
+    "fact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "confirmed",
+            "revoked"
+          ]
+        },
+        "snapshot": {
+          "type": "object"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "snapshot"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "revoked"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "fact_type": {
+            "const": "attempt_result"
+          },
+          "payload": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "snapshot": {
+                "$ref": "attempt-snapshot.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fact_type": {
+            "const": "learning_unit_completed"
+          },
+          "payload": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "snapshot": {
+                "$ref": "learning-unit-snapshot.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fact_type": {
+            "const": "diagnostic_result"
+          },
+          "payload": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "snapshot": {
+                "$ref": "diagnostic-snapshot.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fact_type": {
+            "const": "assessment_result"
+          },
+          "payload": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "snapshot": {
+                "$ref": "assessment-snapshot.schema.json"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

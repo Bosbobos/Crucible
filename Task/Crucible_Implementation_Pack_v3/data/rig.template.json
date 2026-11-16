@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "rig_id": "crucible-dragonborn-front-v3",
+  "status": "pending_measurement",
+  "canvas": {
+    "width": 1024,
+    "height": 1536
+  },
+  "base_source_sha256": "1a8cd143a1aa90e320bd64d4e22caf241d911beec881161cf698396395c3b41a",
+  "anchors": {
+    "head": null,
+    "neck": null,
+    "shoulder_right": null,
+    "shoulder_left": null,
+    "elbow_right": null,
+    "elbow_left": null,
+    "wrist_right": null,
+    "wrist_left": null,
+    "waist": null,
+    "knee_right": null,
+    "knee_left": null,
+    "sole_right": null,
+    "sole_left": null,
+    "tail_root": null,
+    "sword_grip": null,
+    "sword_guard": null,
+    "sword_tip": null,
+    "back_ornament": null
+  },
+  "base_regions": [
+    "head_face_horns",
+    "neck",
+    "torso",
+    "upper_arms",
+    "forearms",
+    "hand_right_neutral",
+    "hand_left_neutral",
+    "pelvis",
+    "modesty_wrap",
+    "lower_body",
+    "tail_back"
+  ],
+  "approved_masks": null,
+  "render_passes": [
+    "back_ornament",
+    "cloak_back",
+    "tail_back",
+    "masked_base_body",
+    "grip_back",
+    "chest",
+    "legs",
+    "shoulders",
+    "bracers",
+    "insignia",
+    "sword",
+    "grip_front",
+    "shield_front"
+  ],
+  "notes": "Не готовый rig. Все anchors измерить по BASE/референсу. Голова/хвост/нейтральные кисти берутся только из BASE."
+}

@@ -6,7 +6,7 @@ async function login(page: any) {
   if (sessionCookies) await page.context().addCookies(sessionCookies);
   await page.goto('/');
   if (!sessionCookies) {
-    await page.getByLabel('Пароль владельца').fill(readFileSync('../../.secrets/owner-password', 'utf8'));
+    await page.getByLabel('Пароль владельца').fill(readFileSync((process.env.CRUCIBLE_TEST_SECRETS||'../../.secrets')+'/owner-password', 'utf8'));
     const [response] = await Promise.all([
       page.waitForResponse((response: any) => response.url().endsWith('/api/v1/practice/auth/login')),
       page.getByRole('button', {name: 'Войти', exact: true}).click(),
@@ -53,7 +53,7 @@ async function chapter(page:any,name:string) {
   await page.getByRole('navigation',{name:'Разделы теории'}).getByRole('button',{name,exact:true}).click();
 }
 async function assisted(page:any,parts:number) {
-  await expect(page.locator('.completion [role=radiogroup]')).toHaveCount(parts);
+  await expect(page.locator('.completion > .choice-buttons [role=radiogroup]')).toHaveCount(parts);
   for(const radio of await page.locator('.completion').getByRole('radio',{name:'С помощью',exact:true}).all())await expect(radio).toHaveAttribute('aria-checked','true');
   for(const radio of await page.locator('.completion').getByRole('radio',{name:'Самостоятельно',exact:true}).all())await expect(radio).toBeDisabled();
 }

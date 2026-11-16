@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "scope": "handoff-package consistency only; not repository integration or visual paper-doll QA",
+  "counts": {
+    "levels": 60,
+    "items": 59,
+    "ranks": 6,
+    "volumes": 25,
+    "trial_blueprints": 58,
+    "art_targets": 45,
+    "completed_art_sources": 6,
+    "input_png_files": 7,
+    "art_prompts": 39,
+    "conditional_technical_prompts": 1,
+    "local_links_checked": 60
+  },
+  "schema_validation": {
+    "schemas_checked": 6,
+    "examples_validated": 2
+  }
+}

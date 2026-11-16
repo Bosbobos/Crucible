@@ -26,7 +26,8 @@ def api(service,path,method='GET',body=None,timeout=50):
     deadline=time.monotonic()+timeout
     while True:
         try:
-            r=httpx.request(method,operator['base_url']+'/api/v1/'+service+path,json=body,
+            prefix='/api/character/v1' if service=='character' else '/api/v1/'+service
+            r=httpx.request(method,operator['base_url']+prefix+path,json=body,
                             headers={'Authorization':'Bearer '+operator['tokens'][service]},timeout=8)
             if r.status_code<500:r.raise_for_status();return r.json()
         except httpx.TransportError:pass
@@ -85,6 +86,10 @@ def write_owner(owner):
         current=api('learning','/today')['settings']
         result=api('learning','/settings','PATCH',command(expected_revision=current['revision'],timezone=current['timezone'],daily_count=current['daily_count']))
         return {'route':'PATCH /learning/settings','revision':result['revision']}
+    if owner=='character':
+        current=api('character','/me/loadout')
+        result=api('character','/me/loadout','PUT',command(expected_revision=current['revision'],slots=current['slots']))
+        return {'route':'PUT /character/v1/me/loadout','revision':result['revision']}
     result=api('reports','/jobs','POST',command())
     return {'route':'POST /reports/jobs','job_id':result['job_id']}
 

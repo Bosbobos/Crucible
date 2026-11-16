@@ -1,0 +1,3 @@
+# Входной пакет и лицензии сохраняются побайтно для проверки SHA-256.
+Assets/licenses/** -text -whitespace
+Task/Crucible_Implementation_Pack_v3/** -text -whitespace

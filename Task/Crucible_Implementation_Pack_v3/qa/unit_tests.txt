@@ -1,0 +1,33 @@
+test_all_seal_bonus (test_progression_reference.ProgressionReferenceTests.test_all_seal_bonus) ... ok
+test_all_thresholds_and_costs (test_progression_reference.ProgressionReferenceTests.test_all_thresholds_and_costs) ... ok
+test_cap (test_progression_reference.ProgressionReferenceTests.test_cap) ... ok
+test_chronicles (test_progression_reference.ProgressionReferenceTests.test_chronicles) ... ok
+test_correction (test_progression_reference.ProgressionReferenceTests.test_correction) ... ok
+test_dst_elapsed_hours (test_progression_reference.ProgressionReferenceTests.test_dst_elapsed_hours) ... ok
+test_duplicate_candidate (test_progression_reference.ProgressionReferenceTests.test_duplicate_candidate) ... ok
+test_exact_decimal (test_progression_reference.ProgressionReferenceTests.test_exact_decimal) ... ok
+test_full_prices (test_progression_reference.ProgressionReferenceTests.test_full_prices) ... ok
+test_invalid_level_inputs (test_progression_reference.ProgressionReferenceTests.test_invalid_level_inputs) ... ok
+test_invalid_parts (test_progression_reference.ProgressionReferenceTests.test_invalid_parts) ... ok
+test_known_thresholds (test_progression_reference.ProgressionReferenceTests.test_known_thresholds) ... ok
+test_level_boundaries (test_progression_reference.ProgressionReferenceTests.test_level_boundaries) ... ok
+test_naive_datetime_rejected (test_progression_reference.ProgressionReferenceTests.test_naive_datetime_rejected) ... ok
+test_other_attempt_preserves_max (test_progression_reference.ProgressionReferenceTests.test_other_attempt_preserves_max) ... ok
+test_partial_example_68 (test_progression_reference.ProgressionReferenceTests.test_partial_example_68) ... ok
+test_primary_sequence (test_progression_reference.ProgressionReferenceTests.test_primary_sequence) ... ok
+test_quality_90 (test_progression_reference.ProgressionReferenceTests.test_quality_90) ... ok
+test_repeat_assisted (test_progression_reference.ProgressionReferenceTests.test_repeat_assisted) ... ok
+test_repeat_full (test_progression_reference.ProgressionReferenceTests.test_repeat_full) ... ok
+test_repeat_no_review_contribution (test_progression_reference.ProgressionReferenceTests.test_repeat_no_review_contribution) ... ok
+test_review_no_note (test_progression_reference.ProgressionReferenceTests.test_review_no_note) ... ok
+test_review_note (test_progression_reference.ProgressionReferenceTests.test_review_note) ... ok
+test_revoked (test_progression_reference.ProgressionReferenceTests.test_revoked) ... ok
+test_round_once (test_progression_reference.ProgressionReferenceTests.test_round_once) ... ok
+test_skipped (test_progression_reference.ProgressionReferenceTests.test_skipped) ... ok
+test_timing (test_progression_reference.ProgressionReferenceTests.test_timing) ... ok
+test_unknown_difficulty (test_progression_reference.ProgressionReferenceTests.test_unknown_difficulty) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.004s
+
+OK

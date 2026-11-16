@@ -3,7 +3,7 @@ import json
 import secrets
 from urllib.parse import urlsplit, urlunsplit
 
-OWNERS = ('content', 'practice', 'learning', 'reports')
+OWNERS = ('content', 'practice', 'learning', 'reports', 'character')
 
 
 def primary(owner):

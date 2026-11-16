@@ -1,6 +1,6 @@
 services:
   e2e:
-    image: crucible/e2e:0.3.0
+    image: paladin/e2e:0.3.0
     build: {context: ., dockerfile: infra/Dockerfile.e2e}
     profiles: [tests]
     network_mode: container:${CRUCIBLE_WEB_CONTAINER:-web-not-running}

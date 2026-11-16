@@ -1,0 +1,1424 @@
+{
+  "schema_version": 1,
+  "ruleset_id": "crucible-v1",
+  "slots": [
+    "chest",
+    "shoulders",
+    "bracers",
+    "legs",
+    "sword",
+    "shield",
+    "cloak",
+    "back_ornament",
+    "insignia"
+  ],
+  "notes": "Все 59 определений в одном реестре. Ауры заменены 3 задними орнаментами без добавления наград/XP. Slot none разрешён.",
+  "items": [
+    {
+      "id": "armor-0-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 0,
+      "name": "Нагрудник · Странник Архивов",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "ARM-00",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-0-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 0,
+      "name": "Наплечники · Странник Архивов",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "ARM-00",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-0-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 0,
+      "name": "Наручи · Странник Архивов",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "ARM-00",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-0-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 0,
+      "name": "Нижняя экипировка · Странник Архивов",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "ARM-00",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-1-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 1,
+      "name": "Нагрудник · Изумрудный Дозор",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 6
+          },
+          {
+            "metric": "seals.E",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 6; E ≥ 2",
+      "asset_id": "ARM-01",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-1-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 1,
+      "name": "Наплечники · Изумрудный Дозор",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 6
+          },
+          {
+            "metric": "seals.V",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 6; V ≥ 2",
+      "asset_id": "ARM-01",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-1-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 1,
+      "name": "Наручи · Изумрудный Дозор",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 4
+          },
+          {
+            "metric": "seals.V",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 4; V ≥ 1",
+      "asset_id": "ARM-01",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-1-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 1,
+      "name": "Нижняя экипировка · Изумрудный Дозор",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 4
+          },
+          {
+            "metric": "seals.E",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 4; E ≥ 1",
+      "asset_id": "ARM-01",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-2-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 2,
+      "name": "Нагрудник · Серебряный Геометр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 14
+          },
+          {
+            "metric": "seals.E",
+            "gte": 6
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 14; E ≥ 6",
+      "asset_id": "ARM-02",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-2-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 2,
+      "name": "Наплечники · Серебряный Геометр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 14
+          },
+          {
+            "metric": "seals.R",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 14; R ≥ 2",
+      "asset_id": "ARM-02",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-2-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 2,
+      "name": "Наручи · Серебряный Геометр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 12
+          },
+          {
+            "metric": "seals.V",
+            "gte": 4
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 12; V ≥ 4",
+      "asset_id": "ARM-02",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-2-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 2,
+      "name": "Нижняя экипировка · Серебряный Геометр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 12
+          },
+          {
+            "metric": "seals.E",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 12; E ≥ 5",
+      "asset_id": "ARM-02",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-3-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 3,
+      "name": "Нагрудник · Рыцарь Белого Атласа",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 25
+          },
+          {
+            "metric": "seals.E",
+            "gte": 12
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 25; E ≥ 12",
+      "asset_id": "ARM-03",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-3-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 3,
+      "name": "Наплечники · Рыцарь Белого Атласа",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 26
+          },
+          {
+            "metric": "seals.R",
+            "gte": 8
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 26; R ≥ 8",
+      "asset_id": "ARM-03",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-3-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 3,
+      "name": "Наручи · Рыцарь Белого Атласа",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 24
+          },
+          {
+            "metric": "seals.V",
+            "gte": 10
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 24; V ≥ 10",
+      "asset_id": "ARM-03",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-3-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 3,
+      "name": "Нижняя экипировка · Рыцарь Белого Атласа",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 24
+          },
+          {
+            "metric": "seals.R",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 24; R ≥ 5",
+      "asset_id": "ARM-03",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-4-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 4,
+      "name": "Нагрудник · Аметистовый Арбитр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 37
+          },
+          {
+            "metric": "seals.K",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 37; K ≥ 1",
+      "asset_id": "ARM-04",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-4-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 4,
+      "name": "Наплечники · Аметистовый Арбитр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 39
+          },
+          {
+            "metric": "seals.K",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 39; K ≥ 2",
+      "asset_id": "ARM-04",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-4-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 4,
+      "name": "Наручи · Аметистовый Арбитр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 36
+          },
+          {
+            "metric": "seals.R",
+            "gte": 12
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 36; R ≥ 12",
+      "asset_id": "ARM-04",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-4-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 4,
+      "name": "Нижняя экипировка · Аметистовый Арбитр",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 36
+          },
+          {
+            "metric": "seals.E",
+            "gte": 20
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 36; E ≥ 20",
+      "asset_id": "ARM-04",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-5-chest",
+      "kind": "equipment",
+      "slot": "chest",
+      "tier": 5,
+      "name": "Нагрудник · Регалии Высокого Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 48
+          },
+          {
+            "metric": "seals.K",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 48; K ≥ 3",
+      "asset_id": "ARM-05",
+      "render_part": "chest",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-5-shoulders",
+      "kind": "equipment",
+      "slot": "shoulders",
+      "tier": 5,
+      "name": "Наплечники · Регалии Высокого Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 49
+          },
+          {
+            "metric": "seals.K",
+            "gte": 4
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 49; K ≥ 4",
+      "asset_id": "ARM-05",
+      "render_part": "shoulders",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-5-bracers",
+      "kind": "equipment",
+      "slot": "bracers",
+      "tier": 5,
+      "name": "Наручи · Регалии Высокого Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 50
+          },
+          {
+            "metric": "seals.R",
+            "gte": 20
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 50; R ≥ 20",
+      "asset_id": "ARM-05",
+      "render_part": "bracers",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "armor-5-legs",
+      "kind": "equipment",
+      "slot": "legs",
+      "tier": 5,
+      "name": "Нижняя экипировка · Регалии Высокого Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 51
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 51; K ≥ 5",
+      "asset_id": "ARM-05",
+      "render_part": "legs",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-0",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 0,
+      "name": "Походный клинок",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "SWD-00",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-1",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 1,
+      "name": "Ясный довод",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 3
+          },
+          {
+            "metric": "seals.E",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 3; E ≥ 1",
+      "asset_id": "SWD-01",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-2",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 2,
+      "name": "Связь",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 12
+          },
+          {
+            "metric": "seals.E",
+            "gte": 6
+          },
+          {
+            "metric": "disciplines_with_E",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 12; E ≥ 6; дисциплин с E ≥ 3",
+      "asset_id": "SWD-02",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-3",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 3,
+      "name": "Пять граней",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 24
+          },
+          {
+            "metric": "seals.E",
+            "gte": 12
+          },
+          {
+            "metric": "disciplines_with_E",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 24; E ≥ 12; дисциплин с E ≥ 5",
+      "asset_id": "SWD-03",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-4",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 4,
+      "name": "Верность свету",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 38
+          },
+          {
+            "metric": "seals.K",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 38; K ≥ 2",
+      "asset_id": "SWD-04",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sword-5",
+      "kind": "equipment",
+      "slot": "sword",
+      "tier": 5,
+      "name": "Рассветный предел",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 55
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          },
+          {
+            "metric": "seals.M",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 55; K ≥ 5; M ≥ 3",
+      "asset_id": "SWD-05",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-0",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 0,
+      "name": "Походный щит",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "SHD-00",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-1",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 1,
+      "name": "Опора",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 5
+          },
+          {
+            "metric": "seals.E",
+            "gte": 2
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 5; E ≥ 2",
+      "asset_id": "SHD-01",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-2",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 2,
+      "name": "Проверка",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 14
+          },
+          {
+            "metric": "seals.R",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 14; R ≥ 3",
+      "asset_id": "SHD-02",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-3",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 3,
+      "name": "Память формы",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 28
+          },
+          {
+            "metric": "seals.R",
+            "gte": 10
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 28; R ≥ 10",
+      "asset_id": "SHD-03",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-4",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 4,
+      "name": "Непрерывность",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 40
+          },
+          {
+            "metric": "seals.K",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 40; K ≥ 3",
+      "asset_id": "SHD-04",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "shield-5",
+      "kind": "equipment",
+      "slot": "shield",
+      "tier": 5,
+      "name": "Страж Рассвета",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 52
+          },
+          {
+            "metric": "seals.R",
+            "gte": 25
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 52; R ≥ 25; K ≥ 5",
+      "asset_id": "SHD-05",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-0",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 0,
+      "name": "Дорожная мантия",
+      "unlock": {
+        "all": []
+      },
+      "requirement_text": "Старт",
+      "asset_id": "CLK-00",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-1",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 1,
+      "name": "Белый лист",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 3
+          },
+          {
+            "metric": "seals.V",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 3; V ≥ 1",
+      "asset_id": "CLK-01",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-2",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 2,
+      "name": "Поля рукописи",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 12
+          },
+          {
+            "metric": "seals.V",
+            "gte": 5
+          },
+          {
+            "metric": "disciplines_with_V",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 12; V ≥ 5; дисциплин с V ≥ 3",
+      "asset_id": "CLK-02",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-3",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 3,
+      "name": "Пять залов",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 24
+          },
+          {
+            "metric": "seals.V",
+            "gte": 12
+          },
+          {
+            "metric": "disciplines_with_V",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 24; V ≥ 12; дисциплин с V ≥ 5",
+      "asset_id": "CLK-03",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-4",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 4,
+      "name": "Свет Горнила",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 36
+          },
+          {
+            "metric": "seals.V",
+            "gte": 20
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 36; V ≥ 20",
+      "asset_id": "CLK-04",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "cloak-5",
+      "kind": "equipment",
+      "slot": "cloak",
+      "tier": 5,
+      "name": "Мантия Конклава",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 50
+          },
+          {
+            "metric": "seals.V",
+            "gte": 25
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 50; V ≥ 25; K ≥ 5",
+      "asset_id": "CLK-05",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-01",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Линза ясности",
+      "unlock": {
+        "all": [
+          {
+            "metric": "seals.V",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "V ≥ 1",
+      "asset_id": "REL-01",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-02",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Печать первого довода",
+      "unlock": {
+        "all": [
+          {
+            "metric": "seals.E",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "E ≥ 1",
+      "asset_id": "REL-02",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-03",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Кристалл базиса",
+      "unlock": {
+        "all": [
+          {
+            "metric": "discipline_seal.K",
+            "discipline_id": "LA",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "K по LA",
+      "asset_id": "REL-03",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-04",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Часы предела",
+      "unlock": {
+        "all": [
+          {
+            "metric": "discipline_seal.K",
+            "discipline_id": "CA",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "K по CA",
+      "asset_id": "REL-04",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-05",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Весы возможностей",
+      "unlock": {
+        "all": [
+          {
+            "metric": "discipline_seal.K",
+            "discipline_id": "PR",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "K по PR",
+      "asset_id": "REL-05",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-06",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Ключ связей",
+      "unlock": {
+        "all": [
+          {
+            "metric": "discipline_seal.K",
+            "discipline_id": "DS",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "K по DS",
+      "asset_id": "REL-06",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-07",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Сфера потока",
+      "unlock": {
+        "all": [
+          {
+            "metric": "discipline_seal.K",
+            "discipline_id": "OD",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "K по OD",
+      "asset_id": "REL-07",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-08",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Призма согласия",
+      "unlock": {
+        "all": [
+          {
+            "metric": "seals.M",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "M ≥ 1",
+      "asset_id": "REL-08",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "relic-09",
+      "kind": "relic",
+      "slot": null,
+      "tier": null,
+      "name": "Уголь Горнила",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 55
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          },
+          {
+            "metric": "seals.M",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 55; K ≥ 5; M ≥ 3",
+      "asset_id": "REL-09",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "ornament-1",
+      "kind": "cosmetic",
+      "slot": "back_ornament",
+      "tier": null,
+      "name": "Линия опоры",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 20
+          },
+          {
+            "metric": "seals.R",
+            "gte": 5
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 20; R ≥ 5",
+      "asset_id": "ORN-01",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "ornament-2",
+      "kind": "cosmetic",
+      "slot": "back_ornament",
+      "tier": null,
+      "name": "Пять свидетельств",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 40
+          },
+          {
+            "metric": "seals.K",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 40; K ≥ 3",
+      "asset_id": "ORN-02",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "ornament-3",
+      "kind": "cosmetic",
+      "slot": "back_ornament",
+      "tier": null,
+      "name": "Тихий рассвет",
+      "unlock": {
+        "all": [
+          {
+            "metric": "level",
+            "gte": 60
+          },
+          {
+            "metric": "seals.K",
+            "gte": 5
+          },
+          {
+            "metric": "seals.M",
+            "gte": 3
+          }
+        ]
+      },
+      "requirement_text": "уровень ≥ 60; K ≥ 5; M ≥ 3",
+      "asset_id": "ORN-03",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sigil-LA",
+      "kind": "cosmetic",
+      "slot": "insignia",
+      "tier": null,
+      "name": "Знак высшей пробы · LA",
+      "unlock": {
+        "all": [
+          {
+            "metric": "first_fresh_independent_C_ge_80",
+            "discipline_id": "LA",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "Первая свежая самостоятельная C по LA, ≥80%",
+      "asset_id": "SIGIL-LA",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sigil-CA",
+      "kind": "cosmetic",
+      "slot": "insignia",
+      "tier": null,
+      "name": "Знак высшей пробы · CA",
+      "unlock": {
+        "all": [
+          {
+            "metric": "first_fresh_independent_C_ge_80",
+            "discipline_id": "CA",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "Первая свежая самостоятельная C по CA, ≥80%",
+      "asset_id": "SIGIL-CA",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sigil-PR",
+      "kind": "cosmetic",
+      "slot": "insignia",
+      "tier": null,
+      "name": "Знак высшей пробы · PR",
+      "unlock": {
+        "all": [
+          {
+            "metric": "first_fresh_independent_C_ge_80",
+            "discipline_id": "PR",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "Первая свежая самостоятельная C по PR, ≥80%",
+      "asset_id": "SIGIL-PR",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sigil-DS",
+      "kind": "cosmetic",
+      "slot": "insignia",
+      "tier": null,
+      "name": "Знак высшей пробы · DS",
+      "unlock": {
+        "all": [
+          {
+            "metric": "first_fresh_independent_C_ge_80",
+            "discipline_id": "DS",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "Первая свежая самостоятельная C по DS, ≥80%",
+      "asset_id": "SIGIL-DS",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    },
+    {
+      "id": "sigil-OD",
+      "kind": "cosmetic",
+      "slot": "insignia",
+      "tier": null,
+      "name": "Знак высшей пробы · OD",
+      "unlock": {
+        "all": [
+          {
+            "metric": "first_fresh_independent_C_ge_80",
+            "discipline_id": "OD",
+            "gte": 1
+          }
+        ]
+      },
+      "requirement_text": "Первая свежая самостоятельная C по OD, ≥80%",
+      "asset_id": "SIGIL-OD",
+      "render_part": "main",
+      "auto_grant": true,
+      "auto_equip": false,
+      "grants_xp": 0
+    }
+  ]
+}

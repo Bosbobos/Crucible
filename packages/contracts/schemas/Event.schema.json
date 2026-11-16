@@ -52,6 +52,18 @@
       "additionalProperties": true,
       "title": "Payload",
       "type": "object"
+    },
+    "source_stream": {
+      "default": "main",
+      "enum": [
+        "main",
+        "character-evidence",
+        "character-campaign",
+        "character-profile",
+        "review-obligations"
+      ],
+      "title": "Source Stream",
+      "type": "string"
     }
   },
   "required": [

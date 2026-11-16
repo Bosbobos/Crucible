@@ -1,6 +1,132 @@
 {
   "components": {
     "schemas": {
+      "AssessmentBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "problem_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6,
+            "minItems": 4,
+            "title": "Problem Ids",
+            "type": "array"
+          },
+          "publication_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Publication Version",
+            "type": "string"
+          },
+          "variant_id": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Variant Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "variant_id",
+          "publication_version",
+          "problem_ids"
+        ],
+        "title": "AssessmentBinding",
+        "type": "object"
+      },
+      "Campaign": {
+        "additionalProperties": false,
+        "properties": {
+          "assessments": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AssessmentBinding"
+            },
+            "title": "Assessments",
+            "type": "object"
+          },
+          "content_release_id": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Content Release Id",
+            "type": "string"
+          },
+          "problems": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ProblemBinding"
+            },
+            "title": "Problems",
+            "type": "object"
+          },
+          "publication_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Publication Version",
+            "type": "string"
+          },
+          "schema_version": {
+            "const": 1,
+            "default": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "training_family_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Training Family Ids",
+            "type": "array"
+          },
+          "units": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/UnitBinding"
+            },
+            "title": "Units",
+            "type": "object"
+          },
+          "volumes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/VolumeBinding"
+            },
+            "title": "Volumes",
+            "type": "object"
+          }
+        },
+        "required": [
+          "publication_version",
+          "content_release_id",
+          "volumes",
+          "units",
+          "problems",
+          "assessments"
+        ],
+        "title": "Campaign",
+        "type": "object"
+      },
+      "CampaignPublication": {
+        "additionalProperties": false,
+        "properties": {
+          "campaign": {
+            "$ref": "#/components/schemas/Campaign"
+          },
+          "command_id": {
+            "format": "uuid",
+            "title": "Command Id",
+            "type": "string"
+          },
+          "expected_revision": {
+            "minimum": 0.0,
+            "title": "Expected Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "command_id",
+          "expected_revision",
+          "campaign"
+        ],
+        "title": "CampaignPublication",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -12,6 +138,92 @@
           }
         },
         "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "ProblemBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "content_version": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Content Version",
+            "type": "string"
+          },
+          "difficulty": {
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ],
+            "title": "Difficulty",
+            "type": "string"
+          },
+          "discipline_id": {
+            "enum": [
+              "LA",
+              "CA",
+              "PR",
+              "DS",
+              "OD"
+            ],
+            "title": "Discipline Id",
+            "type": "string"
+          },
+          "family_id": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Family Id",
+            "type": "string"
+          },
+          "mapping_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Mapping Version",
+            "type": "string"
+          },
+          "pool": {
+            "enum": [
+              "train",
+              "campaign_holdout"
+            ],
+            "title": "Pool",
+            "type": "string"
+          },
+          "reward_equivalence_id": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Reward Equivalence Id",
+            "type": "string"
+          },
+          "rubric_version": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Rubric Version",
+            "type": "string"
+          },
+          "volume_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume Id"
+          }
+        },
+        "required": [
+          "discipline_id",
+          "family_id",
+          "reward_equivalence_id",
+          "rubric_version",
+          "mapping_version",
+          "content_version",
+          "difficulty",
+          "pool"
+        ],
+        "title": "ProblemBinding",
         "type": "object"
       },
       "Publication": {
@@ -33,6 +245,36 @@
           "bundle"
         ],
         "title": "Publication",
+        "type": "object"
+      },
+      "UnitBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "content_version": {
+            "title": "Content Version",
+            "type": "string"
+          },
+          "unit_kind": {
+            "enum": [
+              "theory_section",
+              "core",
+              "lab",
+              "volume_final_check"
+            ],
+            "title": "Unit Kind",
+            "type": "string"
+          },
+          "volume_id": {
+            "title": "Volume Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "volume_id",
+          "content_version",
+          "unit_kind"
+        ],
+        "title": "UnitBinding",
         "type": "object"
       },
       "ValidationError": {
@@ -74,6 +316,76 @@
         ],
         "title": "ValidationError",
         "type": "object"
+      },
+      "VolumeBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "core_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Core Id"
+          },
+          "diagnostic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diagnostic Id"
+          },
+          "diagnostic_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diagnostic Version"
+          },
+          "final_check_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Final Check Id"
+          },
+          "lab_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Id"
+          },
+          "theory_section_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4,
+            "title": "Theory Section Ids",
+            "type": "array"
+          }
+        },
+        "title": "VolumeBinding",
+        "type": "object"
       }
     }
   },
@@ -83,6 +395,42 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/content/campaign-publications": {
+      "post": {
+        "operationId": "publish_campaign_api_v1_content_campaign_publications_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignPublication"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Publish Campaign"
+      }
+    },
     "/api/v1/content/catalog": {
       "get": {
         "operationId": "catalog_api_v1_content_catalog_get",
@@ -331,6 +679,197 @@
           }
         },
         "summary": "Hello"
+      }
+    },
+    "/internal/content/assessment/{blueprint_id}": {
+      "get": {
+        "operationId": "assessment_metadata_internal_content_assessment__blueprint_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blueprint_id",
+            "required": true,
+            "schema": {
+              "title": "Blueprint Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "publication_version",
+            "required": true,
+            "schema": {
+              "title": "Publication Version",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Assessment Metadata"
+      }
+    },
+    "/internal/content/assessment/{blueprint_id}/problems/{problem_id}": {
+      "get": {
+        "operationId": "assessment_problem_internal_content_assessment__blueprint_id__problems__problem_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blueprint_id",
+            "required": true,
+            "schema": {
+              "title": "Blueprint Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "problem_id",
+            "required": true,
+            "schema": {
+              "title": "Problem Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "publication_version",
+            "required": true,
+            "schema": {
+              "title": "Publication Version",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Assessment Problem"
+      }
+    },
+    "/internal/content/character-campaign": {
+      "get": {
+        "operationId": "campaign_metadata_internal_content_character_campaign_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "publication_version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Publication Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Campaign Metadata"
+      }
+    },
+    "/internal/content/learning-evidence/{unit_id}": {
+      "get": {
+        "operationId": "evidence_metadata_internal_content_learning_evidence__unit_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "unit_id",
+            "required": true,
+            "schema": {
+              "title": "Unit Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "publication_version",
+            "required": true,
+            "schema": {
+              "title": "Publication Version",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Evidence Metadata"
       }
     },
     "/internal/content/protected/{problem_id}/{kind}": {
